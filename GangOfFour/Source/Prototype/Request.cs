@@ -1,19 +1,19 @@
 ﻿using System;
 
-namespace Prototype
+namespace Infotecs.GangOfFour.Prototype
 {
     internal class Request : IRequest
     {
-        private char[] _data;
-
-        public char[] Data
-        {
-            get { return _data; }
-        }
+        private readonly char[] _data;
 
         public Request(char[] data)
         {
             _data = data;
+        }
+
+        public char[] Data
+        {
+            get { return _data; }
         }
 
         public IRequest Clone()

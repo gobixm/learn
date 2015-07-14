@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace Prototype
+namespace Infotecs.GangOfFour.Prototype
 {
     internal interface IRequest
     {
+        char[] Data { get; }
         IRequest Clone();
         void Modify(Func<char, char> replace);
-        char[] Data { get; }
     }
 }
