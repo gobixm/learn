@@ -13,6 +13,7 @@ namespace Infotecs.GangOfFour.Builder
 
         public override void Construct()
         {
+            //standard car has body firstly, then four wheels
             Buider
                 .AddBody(new RoundBody())
                 .AddWheel(new OctoWheel())

@@ -10,6 +10,7 @@ namespace Infotecs.GangOfFour.Builder
 
         public override void Construct()
         {
+            //crazy car dont care about parts order, it's arcane
             Buider
                 .AddBody(new RoundBody())
                 .AddWheel(new OctoWheel())
