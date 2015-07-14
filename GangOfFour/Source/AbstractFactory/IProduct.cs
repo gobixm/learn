@@ -1,4 +1,6 @@
-﻿namespace Infotecs.GangOfFour.AbstractFactory
+﻿using System;
+
+namespace Infotecs.GangOfFour.AbstractFactory
 {
     internal interface IProduct
     {
