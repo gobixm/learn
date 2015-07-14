@@ -2,12 +2,9 @@
 
 namespace Infotecs.GangOfFour.Builder
 {
-    /// <summary>
-    /// Builds car with four wheels and one body
-    /// </summary>
-    internal class StandardCarDirector : AbstractCarDirector
+    internal class CrazyCarDirector : AbstractCarDirector
     {
-        public StandardCarDirector(ICarBuilder builder) : base(builder)
+        public CrazyCarDirector(ICarBuilder buider) : base(buider)
         {
         }
 
@@ -18,7 +15,9 @@ namespace Infotecs.GangOfFour.Builder
                 .AddWheel(new OctoWheel())
                 .AddWheel(new OctoWheel())
                 .AddWheel(new OctoWheel())
-                .AddWheel(new OctoWheel());
+                .AddWheel(new OctoWheel())
+                .AddWheel(new OctoWheel())
+                .AddBody(new RoundBody());
         }
     }
 }

@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractCarDirector.cs" />
+    <Compile Include="CrazyCarDirector.cs" />
     <Compile Include="FancyCar.cs" />
     <Compile Include="FancyCarBuilder.cs" />
     <Compile Include="IBody.cs" />
