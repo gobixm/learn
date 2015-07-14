@@ -11,6 +11,7 @@ namespace Infotecs.GangOfFour.AbstractFactory
             var cheapMilk = cheapProductFactory.CreateMilk();
             Console.WriteLine("I'm a {0}", cheapBread.Name);
             Console.WriteLine("I'm a {0}", cheapMilk.Name);
+            
             var luxuryProductFactory = new LuxuryProductFactory();
             var luxuryBread = luxuryProductFactory.CreateBread();
             var luxuryMilk = luxuryProductFactory.CreateMilk();
