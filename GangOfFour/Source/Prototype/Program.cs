@@ -18,6 +18,8 @@ namespace Infotecs.GangOfFour.Prototype
                 copy.Modify(c => Convert.ToChar(Convert.ToInt32(c) + i));
                 res[i] = copy;
             });
+            
+            //send modified requests to console
             foreach (IRequest request in res)
             {
                 Console.WriteLine(new string(request.Data));
