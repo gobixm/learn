@@ -48,6 +48,8 @@
     <Compile Include="CheapBread.cs" />
     <Compile Include="CheapMilk.cs" />
     <Compile Include="CheapProductFactory.cs" />
+    <Compile Include="IBread.cs" />
+    <Compile Include="IMilk.cs" />
     <Compile Include="IProduct.cs" />
     <Compile Include="LuxuryBread.cs" />
     <Compile Include="LuxuryMilk.cs" />

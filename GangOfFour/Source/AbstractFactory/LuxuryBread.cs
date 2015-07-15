@@ -2,7 +2,7 @@
 
 namespace Infotecs.GangOfFour.AbstractFactory
 {
-    internal sealed class LuxuryBread : IProduct
+    internal sealed class LuxuryBread : IBread
     {
         public string Name
         {

@@ -39,7 +39,7 @@ namespace Infotecs.GangOfFour.Composite
                 );
 
             root.Print(0);
-            root.SubUnits[1].Move("elmstreet 666");
+            root.SubUnits[1].Move("elkstreet 666");
             Console.WriteLine("moved to hell");
             root.Print(0);
 

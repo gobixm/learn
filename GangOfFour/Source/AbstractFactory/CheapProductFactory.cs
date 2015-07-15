@@ -4,12 +4,12 @@ namespace Infotecs.GangOfFour.AbstractFactory
 {
     internal sealed class CheapProductFactory : ProductFactory
     {
-        public override IProduct CreateBread()
+        public override IBread CreateBread()
         {
             return new CheapBread();
         }
 
-        public override IProduct CreateMilk()
+        public override IMilk CreateMilk()
         {
             return new CheapMilk();
         }
