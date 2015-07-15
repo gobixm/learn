@@ -9,7 +9,7 @@ namespace Infotecs.GangOfFour.Bridge
             Implementation = imp;
         }
 
-        public IKeyGeneratorImplementation Implementation { get; private set; }
+        public IKeyGeneratorImplementation Implementation { get; set; }
 
         public string GenerateKey()
         {

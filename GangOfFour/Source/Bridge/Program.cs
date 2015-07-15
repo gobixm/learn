@@ -10,10 +10,10 @@ namespace Infotecs.GangOfFour.Bridge
             IKeyGeneratorImplementation fakeImplementation = new FakeKeyGeneratorImplementation();
 
             IKeyGenerator keyGenerator = new StandardKeyGenerator(keyGeneratorImplementation);
-            IKeyGenerator fakeGenerator = new StandardKeyGenerator(fakeImplementation);
 
             Console.WriteLine(keyGenerator.GenerateKey());
-            Console.WriteLine(fakeGenerator.GenerateKey());
+            keyGenerator.Implementation = fakeImplementation;
+            Console.WriteLine(keyGenerator.GenerateKey());
             Console.ReadKey();
         }
     }
