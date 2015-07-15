@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Infotecs.GangOfFour.Builder
 {
-    internal class FancyCar
+    internal sealed class FancyCar
     {
         private readonly List<IBody> _bodys;
         private readonly List<IWheel> _wheels;

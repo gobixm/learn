@@ -6,9 +6,9 @@ namespace Infotecs.GangOfFour.FactoryMethod
     {
         private static void Main(string[] args)
         {
-            var milkCreator = new Creator<Milk>();
+            ICreator milkCreator = new Creator<Milk>();
 
-            var breadCreator = new Creator<Bread>();
+            ICreator breadCreator = new Creator<Bread>();
             breadCreator.CreateProduct("pure");
             Console.WriteLine(milkCreator
                 .CreateProduct("human's")

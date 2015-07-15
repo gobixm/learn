@@ -5,12 +5,12 @@ namespace Infotecs.GangOfFour.Prototype
 {
     internal class Program
     {
-        private const int ModifierCount = 4;
+        private const int ModifiersCount = 4;
 
         private static void Main(string[] args)
         {
             IRequest income = new Request("lorem ipsum etc.".ToCharArray());
-            var res = new IRequest[ModifierCount];
+            var res = new IRequest[ModifiersCount];
             Parallel.For(0, res.Length, (i) =>
             {
                 IRequest copy = income.Clone();

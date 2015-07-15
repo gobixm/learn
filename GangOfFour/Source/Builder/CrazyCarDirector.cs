@@ -2,7 +2,7 @@
 
 namespace Infotecs.GangOfFour.Builder
 {
-    internal class CrazyCarDirector : AbstractCarDirector
+    internal sealed class CrazyCarDirector : AbstractCarDirector
     {
         public CrazyCarDirector(ICarBuilder buider) : base(buider)
         {
