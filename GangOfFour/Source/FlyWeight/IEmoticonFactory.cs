@@ -1,4 +1,6 @@
-﻿namespace Infotecs.GangOfFour.FlyWeight
+﻿using System;
+
+namespace Infotecs.GangOfFour.FlyWeight
 {
     internal interface IEmoticonFactory
     {

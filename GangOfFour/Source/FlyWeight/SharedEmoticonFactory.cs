@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
 namespace Infotecs.GangOfFour.FlyWeight
 {
-    internal class SharedEmoticonFactory:IEmoticonFactory
+    internal class SharedEmoticonFactory : IEmoticonFactory
     {
         private readonly Dictionary<string, IEmoticon> _pool;
 
@@ -18,12 +20,11 @@ namespace Infotecs.GangOfFour.FlyWeight
             }
             else
             {
-                SharedEmoticon emoticon = new SharedEmoticon();
+                var emoticon = new SharedEmoticon();
                 emoticon.Load(name);
                 _pool.Add(name, emoticon);
                 return emoticon;
             }
-
         }
     }
 }
