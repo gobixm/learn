@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prototype", "Source\Prototy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Singleton", "Source\Singleton\Singleton.csproj", "{A51184F1-2B97-464C-A05C-925362A6F35D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adapter", "Adapter\Adapter.csproj", "{34CE1E13-B6E0-42AB-8BAE-22080E43B68E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adapter", "Source\Adapter\Adapter.csproj", "{34CE1E13-B6E0-42AB-8BAE-22080E43B68E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
