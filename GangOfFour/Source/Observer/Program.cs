@@ -11,6 +11,11 @@ namespace Infotecs.GangOfFour.Observer
             sensor.Attach(new StandardObserver<Message>("London"));
             sensor.Attach(new StandardObserver<Message>("Moscow"));
             sensor.Notify();
+            Console.WriteLine("event");
+            var evented = new Evented();
+            evented.SimpleEvent += (sender, e) => Console.WriteLine("First subscriber");
+            evented.SimpleEvent += (sender, e) => Console.WriteLine("Second subscriber");
+            evented.Fire();
             Console.ReadKey();
         }
     }
