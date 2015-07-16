@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Поведенческие"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Command", "Source\Command\Command.csproj", "{FAD1B528-61C8-4321-8202-9EE8E4D6CA7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interpreter", "Source\Interpreter\Interpreter.csproj", "{E0464E8D-2027-47AE-9B9B-DD4B548BF145}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,10 @@ Global
 		{FAD1B528-61C8-4321-8202-9EE8E4D6CA7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAD1B528-61C8-4321-8202-9EE8E4D6CA7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAD1B528-61C8-4321-8202-9EE8E4D6CA7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0464E8D-2027-47AE-9B9B-DD4B548BF145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0464E8D-2027-47AE-9B9B-DD4B548BF145}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0464E8D-2027-47AE-9B9B-DD4B548BF145}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0464E8D-2027-47AE-9B9B-DD4B548BF145}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,5 +122,6 @@ Global
 		{34CE1E13-B6E0-42AB-8BAE-22080E43B68E} = {9312AA03-017F-4D66-B94A-EB7995D21640}
 		{78027BD3-6ED3-4F31-B321-579BD65CC6AC} = {E24047C5-8234-46FC-8ADE-C24708320878}
 		{FAD1B528-61C8-4321-8202-9EE8E4D6CA7F} = {E24047C5-8234-46FC-8ADE-C24708320878}
+		{E0464E8D-2027-47AE-9B9B-DD4B548BF145} = {E24047C5-8234-46FC-8ADE-C24708320878}
 	EndGlobalSection
 EndGlobal
