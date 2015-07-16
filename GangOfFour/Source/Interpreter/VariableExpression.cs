@@ -5,7 +5,7 @@ namespace Infotecs.GangOfFour.Interpreter
 {
     internal class VariableExpression : IExpression
     {
-        public int Variable { get; private set; }
+        private int Variable { get; set; }
 
         public int Evaluate()
         {
