@@ -8,9 +8,9 @@ namespace Infotecs.GangOfFour.Mediator
         private static void Main(string[] args)
         {
             IMediator breakRoom = new BreakRoom();
-            List<IWorker> workers = new List<IWorker>
+            var workers = new List<IWorker>
             {
-                new SimpleWorker(breakRoom),
+                new CharismaticWorker(breakRoom),
                 new SimpleWorker(breakRoom),
                 new SimpleWorker(breakRoom)
             };

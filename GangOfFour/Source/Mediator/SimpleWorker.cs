@@ -19,7 +19,7 @@ namespace Infotecs.GangOfFour.Mediator
 
         public void Riot()
         {
-            Console.WriteLine(typeof(SimpleWorker).Name + " is rioting!");
+            Console.WriteLine(GetType().Name + " is rioting!");
         }
     }
 }

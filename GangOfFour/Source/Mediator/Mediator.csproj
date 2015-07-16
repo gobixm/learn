@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BreakRoom.cs" />
+    <Compile Include="CharismaticWorker.cs" />
     <Compile Include="IMediator.cs" />
     <Compile Include="IWorker.cs" />
     <Compile Include="Program.cs" />

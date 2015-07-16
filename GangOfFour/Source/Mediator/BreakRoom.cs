@@ -15,9 +15,9 @@ namespace Infotecs.GangOfFour.Mediator
         public void RiotRequest(IWorker sender)
         {
             Console.WriteLine("{0} promotes to riot", sender.GetType());
-            foreach (IWorker roommate in _roommates)
+            if (sender is CharismaticWorker)
             {
-                if (roommate is SimpleWorker)
+                foreach (IWorker roommate in _roommates)
                 {
                     roommate.Riot();
                 }
