@@ -12,7 +12,7 @@ namespace Infotecs.GangOfFour.Interpreter
             var expressionTree = new BracketExpression();
             expressionTree.Interpret(expression, 0);
             Console.WriteLine(expression.ToString());
-            Console.WriteLine("The ultimate answer for life and univerce is {0}", expressionTree.Evaluate());
+            Console.WriteLine("The ultimate answer for life and universe is {0}", expressionTree.Evaluate());
             Console.ReadKey();
         }
     }
