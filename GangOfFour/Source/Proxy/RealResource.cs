@@ -2,7 +2,7 @@
 
 namespace Infotecs.GangOfFour.Proxy
 {
-    internal class RealResource :IResource
+    internal class RealResource : IResource
     {
         public void Erase()
         {

@@ -11,7 +11,9 @@ namespace Infotecs.GangOfFour.Facade
             dynamic room = repo.GetRoomByNumber(roomNumber);
             dynamic customer = repo.GetPerson(person);
             if (customer == null)
+            {
                 customer = repo.AddPerson(person);
+            }
             room.Reserve(customer, enterTime, leaveTime);
         }
     }

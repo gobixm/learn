@@ -1,13 +1,15 @@
-﻿namespace Infotecs.GangOfFour.FactoryMethod
-{
-    internal class Creator<T> : ICreator where T:IProduct, new()
-    {
+﻿using System;
 
+namespace Infotecs.GangOfFour.FactoryMethod
+{
+    internal class Creator<T> : ICreator
+        where T : IProduct, new()
+    {
         public IProduct CreateProduct(string productName)
         {
-            return new T()
+            return new T
             {
-                Name = typeof(T).Name+" "+productName
+                Name = typeof(T).Name + " " + productName
             };
         }
     }

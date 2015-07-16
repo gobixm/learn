@@ -1,6 +1,8 @@
-﻿namespace Infotecs.GangOfFour.FactoryMethod
+﻿using System;
+
+namespace Infotecs.GangOfFour.FactoryMethod
 {
-    internal class Bread:IProduct
+    internal class Bread : IProduct
     {
         public string Name { get; set; }
     }

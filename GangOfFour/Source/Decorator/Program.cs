@@ -6,9 +6,9 @@ namespace Infotecs.GangOfFour.Decorator
     {
         private static void Main(string[] args)
         {
-            Report report = new Report();
-            FairReportWithSummary fairReport = new FairReportWithSummary(report);
-            UnfairReportWithSummary unfairReport = new UnfairReportWithSummary(report);
+            var report = new Report();
+            var fairReport = new FairReportWithSummary(report);
+            var unfairReport = new UnfairReportWithSummary(report);
             fairReport.Print();
             Console.WriteLine();
             unfairReport.Print();

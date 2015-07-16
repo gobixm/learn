@@ -2,10 +2,10 @@
 
 namespace Infotecs.GangOfFour.Proxy
 {
-    internal class ControlledResource:IResource
+    internal class ControlledResource : IResource
     {
-        private IResource _resource;
-        private string _yourName;
+        private readonly IResource _resource;
+        private readonly string _yourName;
 
         public ControlledResource(IResource resource, string yourName)
         {

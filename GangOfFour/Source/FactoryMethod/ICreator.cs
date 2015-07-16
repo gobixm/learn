@@ -1,4 +1,6 @@
-﻿namespace Infotecs.GangOfFour.FactoryMethod
+﻿using System;
+
+namespace Infotecs.GangOfFour.FactoryMethod
 {
     internal interface ICreator
     {

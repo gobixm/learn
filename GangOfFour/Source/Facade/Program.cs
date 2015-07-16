@@ -12,7 +12,7 @@ namespace Infotecs.GangOfFour.Facade
                 ReservationHelper.ReserveRoom("Joe",
                     "25-2",
                     DateTime.Now,
-                    DateTime.Now+TimeSpan.FromDays(1));
+                    DateTime.Now + TimeSpan.FromDays(1));
             }
             catch (RuntimeBinderException)
             {

@@ -1,4 +1,6 @@
-﻿namespace Infotecs.GangOfFour.Proxy
+﻿using System;
+
+namespace Infotecs.GangOfFour.Proxy
 {
     internal interface IResource
     {

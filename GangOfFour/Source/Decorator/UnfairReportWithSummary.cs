@@ -2,7 +2,7 @@
 
 namespace Infotecs.GangOfFour.Decorator
 {
-    internal class UnfairReportWithSummary:IReportWithSummary
+    internal class UnfairReportWithSummary : IReportWithSummary
     {
         public UnfairReportWithSummary(IReport report)
         {

@@ -1,4 +1,6 @@
-﻿namespace Infotecs.GangOfFour.Decorator
+﻿using System;
+
+namespace Infotecs.GangOfFour.Decorator
 {
     public interface IReportWithSummary : IReport
     {

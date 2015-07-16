@@ -6,8 +6,8 @@ namespace Infotecs.GangOfFour.Proxy
     {
         private static void Main(string[] args)
         {
-            RealResource theResource = new RealResource();
-            ControlledResource cr = new ControlledResource(theResource, "Petrov");
+            var theResource = new RealResource();
+            var cr = new ControlledResource(theResource, "Petrov");
             cr.Erase();
             cr = new ControlledResource(theResource, "Ivanov");
             cr.Erase();
