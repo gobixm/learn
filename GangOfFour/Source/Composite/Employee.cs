@@ -6,6 +6,7 @@ namespace Infotecs.GangOfFour.Composite
     internal class Employee : IUnit
     {
         public string Address { get; set; }
+
         public IList<IUnit> SubUnits { get; set; }
 
         public void Move(string address)
