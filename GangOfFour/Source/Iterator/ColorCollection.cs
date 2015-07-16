@@ -14,12 +14,6 @@ namespace Infotecs.GangOfFour.Iterator
             _list.AddRange(colors);
         }
 
-        public Color this[int index]
-        {
-            get { return _list[index]; }
-            set { _list[index] = value; }
-        }
-
         public IEnumerator<Color> GetRacistEnumerator()
         {
             foreach (Color color in _list)
