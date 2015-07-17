@@ -1,6 +1,6 @@
 ﻿namespace Infotecs.SOLID.SingeResponsibility
 {
-    internal class ReportFormatter
+    internal sealed class ReportFormatter
     {
         private readonly Report _report;
 
