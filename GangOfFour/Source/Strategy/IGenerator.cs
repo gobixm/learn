@@ -1,4 +1,6 @@
-﻿namespace Infotecs.GangOfFour.Strategy
+﻿using System;
+
+namespace Infotecs.GangOfFour.Strategy
 {
     internal interface IGenerator
     {

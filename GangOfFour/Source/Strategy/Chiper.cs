@@ -6,15 +6,15 @@ namespace Infotecs.GangOfFour.Strategy
     {
         private IGenerator _generator;
 
+        public Chiper(IGenerator generator)
+        {
+            _generator = generator;
+        }
+
         public IGenerator Generator
         {
             get { return _generator; }
             set { _generator = value; }
-        }
-
-        public Chiper(IGenerator generator)
-        {
-            _generator = generator;
         }
 
         public void Encode(string content)

@@ -2,9 +2,9 @@
 
 namespace Infotecs.GangOfFour.Strategy
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var chiper = new Chiper(new WeakGenerator());
             chiper.Encode("text");
