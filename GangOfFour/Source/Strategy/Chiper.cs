@@ -13,7 +13,6 @@ namespace Infotecs.GangOfFour.Strategy
 
         public IGenerator Generator
         {
-            get { return _generator; }
             set { _generator = value; }
         }
 
