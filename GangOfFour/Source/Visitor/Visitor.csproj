@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{34CE1E13-B6E0-42AB-8BAE-22080E43B68E}</ProjectGuid>
+    <ProjectGuid>{54614CE4-074B-4EEF-8283-C54F64C0EB54}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Infotecs.GangOfFour.Adapter</RootNamespace>
-    <AssemblyName>Infotecs.GangOfFour.Adapter</AssemblyName>
+    <RootNamespace>Infotecs.GangOfFour.Visitor</RootNamespace>
+    <AssemblyName>Infotecs.GangOfFour.Visitor</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Out\Debug\Adapter.Console\</OutputPath>
+    <OutputPath>..\..\Out\Debug\Visitor.Terminal\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +28,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Out\Release\Adapter.Console\</OutputPath>
+    <OutputPath>..\..\Out\Release\Visitor.Terminal\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -45,9 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControlAdapter.cs" />
-    <Compile Include="IFancyControl.cs" />
-    <Compile Include="ILibraryControl.cs" />
+    <Compile Include="AddressValidationVisitor.cs" />
+    <Compile Include="Employee.cs" />
+    <Compile Include="Group.cs" />
+    <Compile Include="IUnit.cs" />
+    <Compile Include="IVisitor.cs" />
+    <Compile Include="NameValidationVisitor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

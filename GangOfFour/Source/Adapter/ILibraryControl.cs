@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infotecs.GanfOfFour.Adapter
+namespace Infotecs.GangOfFour.Adapter
 {
     internal enum Visibility
     {

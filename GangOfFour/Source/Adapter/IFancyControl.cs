@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infotecs.GanfOfFour.Adapter
+namespace Infotecs.GangOfFour.Adapter
 {
     public interface IFancyControl
     {
