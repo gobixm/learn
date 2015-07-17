@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Infotecs.GangOfFour.Mediator
 {
-    internal class BreakRoom : IMediator
+    internal sealed class BreakRoom : IMediator
     {
         private readonly List<IWorker> _roommates = new List<IWorker>();
 

@@ -2,7 +2,7 @@
 
 namespace Infotecs.GangOfFour.Memento
 {
-    internal class UserMemento
+    internal sealed class UserMemento
     {
         public string FirstName { get; set; }
         public string MiddleName { get; set; }

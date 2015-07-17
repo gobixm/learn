@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Infotecs.GangOfFour.Interpreter
 {
-    internal class BracketExpression : IExpression
+    internal sealed class BracketExpression : IExpression
     {
         private IExpression Operand1 { get; set; }
         private IExpression Operand2 { get; set; }

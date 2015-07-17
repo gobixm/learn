@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Infotecs.GangOfFour.Memento
 {
-    internal class Caretaker
+    internal sealed class Caretaker
     {
         private static readonly Caretaker _instance = new Caretaker();
 

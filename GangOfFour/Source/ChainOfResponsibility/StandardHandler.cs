@@ -2,7 +2,7 @@
 
 namespace Infotecs.GangOfFour.ChainOfResponsibility
 {
-    internal class StandardHandler<T> : Handler<T>
+    internal sealed class StandardHandler<T> : Handler<T>
         where T : IRequest
     {
         public StandardHandler(IHandler successor) : base(successor)

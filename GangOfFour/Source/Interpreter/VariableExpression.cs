@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Infotecs.GangOfFour.Interpreter
 {
-    internal class VariableExpression : IExpression
+    internal sealed class VariableExpression : IExpression
     {
         private int Variable { get; set; }
 

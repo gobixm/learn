@@ -2,7 +2,7 @@
 
 namespace Infotecs.GangOfFour.Mediator
 {
-    internal class CharismaticWorker : SimpleWorker
+    internal sealed class CharismaticWorker : SimpleWorker
     {
         public CharismaticWorker(IMediator mediator) : base(mediator)
         {

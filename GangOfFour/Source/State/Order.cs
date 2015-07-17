@@ -2,7 +2,7 @@
 
 namespace Infotecs.GangOfFour.State
 {
-    internal class Order
+    internal sealed class Order
     {
         public Order()
         {

@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace Infotecs.GangOfFour.Iterator
 {
-    internal class ColorCollection : IEnumerable<Color>
+    internal sealed class ColorCollection : IEnumerable<Color>
     {
         private readonly List<Color> _list = new List<Color>();
 

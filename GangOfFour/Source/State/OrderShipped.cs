@@ -2,7 +2,7 @@
 
 namespace Infotecs.GangOfFour.State
 {
-    internal class OrderShipped : IOrderState
+    internal sealed class OrderShipped : IOrderState
     {
         public void ChangeState(Order order, IOrderState newState)
         {

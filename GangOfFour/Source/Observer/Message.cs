@@ -2,7 +2,7 @@
 
 namespace Infotecs.GangOfFour.Observer
 {
-    internal class Message : IMessage
+    internal sealed class Message : IMessage
     {
         public Message()
         {

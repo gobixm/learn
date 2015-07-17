@@ -2,7 +2,7 @@
 
 namespace Infotecs.GangOfFour.Observer
 {
-    internal class Evented
+    internal sealed class Evented
     {
         public event EventHandler<EventArgs> SimpleEvent = (sender, args) => { };
 

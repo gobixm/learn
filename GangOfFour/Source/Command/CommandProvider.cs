@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Infotecs.GangOfFour.Command
 {
-    internal class CommandProvider<T>
+    internal sealed class CommandProvider<T>
         where T : ICommand
     {
         private readonly Stack<T> _stack = new Stack<T>();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Infotecs.GangOfFour.Interpreter
 {
-    internal class Operations
+    internal sealed class Operations
     {
         private static readonly Operations _instance = new Operations();
 

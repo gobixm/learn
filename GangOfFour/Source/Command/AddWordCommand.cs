@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Infotecs.GangOfFour.Command
 {
-    internal class AddWordCommand : ICommand
+    internal sealed class AddWordCommand : ICommand
     {
         private readonly StringBuilder _builder;
         private readonly string _word;

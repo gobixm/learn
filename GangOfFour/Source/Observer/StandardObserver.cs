@@ -2,7 +2,7 @@
 
 namespace Infotecs.GangOfFour.Observer
 {
-    internal class StandardObserver<T> : IObserver<T>
+    internal sealed class StandardObserver<T> : IObserver<T>
         where T : IMessage
     {
         public StandardObserver(string observerName)

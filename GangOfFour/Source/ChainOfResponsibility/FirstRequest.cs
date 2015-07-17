@@ -2,7 +2,7 @@
 
 namespace Infotecs.GangOfFour.ChainOfResponsibility
 {
-    internal class FirstRequest : IRequest
+    internal sealed class FirstRequest : IRequest
     {
         public string Body
         {

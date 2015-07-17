@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Infotecs.GangOfFour.Observer
 {
-    internal class EarthquakeSensor<T> : IObservable<T>
+    internal sealed class EarthquakeSensor<T> : IObservable<T>
         where T : IMessage, new()
     {
         private readonly HashSet<IObserver<T>> _recipients = new HashSet<IObserver<T>>();
