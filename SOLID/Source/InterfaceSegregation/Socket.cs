@@ -2,7 +2,7 @@
 
 namespace Infotecs.SOLID.InterfaceSegregation
 {
-    internal class Socket : IReader, IWriter
+    internal sealed class Socket : IReader, IWriter
     {
         public void Read()
         {

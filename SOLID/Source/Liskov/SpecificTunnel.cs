@@ -3,7 +3,7 @@
     /// <summary>
     ///     <exception cref="SpecificTunnelNotExistsException"></exception>
     /// </summary>
-    internal class SpecificTunnel : Tunnel
+    internal sealed class SpecificTunnel : Tunnel
     {
         public override void Open(string connectionString)
         {

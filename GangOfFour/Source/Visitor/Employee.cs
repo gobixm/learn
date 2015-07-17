@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Infotecs.GangOfFour.Visitor
 {
-    internal class Employee : IUnit
+    internal sealed class Employee : IUnit
     {
         public Employee()
         {

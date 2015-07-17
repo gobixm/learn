@@ -2,7 +2,7 @@
 
 namespace Infotecs.SOLID.DependencyInversion
 {
-    internal class Person : IPerson
+    internal sealed class Person : IPerson
     {
         private static readonly Random Random = new Random();
 

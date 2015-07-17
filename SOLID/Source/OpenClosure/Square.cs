@@ -2,7 +2,7 @@
 
 namespace Infotecs.SOLID.OpenClosure
 {
-    internal class Square : IDrawable
+    internal sealed class Square : IDrawable
     {
         public void Draw(int x)
         {

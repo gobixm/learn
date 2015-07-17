@@ -1,6 +1,6 @@
 ﻿namespace Infotecs.SOLID.DependencyInversion
 {
-    internal class FakeRepo : IRepo
+    internal sealed class FakeRepo : IRepo
     {
         public IPerson GetPersonByName(string name)
         {

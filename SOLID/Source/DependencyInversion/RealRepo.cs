@@ -2,7 +2,7 @@
 
 namespace Infotecs.SOLID.DependencyInversion
 {
-    internal class RealRepo : IRepo
+    internal sealed class RealRepo : IRepo
     {
         public RealRepo()
         {

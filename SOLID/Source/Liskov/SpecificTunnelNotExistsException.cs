@@ -1,6 +1,6 @@
 ﻿namespace Infotecs.SOLID.Liskov
 {
-    internal class SpecificTunnelNotExistsException : TunnelNotExistsException
+    internal sealed class SpecificTunnelNotExistsException : TunnelNotExistsException
     {
     }
 }
