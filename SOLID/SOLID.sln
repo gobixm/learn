@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingeResponsibility", "Source\SingeResponsibility\SingeResponsibility.csproj", "{43CA989C-1D3B-42A2-B4BA-E19463013D1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenClosure", "OpenClosure\OpenClosure.csproj", "{4BCB8DFD-1001-4ABF-B2E9-436EFAD013E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liskov", "Source\Liskov\Liskov.csproj", "{230D73E7-A03F-40E6-943D-29ED0CE14BA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenClosure", "Source\OpenClosure\OpenClosure.csproj", "{4BCB8DFD-1001-4ABF-B2E9-436EFAD013E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{43CA989C-1D3B-42A2-B4BA-E19463013D1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43CA989C-1D3B-42A2-B4BA-E19463013D1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43CA989C-1D3B-42A2-B4BA-E19463013D1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{230D73E7-A03F-40E6-943D-29ED0CE14BA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{230D73E7-A03F-40E6-943D-29ED0CE14BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{230D73E7-A03F-40E6-943D-29ED0CE14BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{230D73E7-A03F-40E6-943D-29ED0CE14BA0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4BCB8DFD-1001-4ABF-B2E9-436EFAD013E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4BCB8DFD-1001-4ABF-B2E9-436EFAD013E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BCB8DFD-1001-4ABF-B2E9-436EFAD013E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
