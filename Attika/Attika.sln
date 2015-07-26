@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaService", "Source\AttikaService\AttikaService.csproj", "{53720DE0-DAA7-4D88-AB9E-A4BB5E5D5FB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtticaDataModel", "Source\AtticaDataModel\AtticaDataModel.csproj", "{FD6144C1-D0C6-4127-9862-FF9D5AFD1172}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaConsoleHost", "Source\AttikaConsoleHost\AttikaConsoleHost.csproj", "{B064B72F-FD3E-4A39-A53E-FC54CAA83697}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaGui", "Source\AttikaGui\AttikaGui.csproj", "{AAAB19FA-5275-40F1-9958-E2298DF602EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53720DE0-DAA7-4D88-AB9E-A4BB5E5D5FB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53720DE0-DAA7-4D88-AB9E-A4BB5E5D5FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53720DE0-DAA7-4D88-AB9E-A4BB5E5D5FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53720DE0-DAA7-4D88-AB9E-A4BB5E5D5FB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD6144C1-D0C6-4127-9862-FF9D5AFD1172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD6144C1-D0C6-4127-9862-FF9D5AFD1172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD6144C1-D0C6-4127-9862-FF9D5AFD1172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD6144C1-D0C6-4127-9862-FF9D5AFD1172}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B064B72F-FD3E-4A39-A53E-FC54CAA83697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B064B72F-FD3E-4A39-A53E-FC54CAA83697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B064B72F-FD3E-4A39-A53E-FC54CAA83697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B064B72F-FD3E-4A39-A53E-FC54CAA83697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAAB19FA-5275-40F1-9958-E2298DF602EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAAB19FA-5275-40F1-9958-E2298DF602EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAAB19FA-5275-40F1-9958-E2298DF602EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAAB19FA-5275-40F1-9958-E2298DF602EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
