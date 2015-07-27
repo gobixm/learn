@@ -1,12 +1,48 @@
 ﻿<UserControl x:Class="Infotecs.Attika.AttikaGui.Views.ArticleView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ignore="http://www.ignore.com"
-        mc:Ignorable="d ignore"
-        DataContext="{Binding ArticleVm, Source={StaticResource Locator}}">
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ignore="http://www.ignore.com" xmlns:views="clr-namespace:Infotecs.Attika.AttikaGui.Views"
+             mc:Ignorable="d ignore">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Margin="5" Padding="5" Command="{Binding DeleteCommand}">Удалить статью</Button>
+            <Button Margin="5" Padding="5" Command="{Binding BadCommand}">Запросить отстутствующую</Button>
+            <Button Margin="5" Padding="5" Command="{Binding SaveCommand}">Сохранить</Button>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0">Заголовок</TextBlock>
+                <TextBox Grid.Column="1" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"></TextBox>
+                <TextBlock Grid.Column="2" Text="{Binding Created}"></TextBlock>
+            </Grid>
+            <TextBox Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="50"
+                     Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
+            </TextBox>
+            <ListBox Grid.Row="2" ItemsSource="{Binding Comments}" HorizontalAlignment="Stretch"
+                     HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <views:CommentView></views:CommentView>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 </UserControl>

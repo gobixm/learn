@@ -7,7 +7,7 @@ using Dapper;
 
 namespace Infotecs.Attika.AtticaDataModel.Repos
 {
-    public class StandardQueryRepo : IQueryRepo
+    public sealed class StandardQueryRepo : IQueryRepo
     {
         private readonly string _connectionString;
 
@@ -18,15 +18,15 @@ namespace Infotecs.Attika.AtticaDataModel.Repos
 
         public Article GetArticle(Guid articleId)
         {
-            using (var conn = GetConnection())
+            using (SqlConnection conn = GetConnection())
             {
                 conn.Open();
-                var query = @"select * from Articles where Id=@ArticleId; 
-                                 select * from Comments where ArticleId=@ArticleId order by Created desc;";
+                string query = @"select * from Article where Id=@ArticleId; 
+                                 select * from Comment where ArticleId=@ArticleId order by Created desc;";
 
-                using (var multi = conn.QueryMultiple(query, new {ArticleId = articleId}))
+                using (SqlMapper.GridReader multi = conn.QueryMultiple(query, new {ArticleId = articleId}))
                 {
-                    var article = multi.Read<Article>().First();
+                    Article article = multi.Read<Article>().First();
                     article.Comments = multi.Read<Comment>().ToList();
                     return article;
                 }
@@ -35,20 +35,20 @@ namespace Infotecs.Attika.AtticaDataModel.Repos
 
         public IEnumerable<Comment> GetComments(Guid articleId)
         {
-            using (var conn = GetConnection())
+            using (SqlConnection conn = GetConnection())
             {
                 conn.Open();
-                var comments = conn.Query<Comment>("select ArticleId=@Id", new {Id = articleId});
+                IEnumerable<Comment> comments = conn.Query<Comment>("select ArticleId=@Id", new {Id = articleId});
                 return comments;
             }
         }
 
         public IEnumerable<ArticleHeader> GetHeaders()
         {
-            using (var conn = GetConnection())
+            using (SqlConnection conn = GetConnection())
             {
                 conn.Open();
-                return conn.Query<ArticleHeader>("select Id as ArticleId, Title from Articles order by Title");
+                return conn.Query<ArticleHeader>("select Id as ArticleId, Title from Article order by Title");
             }
         }
 

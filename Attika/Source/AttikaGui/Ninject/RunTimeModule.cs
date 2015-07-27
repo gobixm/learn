@@ -12,6 +12,7 @@ namespace Infotecs.Attika.AttikaGui.Ninject
             Bind<MainViewModel>().ToSelf();
             Bind<NavigationViewModel>().ToSelf();
             Bind<ArticleViewModel>().ToSelf();
+            Bind<IDataSerializer>().To<WcfJsonSerializer>();
         }
     }
 }

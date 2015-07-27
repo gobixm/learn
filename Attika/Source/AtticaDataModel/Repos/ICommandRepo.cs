@@ -6,5 +6,8 @@ namespace Infotecs.Attika.AtticaDataModel.Repos
     {
         void CreateArticle(Article article);
         void CreateComment(Guid articleId, Comment comment);
+
+        void DeleteArticle(string articleId);
+        void DeleteComment(string commentId);
     }
 }

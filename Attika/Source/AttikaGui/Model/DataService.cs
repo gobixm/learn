@@ -1,53 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Net;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
-using System.Text;
 using Infotecs.Attika.AttikaGui.DTO;
-using Newtonsoft.Json;
 
 namespace Infotecs.Attika.AttikaGui.Model
 {
-    public class DataService : IDataService
+    public sealed class DataService : IDataService
     {
+        private readonly IDataSerializer _serializer;
         private readonly WebClient _webClient;
 
-        public DataService()
+        public DataService(IDataSerializer serializer)
         {
+            _serializer = serializer;
             _webClient = new WebClient {BaseAddress = ConfigurationManager.ConnectionStrings["host"].ConnectionString};
             _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
         }
+
         public IEnumerable<ArticleHeaderDto> GetArticleHeaders()
         {
-            string response = _webClient.DownloadString("/Article/Get");
-            return JsonConvert.DeserializeObject<List<ArticleHeaderDto>>(response);
+            byte[] response = _webClient.DownloadData("/Article");
+            return _serializer.Deserialize<List<ArticleHeaderDto>>(response);
         }
 
         public ArticleDto GetArticle(string articleId)
         {
-            throw new NotImplementedException();
+            byte[] response = _webClient.DownloadData("/Article/" + articleId);
+            return _serializer.Deserialize<ArticleDto>(response);
         }
 
         public void NewArticle(ArticleDto article)
         {
             _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-            _webClient.UploadData(new Uri(_webClient.BaseAddress + "/Article/New"), Serialize<ArticleDto>(article));
+            _webClient.UploadData("/Article/New", "POST", _serializer.Serialize(article));
         }
 
         public void NewComment(string articleId, CommentDto comment)
         {
-            _webClient.UploadString(new Uri(_webClient.BaseAddress + "/Article/NewComment"), "POST", JsonConvert.SerializeObject(new {ArticleId = articleId, CommentDto = comment}));
+            _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+            _webClient.UploadData("/Article/" + articleId + "/Comment/New", "POST",
+                                  _serializer.Serialize(new {articleId, commentDto = comment}));
         }
 
-        private byte[] Serialize<T>(T dto)
+        public void DeleteArticle(string articleId)
         {
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
-            MemoryStream ms = new MemoryStream();
-            ser.WriteObject(ms, dto);
-            return ms.ToArray();
+            _webClient.UploadString("/Article/" + articleId + "/Delete", "DELETE", "");
+        }
+
+        public void DeleteComment(string commentId)
+        {
+            _webClient.UploadString("/Comment" + commentId + "/Delete", "DELETE", "");
         }
     }
 }

@@ -3,7 +3,7 @@ using Ninject.Modules;
 
 namespace Infotecs.Attika.AttikaConsoleHost.Ninject
 {
-    internal sealed class DefaultModule : NinjectModule
+    public sealed class DefaultModule : NinjectModule
     {
         public override void Load()
         {

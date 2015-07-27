@@ -5,8 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ignore="http://www.ignore.com"
              xmlns:views="clr-namespace:Infotecs.Attika.AttikaGui.Views"
-             mc:Ignorable="d ignore"
-             DataContext="{Binding NavigationVm, Source={StaticResource Locator}}">
+             mc:Ignorable="d ignore">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -15,12 +14,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-
-        <Button Grid.Row="0" Command="{Binding AddArticleCommand}">AddArticle</Button>
-        <Button Grid.Row="1" Command="{Binding AddArticleCommand}">AddArticle</Button>
-
+        <Button Grid.Row="0" Command="{Binding AddArticleCommand}">Добавить статью</Button>
         <ListBox Grid.Row="2" ItemsSource="{Binding ArticleHeaders}" HorizontalAlignment="Stretch"
-                 HorizontalContentAlignment="Stretch" >
+                 HorizontalContentAlignment="Stretch">
 
             <ListBox.ItemTemplate>
                 <DataTemplate>

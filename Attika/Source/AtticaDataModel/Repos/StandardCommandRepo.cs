@@ -1,14 +1,15 @@
 ﻿using System;
+using NHibernate;
 
 namespace Infotecs.Attika.AtticaDataModel.Repos
 {
-    public class StandardCommandRepo : ICommandRepo
+    public sealed class StandardCommandRepo : ICommandRepo
     {
         public void CreateArticle(Article article)
         {
-            using (var session = SessionHelper.OpenSession())
+            using (ISession session = SessionHelper.OpenSession())
             {
-                using (var transaction = session.BeginTransaction())
+                using (ITransaction transaction = session.BeginTransaction())
                 {
                     if (article.Id == Guid.Empty)
                     {
@@ -23,9 +24,9 @@ namespace Infotecs.Attika.AtticaDataModel.Repos
 
         public void CreateComment(Guid articleId, Comment comment)
         {
-            using (var session = SessionHelper.OpenSession())
+            using (ISession session = SessionHelper.OpenSession())
             {
-                using (var transaction = session.BeginTransaction())
+                using (ITransaction transaction = session.BeginTransaction())
                 {
                     if (comment.Id == Guid.Empty)
                     {
@@ -34,6 +35,31 @@ namespace Infotecs.Attika.AtticaDataModel.Repos
                     comment.Created = DateTime.Now;
                     comment.ArticleId = articleId;
                     session.Save(comment);
+                    transaction.Commit();
+                }
+            }
+        }
+
+
+        public void DeleteArticle(string articleId)
+        {
+            using (ISession session = SessionHelper.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    session.Delete(session.Load<Article>(articleId));
+                    transaction.Commit();
+                }
+            }
+        }
+
+        public void DeleteComment(string commentId)
+        {
+            using (ISession session = SessionHelper.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    session.Delete(session.Load<Comment>(commentId));
                     transaction.Commit();
                 }
             }

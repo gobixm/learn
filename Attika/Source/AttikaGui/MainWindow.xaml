@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        
+
         xmlns:ignore="http://www.ignore.com"
         xmlns:views="clr-namespace:Infotecs.Attika.AttikaGui.Views"
         mc:Ignorable="d ignore"
@@ -29,10 +29,10 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <views:NavigationView />
+            <views:NavigationView DataContext="{Binding NavigationViewModel}" />
         </Grid>
         <Grid Grid.Column="1">
-            <views:ArticleView />
+            <views:ArticleView DataContext="{Binding ArticleViewModel}" />
         </Grid>
     </Grid>
 </Window>

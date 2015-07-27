@@ -19,13 +19,14 @@ namespace Infotecs.Attika.AttikaService
         {
             _commandRepo = commandRepo;
             _queryRepo = queryRepo;
-            TinyMapper.Bind<ArticleDto, Article>();
+            TinyMapper.Bind<ArticleDto, Article>(config => config.Ignore(a => a.Comments));
             TinyMapper.Bind<CommentDto, Comment>();
         }
 
         public void NewArticle(ArticleDto article)
         {
-            _commandRepo.CreateArticle(TinyMapper.Map<Article>(article));
+            var atkl = TinyMapper.Map<Article>(article);
+            _commandRepo.CreateArticle(atkl);
         }
 
         public void AddComment(string articleId, CommentDto comment)
@@ -35,14 +36,25 @@ namespace Infotecs.Attika.AttikaService
 
         public IList<ArticleHeaderDto> GetArticleHeaders()
         {
-            var headers = _queryRepo.GetHeaders();
-            var mappedHeaders =headers.Select(x=>TinyMapper.Map<ArticleHeaderDto>(x));
+            IEnumerable<ArticleHeader> headers = _queryRepo.GetHeaders();
+            IEnumerable<ArticleHeaderDto> mappedHeaders = headers.Select(x => TinyMapper.Map<ArticleHeaderDto>(x));
             return mappedHeaders.ToList();
         }
 
         public ArticleDto GetArticle(string articleId)
         {
             return TinyMapper.Map<ArticleDto>(_queryRepo.GetArticle(Guid.Parse(articleId)));
+        }
+
+
+        public void DeleteArticle(string articleId)
+        {
+            _commandRepo.DeleteArticle(articleId);
+        }
+
+        public void DeleteComment(string commentId)
+        {
+            _commandRepo.DeleteComment(commentId);
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Cfg.MappingSchema;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
 
 namespace Infotecs.Attika.AtticaDataModel
 {
-    public sealed class SessionHelper
+    public static class SessionHelper
     {
         private static ISessionFactory _sessionFactory;
 
@@ -16,12 +18,14 @@ namespace Infotecs.Attika.AtticaDataModel
                 var configuration = new Configuration();
                 configuration.Configure();
                 configuration.AddAssembly(typeof (SessionHelper).Assembly);
+                HbmMapping mapping = GetMappings();
+                configuration.AddDeserializedMapping(mapping, null);
                 _sessionFactory = configuration.BuildSessionFactory();
                 return _sessionFactory;
             }
         }
 
-        internal static ISession OpenSession()
+        public static ISession OpenSession()
         {
             return SessionFactory.OpenSession();
         }
@@ -31,7 +35,17 @@ namespace Infotecs.Attika.AtticaDataModel
             var configuration = new Configuration();
             configuration.Configure();
             configuration.AddAssembly(typeof (SessionHelper).Assembly);
+            HbmMapping mapping = GetMappings();
+            configuration.AddDeserializedMapping(mapping, null);
             new SchemaUpdate(configuration).Execute(true, true);
+        }
+
+        private static HbmMapping GetMappings()
+        {
+            var mapper = new ModelMapper();
+            mapper.AddMappings(typeof (SessionHelper).Assembly.GetExportedTypes());
+            HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
+            return mapping;
         }
     }
 }

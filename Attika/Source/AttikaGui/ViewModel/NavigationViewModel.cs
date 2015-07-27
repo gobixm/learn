@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using Infotecs.Attika.AttikaGui.DTO;
+using Infotecs.Attika.AttikaGui.GuiMessages;
 using Infotecs.Attika.AttikaGui.Model;
 
 namespace Infotecs.Attika.AttikaGui.ViewModel
@@ -17,18 +18,19 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
     {
         private readonly IDataService _dataService;
 
+        private RelayCommand _addArticleCommand;
+        private ObservableCollection<ArticleHeaderViewModel> _articleHeaders;
+
         public NavigationViewModel(IDataService dataService)
         {
             _dataService = dataService;
             _articleHeaders = new ObservableCollection<ArticleHeaderViewModel>();
-            foreach (var header in _dataService.GetArticleHeaders())
+            foreach (ArticleHeaderDto header in _dataService.GetArticleHeaders())
             {
                 _articleHeaders.Add(new ArticleHeaderViewModel(header));
             }
-            RaisePropertyChanged("ArticleHeaders");
         }
 
-        private RelayCommand _addArticleCommand;
         public RelayCommand AddArticleCommand
         {
             get { return _addArticleCommand ?? (_addArticleCommand = new RelayCommand(AddArticle)); }
@@ -46,10 +48,16 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
 
         private void AddArticle()
         {
-            _dataService.NewArticle(new ArticleDto(){Id = Guid.NewGuid(), Text = "random text", Title = "Random Title", Created = DateTime.Now});
+            Messenger.Default.Send(
+                new AddArticleMessage
+                    {
+                        Article = new ArticleDto
+                            {
+                                Description = "",
+                                Text = "",
+                                Title = "Новая статья"
+                            }
+                    });
         }
-
-        private ObservableCollection<ArticleHeaderViewModel> _articleHeaders;
-
     }
 }

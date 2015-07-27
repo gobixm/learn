@@ -15,22 +15,22 @@ namespace Infotecs.Attika.AttikaConsoleHost.Ninject
         }
 
         public void AddBindingParameters(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase,
-            Collection<ServiceEndpoint> endpoints,
-            BindingParameterCollection bindingParameters)
+                                         Collection<ServiceEndpoint> endpoints,
+                                         BindingParameterCollection bindingParameters)
         {
         }
 
         public void ApplyDispatchBehavior(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
         {
-            var serviceType = serviceDescription.ServiceType;
+            Type serviceType = serviceDescription.ServiceType;
             IInstanceProvider provider = new NinjectInstanceProvider(serviceType,
-                new StandardKernel(new DefaultModule()));
-            foreach (var channelDispatcherBase in serviceHostBase.ChannelDispatchers)
+                                                                     new StandardKernel(new DefaultModule()));
+            foreach (ChannelDispatcherBase channelDispatcherBase in serviceHostBase.ChannelDispatchers)
             {
                 var channelDispatcher = (ChannelDispatcher) channelDispatcherBase;
-                foreach (var endpointDispatcher in channelDispatcher.Endpoints)
+                foreach (EndpointDispatcher endpointDispatcher in channelDispatcher.Endpoints)
                 {
-                    var dispatchRuntime = endpointDispatcher.DispatchRuntime;
+                    DispatchRuntime dispatchRuntime = endpointDispatcher.DispatchRuntime;
                     dispatchRuntime.InstanceProvider = provider;
                 }
             }

@@ -50,16 +50,6 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
             get { return Kernel.Get<MainViewModel>(); }
         }
 
-        public NavigationViewModel NavigationVm
-        {
-            get { return Kernel.Get<NavigationViewModel>(); }
-        }
-
-        public ArticleViewModel ArticleVm
-        {
-            get { return Kernel.Get<ArticleViewModel>(); }
-        }
-
         /// <summary>
         ///     Cleans up all the resources.
         /// </summary>

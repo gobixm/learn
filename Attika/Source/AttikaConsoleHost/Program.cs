@@ -5,7 +5,7 @@ using Infotecs.Attika.AttikaService;
 
 namespace Infotecs.Attika.AttikaConsoleHost
 {
-    internal class Program
+    public static class Program
     {
         private static void Main(string[] args)
         {

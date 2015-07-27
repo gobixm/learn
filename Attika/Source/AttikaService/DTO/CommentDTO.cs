@@ -8,8 +8,10 @@ namespace Infotecs.Attika.AttikaService.DTO
     {
         [DataMember]
         public Guid Id { get; set; }
+
         [DataMember]
         public string Text { get; set; }
+
         [DataMember]
         public DateTime Created { get; set; }
     }

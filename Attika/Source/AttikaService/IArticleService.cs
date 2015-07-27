@@ -17,7 +17,7 @@ namespace Infotecs.Attika.AttikaService
 
         [OperationContract]
         [WebInvoke(Method = "POST",
-            UriTemplate = "Article/NewComment",
+            UriTemplate = "Article/{articleId}/Comment/New",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.WrappedRequest)]
@@ -25,14 +25,24 @@ namespace Infotecs.Attika.AttikaService
 
         [OperationContract]
         [WebInvoke(Method = "GET",
-            UriTemplate = "Article/Get",
+            UriTemplate = "Article",
             ResponseFormat = WebMessageFormat.Json)]
         IList<ArticleHeaderDto> GetArticleHeaders();
 
         [OperationContract]
         [WebInvoke(Method = "GET",
-            UriTemplate = "Article/Get/{articleId}",
+            UriTemplate = "Article/{articleId}",
             ResponseFormat = WebMessageFormat.Json)]
         ArticleDto GetArticle(string articleId);
+
+        [OperationContract]
+        [WebInvoke(Method = "DELETE",
+            UriTemplate = "Article/{articleId}/Delete")]
+        void DeleteArticle(string articleId);
+
+        [OperationContract]
+        [WebInvoke(Method = "DELETE",
+            UriTemplate = "Comment/{commentId}/Delete")]
+        void DeleteComment(string commentId);
     }
 }
