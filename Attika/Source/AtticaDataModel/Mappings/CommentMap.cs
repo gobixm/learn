@@ -10,6 +10,7 @@ namespace Infotecs.Attika.AtticaDataModel.Mappings
             Id(c => c.Id, map => map.Generator(Generators.Guid));
             Property(c => c.Text, map => map.Length(50));
             Property(c => c.ArticleId);
+            Property(c => c.Created);
             ManyToOne(c => c.Article, map => map.Column("ArticleId"));
         }
     }
