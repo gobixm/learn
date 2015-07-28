@@ -21,6 +21,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
     public sealed class ArticleViewModel : ViewModelBase
     {
         private readonly IDataService _dataService;
+        private RelayCommand _addCommentCommand;
         private ArticleDto _articleDto;
         private ObservableCollection<CommentViewModel> _comments;
         private RelayCommand _deleteCommand;
@@ -57,10 +58,11 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
                 RaisePropertyChanged(() => Created);
                 SaveCommand.RaiseCanExecuteChanged();
                 DeleteCommand.RaiseCanExecuteChanged();
+                AddCommentCommand.RaiseCanExecuteChanged();
                 if ((value != null) && (value.Comments != null))
                     Comments =
                         new ObservableCollection<CommentViewModel>(from c in ArticleDto.Comments
-                                                                   select new CommentViewModel(c));
+                                                                   select new CommentViewModel(c, _dataService));
                 else
                 {
                     Comments = null;
@@ -68,6 +70,11 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
 
                 RaisePropertyChanged(() => Comments);
             }
+        }
+
+        public RelayCommand AddCommentCommand
+        {
+            get { return _addCommentCommand ?? (_addCommentCommand = new RelayCommand(AddComment, CanAddComment)); }
         }
 
         public string Title
@@ -123,6 +130,18 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
         public RelayCommand DeleteCommand
         {
             get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(Delete, CanDelete)); }
+        }
+
+        private bool CanAddComment()
+        {
+            return ArticleDto.Id != Guid.Empty;
+        }
+
+        private void AddComment()
+        {
+            Comments.Add(new CommentViewModel(new CommentDto {ArticleId = ArticleDto.Id, Created = DateTime.Now},
+                                              _dataService));
+            RaisePropertyChanged(() => Comments);
         }
 
         private bool CanDelete()

@@ -11,7 +11,15 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="{Binding Created}" HorizontalAlignment="Left"></TextBlock>
-        <TextBlock Grid.Row="1" Text="{Binding Text}" HorizontalAlignment="Stretch"></TextBlock>
+        <DockPanel Grid.Row="0">
+            <TextBlock Text="{Binding Created}" HorizontalAlignment="Left"></TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{Binding DeleteCommand}">Удалить</Button>
+                <Button Command="{Binding SaveCommand}">Сохранить</Button>
+            </StackPanel>
+        </DockPanel>
+        <TextBox Grid.Row="1" Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                 HorizontalAlignment="Stretch">
+        </TextBox>
     </Grid>
 </UserControl>

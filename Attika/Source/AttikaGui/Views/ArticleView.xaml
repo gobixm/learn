@@ -20,6 +20,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
@@ -35,7 +36,11 @@
             <TextBox Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="50"
                      Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
             </TextBox>
-            <ListBox Grid.Row="2" ItemsSource="{Binding Comments}" HorizontalAlignment="Stretch"
+            <DockPanel Grid.Row="2">
+                <TextBlock>Комментарии:</TextBlock>
+                <Button Command="{Binding AddCommentCommand}">+Добавить</Button>
+            </DockPanel>
+            <ListBox Grid.Row="3" ItemsSource="{Binding Comments}" HorizontalAlignment="Stretch"
                      HorizontalContentAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DataTemplate>

@@ -33,7 +33,7 @@ namespace Infotecs.Attika.AtticaDataModel.Repos
                         comment.Id = Guid.NewGuid();
                     }
                     comment.Created = DateTime.Now;
-                    comment.ArticleId = articleId;
+                    comment.Article = session.Get<Article>(articleId);
                     session.Save(comment);
                     transaction.Commit();
                 }
