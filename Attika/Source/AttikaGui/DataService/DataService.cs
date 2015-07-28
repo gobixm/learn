@@ -20,27 +20,27 @@ namespace Infotecs.Attika.AttikaGui.DataService
 
         public IEnumerable<ArticleHeaderDto> GetArticleHeaders()
         {
-            byte[] response = _webClient.DownloadData("/Article");
             try
             {
+                byte[] response = _webClient.DownloadData("/Article");
                 return _serializer.Deserialize<List<ArticleHeaderDto>>(response);
             }
             catch (WebException ex)
             {
-                throw new DataServiceException(_serializer.Deserialize<FaultDto>(GetResponseBytes(ex.Response)));
+                throw new DataServiceException(GetFaultDto(ex));
             }
         }
 
         public ArticleDto GetArticle(string articleId)
         {
-            byte[] response = _webClient.DownloadData("/Article/" + articleId);
             try
             {
+                byte[] response = _webClient.DownloadData("/Article/" + articleId);
                 return _serializer.Deserialize<ArticleDto>(response);
             }
             catch (WebException ex)
             {
-                throw new DataServiceException(_serializer.Deserialize<FaultDto>(GetResponseBytes(ex.Response)));
+                throw new DataServiceException(GetFaultDto(ex));
             }
         }
 
@@ -53,7 +53,7 @@ namespace Infotecs.Attika.AttikaGui.DataService
             }
             catch (WebException ex)
             {
-                throw new DataServiceException(_serializer.Deserialize<FaultDto>(GetResponseBytes(ex.Response)));
+                throw new DataServiceException(GetFaultDto(ex));
             }
         }
 
@@ -67,7 +67,7 @@ namespace Infotecs.Attika.AttikaGui.DataService
             }
             catch (WebException ex)
             {
-                throw new DataServiceException(_serializer.Deserialize<FaultDto>(GetResponseBytes(ex.Response)));
+                throw new DataServiceException(GetFaultDto(ex));
             }
         }
 
@@ -79,7 +79,7 @@ namespace Infotecs.Attika.AttikaGui.DataService
             }
             catch (WebException ex)
             {
-                throw new DataServiceException(_serializer.Deserialize<FaultDto>(GetResponseBytes(ex.Response)));
+                throw new DataServiceException(GetFaultDto(ex));
             }
         }
 
@@ -91,22 +91,29 @@ namespace Infotecs.Attika.AttikaGui.DataService
             }
             catch (WebException ex)
             {
-                throw new DataServiceException(_serializer.Deserialize<FaultDto>(GetResponseBytes(ex.Response)));
+                throw new DataServiceException(GetFaultDto(ex));
             }
         }
 
-        private byte[] GetResponseBytes(WebResponse response)
+        private FaultDto GetFaultDto(WebException exception)
         {
-            using (var ms = new MemoryStream())
+            if (exception.Response == null)
             {
-                using (Stream responseStream = response.GetResponseStream())
+                return new FaultDto {Message = "Ошибка при обращении к серверу", Detail = exception.Message};
+            }
+            else
+            {
+                using (var ms = new MemoryStream())
                 {
-                    if (responseStream != null)
+                    using (Stream responseStream = exception.Response.GetResponseStream())
                     {
-                        responseStream.CopyTo(ms);
-                        return ms.GetBuffer();
+                        if (responseStream != null)
+                        {
+                            responseStream.CopyTo(ms);
+                            return _serializer.Deserialize<FaultDto>(ms.GetBuffer());
+                        }
+                        return null;
                     }
-                    return null;
                 }
             }
         }
