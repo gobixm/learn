@@ -4,8 +4,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Infotecs.Attika.AttikaGui.DTO;
+using Infotecs.Attika.AttikaGui.DataService;
 using Infotecs.Attika.AttikaGui.GuiMessages;
-using Infotecs.Attika.AttikaGui.Model;
 
 namespace Infotecs.Attika.AttikaGui.ViewModel
 {
@@ -46,8 +46,15 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
 
         private void RebuildHeaderList()
         {
-            ArticleHeaders = new ObservableCollection<ArticleHeaderViewModel>(
-                from a in _dataService.GetArticleHeaders() select new ArticleHeaderViewModel(a));
+            try
+            {
+                ArticleHeaders = new ObservableCollection<ArticleHeaderViewModel>(
+                    from a in _dataService.GetArticleHeaders() select new ArticleHeaderViewModel(a));
+            }
+            catch (DataServiceException ex)
+            {
+                Messenger.Default.Send(new ChangeStateMessage {State = ex.Message});
+            }
         }
 
         private void SubscribeToGuiMessages()

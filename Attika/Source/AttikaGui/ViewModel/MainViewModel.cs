@@ -1,8 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using Infotecs.Attika.AttikaGui.DTO;
+using Infotecs.Attika.AttikaGui.DataService;
 using Infotecs.Attika.AttikaGui.GuiMessages;
-using Infotecs.Attika.AttikaGui.Model;
 
 namespace Infotecs.Attika.AttikaGui.ViewModel
 {
@@ -59,7 +59,17 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
 
         private void OnViewArticle(ViewArticleMessage message)
         {
-            ArticleDto article = _dataService.GetArticle(message.ArticleId);
+            ArticleDto article = null;
+            try
+            {
+                article = _dataService.GetArticle(message.ArticleId);
+            }
+            catch (DataServiceException ex)
+            {
+                State = ex.ToString();
+                return;
+            }
+
             ArticleViewModel.ArticleDto = article;
         }
 

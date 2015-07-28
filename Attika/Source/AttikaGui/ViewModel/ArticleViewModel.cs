@@ -7,8 +7,9 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Infotecs.Attika.AttikaGui.DTO;
+using Infotecs.Attika.AttikaGui.DataService;
 using Infotecs.Attika.AttikaGui.GuiMessages;
-using Infotecs.Attika.AttikaGui.Model;
+using NLog;
 
 namespace Infotecs.Attika.AttikaGui.ViewModel
 {
@@ -20,9 +21,11 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
     /// </summary>
     public sealed class ArticleViewModel : ViewModelBase
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly IDataService _dataService;
         private RelayCommand _addCommentCommand;
         private ArticleDto _articleDto;
+        private RelayCommand _badCommand;
         private ObservableCollection<CommentViewModel> _comments;
         private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
@@ -44,6 +47,11 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
                     Title = "Новая статья",
                     Comments = new List<CommentDto>()
                 };
+        }
+
+        public RelayCommand BadCommand
+        {
+            get { return _badCommand ?? (_badCommand = new RelayCommand(Bad)); }
         }
 
         public ArticleDto ArticleDto
@@ -132,6 +140,17 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
             get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(Delete, CanDelete)); }
         }
 
+        private void Bad()
+        {
+            try
+            {
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         private bool CanAddComment()
         {
             return ArticleDto.Id != Guid.Empty;
@@ -157,9 +176,9 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
                 Messenger.Default.Send(new DeleteArticleMessage {ArticleId = ArticleDto.Id});
                 Messenger.Default.Send(new ChangeStateMessage {State = "ok"});
             }
-            catch (Exception ex)
+            catch (DataServiceException ex)
             {
-                Messenger.Default.Send(new ChangeStateMessage {State = ex.Message});
+                Messenger.Default.Send(new ChangeStateMessage {State = ex.ToString()});
             }
         }
 
@@ -171,9 +190,25 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
         private void Save()
         {
             ArticleDto.Id = Guid.NewGuid();
-            _dataService.NewArticle(ArticleDto);
+            try
+            {
+                _dataService.NewArticle(ArticleDto);
+            }
+            catch (DataServiceException ex)
+            {
+                Messenger.Default.Send(new ChangeStateMessage {State = ex.ToString()});
+                return;
+            }
+
             Messenger.Default.Send(new RefreshHeaderListMessage());
-            ArticleDto = _dataService.GetArticle(ArticleDto.Id.ToString());
+            try
+            {
+                ArticleDto = _dataService.GetArticle(ArticleDto.Id.ToString());
+            }
+            catch (DataServiceException ex)
+            {
+                Messenger.Default.Send(new ChangeStateMessage {State = ex.ToString()});
+            }
         }
     }
 }

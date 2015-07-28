@@ -4,8 +4,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Infotecs.Attika.AttikaGui.DTO;
+using Infotecs.Attika.AttikaGui.DataService;
 using Infotecs.Attika.AttikaGui.GuiMessages;
-using Infotecs.Attika.AttikaGui.Model;
 
 namespace Infotecs.Attika.AttikaGui.ViewModel
 {
@@ -70,9 +70,9 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
                 Messenger.Default.Send(new ViewArticleMessage {ArticleId = Comment.ArticleId.ToString()});
                 Messenger.Default.Send(new ChangeStateMessage {State = "ok"});
             }
-            catch (Exception ex)
+            catch (DataServiceException ex)
             {
-                Messenger.Default.Send(new ChangeStateMessage {State = ex.Message});
+                Messenger.Default.Send(new ChangeStateMessage {State = ex.ToString()});
             }
         }
 
@@ -90,10 +90,10 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
                 Messenger.Default.Send(new ViewArticleMessage {ArticleId = Comment.ArticleId.ToString()});
                 Messenger.Default.Send(new ChangeStateMessage {State = "ok"});
             }
-            catch (Exception ex)
+            catch (DataServiceException ex)
             {
                 Comment.Id = Guid.Empty;
-                Messenger.Default.Send(new ChangeStateMessage {State = ex.Message});
+                Messenger.Default.Send(new ChangeStateMessage {State = ex.ToString()});
             }
         }
     }

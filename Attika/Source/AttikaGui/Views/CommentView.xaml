@@ -19,7 +19,7 @@
             </StackPanel>
         </DockPanel>
         <TextBox Grid.Row="1" Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                 HorizontalAlignment="Stretch">
+                 HorizontalAlignment="Stretch" AcceptsReturn="True" TextWrapping="Wrap">
         </TextBox>
     </Grid>
 </UserControl>

@@ -62,13 +62,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\ArticleDTO.cs" />
-    <Compile Include="DTO\ArticleHeaderDTO.cs" />
-    <Compile Include="DTO\CommentDTO.cs" />
+    <Compile Include="DTO\ArticleDto.cs" />
+    <Compile Include="DTO\ArticleHeaderDto.cs" />
+    <Compile Include="DTO\CommentDto.cs" />
+    <Compile Include="DTO\WebFaultDto.cs" />
     <Compile Include="IArticleService.cs" />
     <Compile Include="Mapping\ArticleDtoConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ArticleService.cs" />
+    <Compile Include="Validators\ArticleValidator.cs" />
+    <Compile Include="Validators\CommentValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Infotecs.Attika.AttikaGui.DTO;
 
-namespace Infotecs.Attika.AttikaGui.Model
+namespace Infotecs.Attika.AttikaGui.DataService
 {
     public interface IDataService
     {

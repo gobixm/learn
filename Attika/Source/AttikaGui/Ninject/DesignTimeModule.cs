@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Infotecs.Attika.AttikaGui.DTO;
+using Infotecs.Attika.AttikaGui.DataService;
 using Infotecs.Attika.AttikaGui.DesignTime;
-using Infotecs.Attika.AttikaGui.Model;
 using Infotecs.Attika.AttikaGui.ViewModel;
 using Moq;
 using Ninject.Modules;

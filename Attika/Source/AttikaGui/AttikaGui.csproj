@@ -67,6 +67,10 @@
     <Reference Include="Ninject">
       <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NLog.4.0.1\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -96,15 +100,17 @@
     <Compile Include="DTO\ArticleDto.cs" />
     <Compile Include="DTO\ArticleHeaderDto.cs" />
     <Compile Include="DTO\CommentDto.cs" />
+    <Compile Include="DTO\FaultDto.cs" />
     <Compile Include="GuiMessages\AddArticleMessage.cs" />
     <Compile Include="GuiMessages\ChangeStateMessage.cs" />
     <Compile Include="GuiMessages\DeleteArticleMessage.cs" />
     <Compile Include="GuiMessages\RefreshHeaderListMessage.cs" />
     <Compile Include="GuiMessages\ViewArticleMessage.cs" />
-    <Compile Include="Model\DataService.cs" />
-    <Compile Include="Model\IDataSerializer.cs" />
-    <Compile Include="Model\IDataService.cs" />
-    <Compile Include="Model\WcfJsonSerializer.cs" />
+    <Compile Include="DataService\DataService.cs" />
+    <Compile Include="DataService\DataServiceException.cs" />
+    <Compile Include="DataService\IDataSerializer.cs" />
+    <Compile Include="DataService\IDataService.cs" />
+    <Compile Include="DataService\WcfJsonSerializer.cs" />
     <Compile Include="Ninject\DesignTimeModule.cs" />
     <Compile Include="Ninject\RunTimeModule.cs" />
     <Compile Include="ViewModel\ArticleHeaderViewModel.cs" />
@@ -177,6 +183,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -1,4 +1,4 @@
-﻿using Infotecs.Attika.AttikaGui.Model;
+﻿using Infotecs.Attika.AttikaGui.DataService;
 using Infotecs.Attika.AttikaGui.ViewModel;
 using Ninject.Modules;
 
@@ -8,7 +8,7 @@ namespace Infotecs.Attika.AttikaGui.Ninject
     {
         public override void Load()
         {
-            Bind<IDataService>().To<DataService>();
+            Bind<IDataService>().To<DataService.DataService>();
             Bind<MainViewModel>().ToSelf();
             Bind<NavigationViewModel>().ToSelf();
             Bind<ArticleViewModel>().ToSelf();
