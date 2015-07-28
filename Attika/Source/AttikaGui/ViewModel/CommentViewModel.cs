@@ -18,6 +18,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
     public sealed class CommentViewModel : ViewModelBase
     {
         private readonly IDataService _dataService;
+        private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
 
         /// <summary>
@@ -49,6 +50,30 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
         public RelayCommand SaveCommand
         {
             get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save, CanSave)); }
+        }
+
+        public RelayCommand DeleteCommand
+        {
+            get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(Delete, CanDelete)); }
+        }
+
+        private bool CanDelete()
+        {
+            return Comment.Id != Guid.Empty;
+        }
+
+        private void Delete()
+        {
+            try
+            {
+                _dataService.DeleteComment(Comment.Id.ToString());
+                Messenger.Default.Send(new ViewArticleMessage {ArticleId = Comment.ArticleId.ToString()});
+                Messenger.Default.Send(new ChangeStateMessage {State = "ok"});
+            }
+            catch (Exception ex)
+            {
+                Messenger.Default.Send(new ChangeStateMessage {State = ex.Message});
+            }
         }
 
         private bool CanSave()

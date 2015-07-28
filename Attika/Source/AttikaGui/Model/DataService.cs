@@ -49,7 +49,7 @@ namespace Infotecs.Attika.AttikaGui.Model
 
         public void DeleteComment(string commentId)
         {
-            _webClient.UploadString("/Comment" + commentId + "/Delete", "DELETE", "");
+            _webClient.UploadString("/Comment/" + commentId + "/Delete", "DELETE", "");
         }
     }
 }

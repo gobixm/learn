@@ -14,5 +14,8 @@ namespace Infotecs.Attika.AttikaService.DTO
 
         [DataMember]
         public DateTime Created { get; set; }
+
+        [DataMember]
+        public Guid ArticleId { get; set; }
     }
 }

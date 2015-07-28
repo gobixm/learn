@@ -61,7 +61,8 @@ namespace Infotecs.Attika.AttikaService.Mapping
             if (article.Comments != null)
             {
                 dto.Comments =
-                    (from c in article.Comments select new CommentDto {Created = c.Created, Id = c.Id, Text = c.Text})
+                    (from c in article.Comments
+                     select new CommentDto {Created = c.Created, Id = c.Id, Text = c.Text, ArticleId = c.ArticleId})
                         .ToList();
             }
             return dto;
