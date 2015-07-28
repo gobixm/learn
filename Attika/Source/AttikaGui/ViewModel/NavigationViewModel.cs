@@ -25,7 +25,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
         public NavigationViewModel(IDataService dataService)
         {
             _dataService = dataService;
-            SubscribeToMessages();
+            SubscribeToGuiMessages();
             RebuildHeaderList();
         }
 
@@ -50,9 +50,33 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
                 from a in _dataService.GetArticleHeaders() select new ArticleHeaderViewModel(a));
         }
 
-        private void SubscribeToMessages()
+        private void SubscribeToGuiMessages()
         {
             Messenger.Default.Register(this, (RefreshHeaderListMessage message) => RebuildHeaderList());
+            Messenger.Default.Register(this, (DeleteArticleMessage message) => OnDeleteArticle(message));
+        }
+
+        private void OnDeleteArticle(DeleteArticleMessage message)
+        {
+            ArticleHeaderViewModel header =
+                ((from a in ArticleHeaders where a.Header.ArticleId == message.ArticleId select a)).FirstOrDefault();
+            if (header == null)
+            {
+                return;
+            }
+            int index = ArticleHeaders.IndexOf(header);
+            ArticleHeaders.RemoveAt(index);
+            if (index < ArticleHeaders.Count)
+            {
+                Messenger.Default.Send(new ViewArticleMessage
+                    {
+                        ArticleId = ArticleHeaders[index].Header.ArticleId.ToString()
+                    });
+            }
+            else
+            {
+                AddArticle();
+            }
         }
 
         private void AddArticle()

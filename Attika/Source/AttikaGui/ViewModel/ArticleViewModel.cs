@@ -139,8 +139,8 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
 
         private void AddComment()
         {
-            Comments.Add(new CommentViewModel(new CommentDto {ArticleId = ArticleDto.Id, Created = DateTime.Now},
-                                              _dataService));
+            Comments.Insert(0, new CommentViewModel(new CommentDto {ArticleId = ArticleDto.Id, Created = DateTime.Now},
+                                                    _dataService));
             RaisePropertyChanged(() => Comments);
         }
 
@@ -154,9 +154,8 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
             try
             {
                 _dataService.DeleteArticle(ArticleDto.Id.ToString());
-                ArticleDto = new ArticleDto();
+                Messenger.Default.Send(new DeleteArticleMessage {ArticleId = ArticleDto.Id});
                 Messenger.Default.Send(new ChangeStateMessage {State = "ok"});
-                Messenger.Default.Send(new RefreshHeaderListMessage());
             }
             catch (Exception ex)
             {
