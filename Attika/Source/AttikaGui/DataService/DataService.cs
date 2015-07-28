@@ -101,19 +101,16 @@ namespace Infotecs.Attika.AttikaGui.DataService
             {
                 return new FaultDto {Message = "Ошибка при обращении к серверу", Detail = exception.Message};
             }
-            else
+            using (var ms = new MemoryStream())
             {
-                using (var ms = new MemoryStream())
+                using (Stream responseStream = exception.Response.GetResponseStream())
                 {
-                    using (Stream responseStream = exception.Response.GetResponseStream())
+                    if (responseStream != null)
                     {
-                        if (responseStream != null)
-                        {
-                            responseStream.CopyTo(ms);
-                            return _serializer.Deserialize<FaultDto>(ms.GetBuffer());
-                        }
-                        return null;
+                        responseStream.CopyTo(ms);
+                        return _serializer.Deserialize<FaultDto>(ms.GetBuffer());
                     }
+                    return null;
                 }
             }
         }

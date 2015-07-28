@@ -118,6 +118,12 @@ namespace Infotecs.Attika.AttikaService
                     new WebFaultDto("Ошибка при получении статьи из репозитория", ex.Message),
                     HttpStatusCode.InternalServerError);
             }
+            if (article == null)
+            {
+                throw new WebFaultException<WebFaultDto>(
+                    new WebFaultDto("Ошибка при получении статьи", "Статьи с ID="+articleId+ " не существует"),
+                    HttpStatusCode.NotFound);
+            }
             try
             {
                 return TinyMapper.Map<ArticleDto>(article);

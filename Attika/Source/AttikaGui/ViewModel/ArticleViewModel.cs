@@ -21,7 +21,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
     /// </summary>
     public sealed class ArticleViewModel : ViewModelBase
     {
-        private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly IDataService _dataService;
         private RelayCommand _addCommentCommand;
         private ArticleDto _articleDto;
@@ -142,12 +142,15 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
 
         private void Bad()
         {
+            string guid = Guid.NewGuid().ToString();
             try
             {
+                ArticleDto = _dataService.GetArticle(guid);
             }
-            catch (Exception)
+            catch (DataServiceException ex)
             {
-                throw;
+                Messenger.Default.Send(new ChangeStateMessage {State = ex.ToString()});
+                _logger.Warn(string.Format("Ошибка при попытке получения статьи с Id={0} : {1}", guid, ex));
             }
         }
 
