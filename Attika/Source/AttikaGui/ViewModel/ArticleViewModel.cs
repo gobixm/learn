@@ -23,6 +23,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
         private readonly IDataService _dataService;
         private ArticleDto _articleDto;
         private ObservableCollection<CommentViewModel> _comments;
+        private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
 
         public ArticleViewModel(ArticleDto articleDto, IDataService dataService) : this(dataService)
@@ -54,6 +55,8 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
                 RaisePropertyChanged(() => Description);
                 RaisePropertyChanged(() => Text);
                 RaisePropertyChanged(() => Created);
+                SaveCommand.RaiseCanExecuteChanged();
+                DeleteCommand.RaiseCanExecuteChanged();
                 if ((value != null) && (value.Comments != null))
                     Comments =
                         new ObservableCollection<CommentViewModel>(from c in ArticleDto.Comments
@@ -117,6 +120,31 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
             get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save, CanSave)); }
         }
 
+        public RelayCommand DeleteCommand
+        {
+            get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(Delete, CanDelete)); }
+        }
+
+        private bool CanDelete()
+        {
+            return ArticleDto.Id != Guid.Empty;
+        }
+
+        private void Delete()
+        {
+            try
+            {
+                _dataService.DeleteArticle(ArticleDto.Id.ToString());
+                ArticleDto = new ArticleDto();
+                Messenger.Default.Send(new ChangeStateMessage {State = "ok"});
+                Messenger.Default.Send(new RefreshHeaderListMessage());
+            }
+            catch (Exception ex)
+            {
+                Messenger.Default.Send(new ChangeStateMessage {State = ex.Message});
+            }
+        }
+
         private bool CanSave()
         {
             return ArticleDto.Id == Guid.Empty;
@@ -126,7 +154,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
         {
             ArticleDto.Id = Guid.NewGuid();
             _dataService.NewArticle(ArticleDto);
-            Messenger.Default.Send<RefreshHeaderListMessage>(new RefreshHeaderListMessage());
+            Messenger.Default.Send(new RefreshHeaderListMessage());
             ArticleDto = _dataService.GetArticle(ArticleDto.Id.ToString());
         }
     }

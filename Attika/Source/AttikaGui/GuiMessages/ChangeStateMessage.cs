@@ -2,8 +2,8 @@
 
 namespace Infotecs.Attika.AttikaGui.GuiMessages
 {
-    public sealed class ViewArticleMessage : MessageBase
+    public sealed class ChangeStateMessage : MessageBase
     {
-        public string ArticleId { get; set; }
+        public string State { get; set; }
     }
 }

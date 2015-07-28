@@ -9,7 +9,7 @@ using Ninject.Modules;
 
 namespace Infotecs.Attika.AttikaGui.Ninject
 {
-    public class DesignTimeModule : NinjectModule
+    public sealed class DesignTimeModule : NinjectModule
     {
         public override void Load()
         {

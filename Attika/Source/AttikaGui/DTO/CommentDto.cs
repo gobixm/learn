@@ -2,7 +2,7 @@
 
 namespace Infotecs.Attika.AttikaGui.DTO
 {
-    public class CommentDto
+    public sealed class CommentDto
     {
         public Guid Id { get; set; }
         public Guid ArticleId { get; set; }

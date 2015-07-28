@@ -4,7 +4,7 @@ using Ninject.Modules;
 
 namespace Infotecs.Attika.AttikaGui.Ninject
 {
-    public class RunTimeModule : NinjectModule
+    public sealed class RunTimeModule : NinjectModule
     {
         public override void Load()
         {

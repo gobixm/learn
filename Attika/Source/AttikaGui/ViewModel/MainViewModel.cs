@@ -12,17 +12,17 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
     ///         See http://www.galasoft.ch/mvvm
     ///     </para>
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public sealed class MainViewModel : ViewModelBase
     {
         private readonly IDataService _dataService;
         private ArticleViewModel _articleViewModel;
         private NavigationViewModel _navigationViewModel;
+        private string _state;
 
         public MainViewModel(IDataService dataService)
         {
             _dataService = dataService;
-            Messenger.Default.Register(this, (AddArticleMessage message) => OnAddArticle(message));
-            Messenger.Default.Register(this, (ViewArticleMessage message) => OnViewArticle(message));
+            SubscribeToGuiMessages();
         }
 
         public NavigationViewModel NavigationViewModel
@@ -33,6 +33,28 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
         public ArticleViewModel ArticleViewModel
         {
             get { return _articleViewModel ?? (_articleViewModel = new ArticleViewModel(_dataService)); }
+        }
+
+        public string State
+        {
+            get { return _state; }
+            set
+            {
+                _state = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private void SubscribeToGuiMessages()
+        {
+            Messenger.Default.Register(this, (AddArticleMessage message) => OnAddArticle(message));
+            Messenger.Default.Register(this, (ViewArticleMessage message) => OnViewArticle(message));
+            Messenger.Default.Register(this, (ChangeStateMessage message) => OnChangeState(message));
+        }
+
+        private void OnChangeState(ChangeStateMessage message)
+        {
+            State = message.State;
         }
 
         private void OnViewArticle(ViewArticleMessage message)

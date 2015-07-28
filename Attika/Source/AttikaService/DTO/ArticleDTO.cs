@@ -7,7 +7,7 @@ using Infotecs.Attika.AttikaService.Mapping;
 namespace Infotecs.Attika.AttikaService.DTO
 {
     [DataContract]
-    [TypeConverter(typeof(ArticleDtoConverter))]
+    [TypeConverter(typeof (ArticleDtoConverter))]
     public sealed class ArticleDto
     {
         [DataMember]

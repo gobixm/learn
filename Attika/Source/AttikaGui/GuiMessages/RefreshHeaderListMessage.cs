@@ -2,8 +2,7 @@
 
 namespace Infotecs.Attika.AttikaGui.GuiMessages
 {
-    public class RefreshHeaderListMessage : MessageBase
+    public sealed class RefreshHeaderListMessage : MessageBase
     {
-         
     }
 }

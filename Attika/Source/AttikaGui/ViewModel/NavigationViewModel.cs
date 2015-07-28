@@ -29,16 +29,6 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
             RebuildHeaderList();
         }
 
-        private void RebuildHeaderList()
-        {
-            ArticleHeaders = new ObservableCollection<ArticleHeaderViewModel>(
-                from a in _dataService.GetArticleHeaders() select new ArticleHeaderViewModel(a));
-        }
-        private void SubscribeToMessages()
-        {
-            Messenger.Default.Register(this, (RefreshHeaderListMessage message) => RebuildHeaderList());
-        }
-
         public RelayCommand AddArticleCommand
         {
             get { return _addArticleCommand ?? (_addArticleCommand = new RelayCommand(AddArticle)); }
@@ -52,6 +42,17 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
                 _articleHeaders = value;
                 RaisePropertyChanged();
             }
+        }
+
+        private void RebuildHeaderList()
+        {
+            ArticleHeaders = new ObservableCollection<ArticleHeaderViewModel>(
+                from a in _dataService.GetArticleHeaders() select new ArticleHeaderViewModel(a));
+        }
+
+        private void SubscribeToMessages()
+        {
+            Messenger.Default.Register(this, (RefreshHeaderListMessage message) => RebuildHeaderList());
         }
 
         private void AddArticle()

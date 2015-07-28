@@ -97,6 +97,7 @@
     <Compile Include="DTO\ArticleHeaderDto.cs" />
     <Compile Include="DTO\CommentDto.cs" />
     <Compile Include="GuiMessages\AddArticleMessage.cs" />
+    <Compile Include="GuiMessages\ChangeStateMessage.cs" />
     <Compile Include="GuiMessages\RefreshHeaderListMessage.cs" />
     <Compile Include="GuiMessages\ViewArticleMessage.cs" />
     <Compile Include="Model\DataService.cs" />

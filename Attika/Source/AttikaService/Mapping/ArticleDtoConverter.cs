@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using Infotecs.Attika.AtticaDataModel;
 using Infotecs.Attika.AttikaService.DTO;
@@ -8,11 +9,13 @@ namespace Infotecs.Attika.AttikaService.Mapping
 {
     public class ArticleDtoConverter : TypeConverter
     {
-        public override bool CanConvertTo(ITypeDescriptorContext context, System.Type destinationType)
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             return destinationType == typeof (Article);
         }
-        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, System.Type destinationType)
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+                                         Type destinationType)
         {
             var dto = (ArticleDto) value;
             var article = new Article
@@ -26,26 +29,28 @@ namespace Infotecs.Attika.AttikaService.Mapping
             if (dto.Comments != null)
             {
                 article.Comments = (from c in article.Comments
-                                   select
-                                       new Comment
-                                           {
-                                               Article = article,
-                                               ArticleId = c.ArticleId,
-                                               Id = c.Id,
-                                               Text = c.Text,
-                                               Created = c.Created
-                                           }).ToList();
+                                    select
+                                        new Comment
+                                            {
+                                                Article = article,
+                                                ArticleId = c.ArticleId,
+                                                Id = c.Id,
+                                                Text = c.Text,
+                                                Created = c.Created
+                                            }).ToList();
             }
             return article;
         }
-        public override bool CanConvertFrom(ITypeDescriptorContext context, System.Type sourceType)
+
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            return sourceType == typeof(Article);
+            return sourceType == typeof (Article);
         }
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            Article article = (Article) value;
-            ArticleDto dto = new ArticleDto
+            var article = (Article) value;
+            var dto = new ArticleDto
                 {
                     Id = article.Id,
                     Created = article.Created,

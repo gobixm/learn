@@ -9,7 +9,7 @@
         mc:Ignorable="d ignore"
         Height="300"
         Width="660"
-        Title="MVVM Light Application"
+        Title="Attika"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
     <Window.Resources>
@@ -23,6 +23,7 @@
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -33,6 +34,9 @@
         </Grid>
         <Grid Grid.Column="1">
             <views:ArticleView DataContext="{Binding ArticleViewModel}" />
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <TextBlock Text="{Binding State}"></TextBlock>
         </Grid>
     </Grid>
 </Window>

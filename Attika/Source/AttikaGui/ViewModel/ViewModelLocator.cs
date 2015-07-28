@@ -23,7 +23,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
     ///         See http://www.galasoft.ch/mvvm
     ///     </para>
     /// </summary>
-    public class ViewModelLocator
+    public sealed class ViewModelLocator
     {
         private static readonly IKernel Kernel;
 
@@ -32,7 +32,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
             if (ViewModelBase.IsInDesignModeStatic)
                 Kernel = new StandardKernel(new DesignTimeModule());
             else
-                Kernel = new StandardKernel(new RunTimeModule()); 
+                Kernel = new StandardKernel(new RunTimeModule());
         }
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
     ///         See http://www.galasoft.ch/mvvm
     ///     </para>
     /// </summary>
-    public class CommentViewModel : ViewModelBase
+    public sealed class CommentViewModel : ViewModelBase
     {
         private readonly CommentDto _comment;
 

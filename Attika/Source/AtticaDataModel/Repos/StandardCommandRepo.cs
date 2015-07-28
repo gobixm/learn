@@ -47,7 +47,7 @@ namespace Infotecs.Attika.AtticaDataModel.Repos
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Delete(session.Load<Article>(articleId));
+                    session.Delete(session.Load<Article>(Guid.Parse(articleId)));
                     transaction.Commit();
                 }
             }
@@ -59,7 +59,7 @@ namespace Infotecs.Attika.AtticaDataModel.Repos
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Delete(session.Load<Comment>(commentId));
+                    session.Delete(session.Load<Comment>(Guid.Parse(commentId)));
                     transaction.Commit();
                 }
             }

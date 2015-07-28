@@ -12,7 +12,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
     ///         See http://www.galasoft.ch/mvvm
     ///     </para>
     /// </summary>
-    public class ArticleHeaderViewModel : ViewModelBase
+    public sealed class ArticleHeaderViewModel : ViewModelBase
     {
         private RelayCommand _viewArticleCommand;
 

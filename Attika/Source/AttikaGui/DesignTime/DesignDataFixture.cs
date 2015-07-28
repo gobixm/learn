@@ -10,7 +10,7 @@ namespace Infotecs.Attika.AttikaGui.DesignTime
         public static List<ArticleDto> GetFakeArticles()
         {
             var articles = new List<ArticleDto>();
-            for (var i = 0; i < 32; i++)
+            for (int i = 0; i < 32; i++)
             {
                 var article = new ArticleDto
                     {

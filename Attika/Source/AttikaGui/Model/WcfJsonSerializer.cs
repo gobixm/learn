@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Infotecs.Attika.AttikaGui.Model
 {
-    public class WcfJsonSerializer : IDataSerializer
+    public sealed class WcfJsonSerializer : IDataSerializer
     {
         public byte[] Serialize(object dto)
         {
