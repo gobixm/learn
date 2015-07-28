@@ -66,6 +66,7 @@
     <Compile Include="DTO\ArticleHeaderDTO.cs" />
     <Compile Include="DTO\CommentDTO.cs" />
     <Compile Include="IArticleService.cs" />
+    <Compile Include="Mapping\ArticleDtoConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ArticleService.cs" />
   </ItemGroup>

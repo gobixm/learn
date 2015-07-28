@@ -19,7 +19,7 @@ namespace Infotecs.Attika.AttikaService
         {
             _commandRepo = commandRepo;
             _queryRepo = queryRepo;
-            TinyMapper.Bind<ArticleDto, Article>(config => config.Ignore(a => a.Comments));
+            TinyMapper.Bind<ArticleDto, Article>();
             TinyMapper.Bind<CommentDto, Comment>();
         }
 

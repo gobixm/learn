@@ -32,11 +32,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
             if (ViewModelBase.IsInDesignModeStatic)
                 Kernel = new StandardKernel(new DesignTimeModule());
             else
-#if DEBUG
-                Kernel = new StandardKernel(new DesignTimeModule());
-#else
-                Kernel = new StandardKernel(new RunTimeModule());  
-#endif
+                Kernel = new StandardKernel(new RunTimeModule()); 
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -14,7 +15,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
     ///         See http://www.galasoft.ch/mvvm
     ///     </para>
     /// </summary>
-    public class NavigationViewModel : ViewModelBase
+    public sealed class NavigationViewModel : ViewModelBase
     {
         private readonly IDataService _dataService;
 
@@ -24,11 +25,18 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
         public NavigationViewModel(IDataService dataService)
         {
             _dataService = dataService;
-            _articleHeaders = new ObservableCollection<ArticleHeaderViewModel>();
-            foreach (ArticleHeaderDto header in _dataService.GetArticleHeaders())
-            {
-                _articleHeaders.Add(new ArticleHeaderViewModel(header));
-            }
+            SubscribeToMessages();
+            RebuildHeaderList();
+        }
+
+        private void RebuildHeaderList()
+        {
+            ArticleHeaders = new ObservableCollection<ArticleHeaderViewModel>(
+                from a in _dataService.GetArticleHeaders() select new ArticleHeaderViewModel(a));
+        }
+        private void SubscribeToMessages()
+        {
+            Messenger.Default.Register(this, (RefreshHeaderListMessage message) => RebuildHeaderList());
         }
 
         public RelayCommand AddArticleCommand

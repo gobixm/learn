@@ -7,7 +7,7 @@ namespace Infotecs.Attika.AtticaDataModel.Mappings
     {
         public CommentMap()
         {
-            Id(c => c.Id, map => map.Generator(Generators.Guid));
+            Id(c => c.Id, map => map.Generator(Generators.Assigned));
             Property(c => c.Text, map => map.Length(50));
             Property(c => c.ArticleId);
             Property(c => c.Created);

@@ -7,7 +7,7 @@ namespace Infotecs.Attika.AtticaDataModel.Mappings
     {
         public ArticleMap()
         {
-            Id(p => p.Id, map => map.Generator(Generators.Guid));
+            Id(p => p.Id, map => map.Generator(Generators.Assigned));
             Property(p => p.Title, map => map.Length(100));
             Property(p => p.Description);
             Property(p => p.Text, map => map.Length(200));

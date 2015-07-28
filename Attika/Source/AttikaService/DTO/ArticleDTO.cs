@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
+using Infotecs.Attika.AttikaService.Mapping;
 
 namespace Infotecs.Attika.AttikaService.DTO
 {
     [DataContract]
+    [TypeConverter(typeof(ArticleDtoConverter))]
     public sealed class ArticleDto
     {
         [DataMember]

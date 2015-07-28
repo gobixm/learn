@@ -5,7 +5,9 @@ using System.Globalization;
 using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using Infotecs.Attika.AttikaGui.DTO;
+using Infotecs.Attika.AttikaGui.GuiMessages;
 using Infotecs.Attika.AttikaGui.Model;
 
 namespace Infotecs.Attika.AttikaGui.ViewModel
@@ -70,7 +72,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
             get { return ArticleDto.Title; }
             set
             {
-                ArticleDto.Title = Title;
+                ArticleDto.Title = value;
                 RaisePropertyChanged();
             }
         }
@@ -124,6 +126,8 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
         {
             ArticleDto.Id = Guid.NewGuid();
             _dataService.NewArticle(ArticleDto);
+            Messenger.Default.Send<RefreshHeaderListMessage>(new RefreshHeaderListMessage());
+            ArticleDto = _dataService.GetArticle(ArticleDto.Id.ToString());
         }
     }
 }

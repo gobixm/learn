@@ -26,8 +26,9 @@ namespace Infotecs.Attika.AtticaDataModel.Repos
 
                 using (SqlMapper.GridReader multi = conn.QueryMultiple(query, new {ArticleId = articleId}))
                 {
-                    Article article = multi.Read<Article>().First();
-                    article.Comments = multi.Read<Comment>().ToList();
+                    Article article = multi.Read<Article>().FirstOrDefault();
+                    if(article!=null)
+                        article.Comments = multi.Read<Comment>().ToList();
                     return article;
                 }
             }
