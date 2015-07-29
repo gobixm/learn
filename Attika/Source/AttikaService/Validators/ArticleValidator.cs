@@ -12,13 +12,13 @@ namespace Infotecs.Attika.AttikaService.Validators
                                     bool validateComments = false)
         {
             var errors = new List<string>();
-            if (article.Title.Length > MaxArticleTitleLength)
+            if ((article.Title != null) && (article.Title.Length > MaxArticleTitleLength))
             {
-                errors.Add(string.Format("Заголовок статьи не может превышать {0} символов.\n", MaxArticleTitleLength));
+                errors.Add(string.Format("Заголовок статьи не может превышать {0} символов.", MaxArticleTitleLength));
             }
-            if (article.Text.Length > MaxArticleTextLength)
+            if ((article.Text != null) && (article.Text.Length > MaxArticleTextLength))
             {
-                errors.Add(string.Format("Текст статьи не может превышать {0} символов.\n", MaxArticleTextLength));
+                errors.Add(string.Format("Текст статьи не может превышать {0} символов.", MaxArticleTextLength));
             }
             if (validateComments && (article.Comments != null))
             {

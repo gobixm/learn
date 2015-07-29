@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Infotecs.Attika.AttikaService.DTO;
 using Infotecs.Attika.AttikaService.Validators;
 using Xunit;
@@ -8,124 +7,55 @@ namespace AtticaServiceTest
 {
     public class ArticleValidatorTest
     {
-        private ArticleDto CreateValidArticle()
+        public static IEnumerable<object[]> ArticleValidationData
         {
-            Guid articleId = Guid.Parse("A49C4E5D-A9B1-4364-9E43-CF0329D7BA10");
-            return new ArticleDto
-                {
-                    Created = DateTime.Today,
-                    Description = "description",
-                    Title = "title",
-                    Id = articleId,
-                    Text = "text",
-                    Comments = new List<CommentDto>
-                        {
-                            new CommentDto
-                                {
-                                    ArticleId = articleId,
-                                    Created = DateTime.Today,
-                                    Id = Guid.Parse("A49C4E5D-A9B1-4364-9E43-CF0329D7BA11"),
-                                    Text = "comment1"
-                                },
-                            new CommentDto
-                                {
-                                    ArticleId = articleId,
-                                    Created = DateTime.Today,
-                                    Id = Guid.Parse("A49C4E5D-A9B1-4364-9E43-CF0329D7BA12"),
-                                    Text = "comment1"
-                                },
-                            new CommentDto
-                                {
-                                    ArticleId = articleId,
-                                    Created = DateTime.Today,
-                                    Id = Guid.Parse("A49C4E5D-A9B1-4364-9E43-CF0329D7BA13"),
-                                    Text = "comment1"
-                                }
-                        }
-                };
+            get
+            {
+                yield return new object[]
+                    {
+                        new ArticleDto {Title = "article 1"}, true, ""
+                    };
+                yield return new object[]
+                    {
+                        new ArticleDto {Title = new string('x', 100)}, true, ""
+                    };
+                yield return new object[]
+                    {
+                        new ArticleDto {Title = new string('x', 101)}, false,
+                        "Заголовок статьи не может превышать 100 символов."
+                    };
+                yield return new object[]
+                    {
+                        new ArticleDto {Text = "simple text"}, true, ""
+                    };
+                yield return new object[]
+                    {
+                        new ArticleDto {Text = new string('x', 200)}, true, ""
+                    };
+                yield return new object[]
+                    {
+                        new ArticleDto {Text = new string('x', 201)}, false,
+                        "Текст статьи не может превышать 200 символов."
+                    };
+                yield return new object[]
+                    {
+                        new ArticleDto {Comments = new List<CommentDto> {new CommentDto {Text = new string('x', 500)}}},
+                        false, "Текст комментария не может превышать 50 символов."
+                    };
+            }
         }
 
-        [Fact]
-        private void AssumeArticleTitleMoreThan100()
+        [Theory]
+        [MemberData("ArticleValidationData", null)]
+        private void TestArticleValidationRules(ArticleDto article, bool valid, string message)
         {
-            ArticleDto articleDto = CreateValidArticle();
-            articleDto.Title = "".PadLeft(101);
             string[] errors;
-            Assert.False(articleDto.Validate(out errors));
-        }
-
-        [Fact]
-        private void AssumeArticleTitleMoreThan100ReturnsError()
-        {
-            ArticleDto articleDto = CreateValidArticle();
-            articleDto.Title = "".PadLeft(101);
-            string[] errors;
-            articleDto.Validate(out errors);
-            Assert.Equal("Заголовок статьи не может превышать 100 символов.", errors[0].Trim());
-        }
-
-        [Fact]
-        private void AssumeArticleTitleLengthEqual100()
-        {
-            ArticleDto articleDto = CreateValidArticle();
-            articleDto.Title = "".PadLeft(100);
-            string[] errors;
-            Assert.True(articleDto.Validate(out errors));
-        }
-
-        [Fact]
-        private void AssumeArticleTitleLessThan100()
-        {
-            ArticleDto articleDto = CreateValidArticle();
-            articleDto.Title = "".PadLeft(99);
-            string[] errors;
-            Assert.True(articleDto.Validate(out errors));
-        }
-
-        [Fact]
-        private void AssumeArticleTextMoreThan200()
-        {
-            ArticleDto articleDto = CreateValidArticle();
-            articleDto.Text = "".PadLeft(201);
-            string[] errors;
-            Assert.False(articleDto.Validate(out errors));
-        }
-
-        [Fact]
-        private void AssumeArticleTextMoreThan200ReturnsError()
-        {
-            ArticleDto articleDto = CreateValidArticle();
-            articleDto.Text = "".PadLeft(201);
-            string[] errors;
-            articleDto.Validate(out errors);
-            Assert.Equal("Текст статьи не может превышать 200 символов.", errors[0].Trim());
-        }
-
-        [Fact]
-        private void AssumeArticleTextLengthEqualsThan200()
-        {
-            ArticleDto articleDto = CreateValidArticle();
-            articleDto.Text = "".PadLeft(200);
-            string[] errors;
-            Assert.True(articleDto.Validate(out errors));
-        }
-
-        [Fact]
-        private void AssumeArticleTextLessThan200()
-        {
-            ArticleDto articleDto = CreateValidArticle();
-            articleDto.Text = "".PadLeft(199);
-            string[] errors;
-            Assert.True(articleDto.Validate(out errors));
-        }
-
-        [Fact]
-        private void AssumeArticleHaveBadComment()
-        {
-            ArticleDto articleDto = CreateValidArticle();
-            articleDto.Comments[0].Text = "".PadLeft(200);
-            string[] errors;
-            Assert.False(articleDto.Validate(out errors, true));
+            bool validated = article.Validate(out errors, true);
+            Assert.Equal(valid, validated);
+            if (!validated)
+            {
+                Assert.Equal(errors[0], message);
+            }
         }
     }
 }
