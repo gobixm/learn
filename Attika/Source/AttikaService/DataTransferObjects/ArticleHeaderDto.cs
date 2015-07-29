@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Infotecs.Attika.AttikaService.DTO
+namespace Infotecs.Attika.AttikaService.DataTransferObjects
 {
     [DataContract]
     public class ArticleHeaderDto

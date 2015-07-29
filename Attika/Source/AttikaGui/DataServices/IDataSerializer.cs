@@ -1,4 +1,4 @@
-﻿namespace Infotecs.Attika.AttikaGui.DataService
+﻿namespace Infotecs.Attika.AttikaGui.DataServices
 {
     public interface IDataSerializer
     {

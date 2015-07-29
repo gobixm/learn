@@ -2,9 +2,9 @@
 using System.Configuration;
 using System.IO;
 using System.Net;
-using Infotecs.Attika.AttikaGui.DTO;
+using Infotecs.Attika.AttikaGui.DataTransferObjects;
 
-namespace Infotecs.Attika.AttikaGui.DataService
+namespace Infotecs.Attika.AttikaGui.DataServices
 {
     public sealed class DataService : IDataService
     {

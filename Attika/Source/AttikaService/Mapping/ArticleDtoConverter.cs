@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using Infotecs.Attika.AtticaDataModel;
-using Infotecs.Attika.AttikaService.DTO;
+using Infotecs.Attika.AttikaService.DataTransferObjects;
 
 namespace Infotecs.Attika.AttikaService.Mapping
 {

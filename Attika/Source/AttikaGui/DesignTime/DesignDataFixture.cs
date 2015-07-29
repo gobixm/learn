@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Infotecs.Attika.AttikaGui.DTO;
+using Infotecs.Attika.AttikaGui.DataTransferObjects;
 
 namespace Infotecs.Attika.AttikaGui.DesignTime
 {

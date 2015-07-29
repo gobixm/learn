@@ -1,7 +1,7 @@
 ﻿using System;
-using Infotecs.Attika.AttikaGui.DTO;
+using Infotecs.Attika.AttikaGui.DataTransferObjects;
 
-namespace Infotecs.Attika.AttikaGui.DataService
+namespace Infotecs.Attika.AttikaGui.DataServices
 {
     public class DataServiceException : ApplicationException
     {

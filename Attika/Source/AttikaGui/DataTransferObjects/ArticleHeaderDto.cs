@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infotecs.Attika.AttikaGui.DTO
+namespace Infotecs.Attika.AttikaGui.DataTransferObjects
 {
     public sealed class ArticleHeaderDto
     {

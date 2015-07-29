@@ -1,7 +1,7 @@
 using System.Text;
 using Newtonsoft.Json;
 
-namespace Infotecs.Attika.AttikaGui.DataService
+namespace Infotecs.Attika.AttikaGui.DataServices
 {
     public sealed class WcfJsonSerializer : IDataSerializer
     {

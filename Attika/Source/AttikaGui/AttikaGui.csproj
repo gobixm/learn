@@ -97,20 +97,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DesignTime\DesignDataFixture.cs" />
-    <Compile Include="DTO\ArticleDto.cs" />
-    <Compile Include="DTO\ArticleHeaderDto.cs" />
-    <Compile Include="DTO\CommentDto.cs" />
-    <Compile Include="DTO\FaultDto.cs" />
+    <Compile Include="DataTransferObjects\ArticleDto.cs" />
+    <Compile Include="DataTransferObjects\ArticleHeaderDto.cs" />
+    <Compile Include="DataTransferObjects\CommentDto.cs" />
+    <Compile Include="DataTransferObjects\FaultDto.cs" />
     <Compile Include="GuiMessages\AddArticleMessage.cs" />
     <Compile Include="GuiMessages\ChangeStateMessage.cs" />
     <Compile Include="GuiMessages\DeleteArticleMessage.cs" />
     <Compile Include="GuiMessages\RefreshHeaderListMessage.cs" />
     <Compile Include="GuiMessages\ViewArticleMessage.cs" />
-    <Compile Include="DataService\DataService.cs" />
-    <Compile Include="DataService\DataServiceException.cs" />
-    <Compile Include="DataService\IDataSerializer.cs" />
-    <Compile Include="DataService\IDataService.cs" />
-    <Compile Include="DataService\WcfJsonSerializer.cs" />
+    <Compile Include="DataServices\DataService.cs" />
+    <Compile Include="DataServices\DataServiceException.cs" />
+    <Compile Include="DataServices\IDataSerializer.cs" />
+    <Compile Include="DataServices\IDataService.cs" />
+    <Compile Include="DataServices\WcfJsonSerializer.cs" />
     <Compile Include="Ninject\DesignTimeModule.cs" />
     <Compile Include="Ninject\RunTimeModule.cs" />
     <Compile Include="ViewModel\ArticleHeaderViewModel.cs" />

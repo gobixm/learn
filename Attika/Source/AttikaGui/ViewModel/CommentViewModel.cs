@@ -3,8 +3,8 @@ using System.Globalization;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using Infotecs.Attika.AttikaGui.DTO;
-using Infotecs.Attika.AttikaGui.DataService;
+using Infotecs.Attika.AttikaGui.DataServices;
+using Infotecs.Attika.AttikaGui.DataTransferObjects;
 using Infotecs.Attika.AttikaGui.GuiMessages;
 
 namespace Infotecs.Attika.AttikaGui.ViewModel

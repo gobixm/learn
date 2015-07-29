@@ -1,6 +1,6 @@
-﻿namespace Infotecs.Attika.AttikaGui.DTO
+﻿namespace Infotecs.Attika.AttikaGui.DataTransferObjects
 {
-    public class FaultDto
+    public sealed class FaultDto
     {
         public string Message { get; set; }
         public string Detail { get; set; }

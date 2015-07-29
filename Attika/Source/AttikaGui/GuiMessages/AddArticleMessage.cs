@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
-using Infotecs.Attika.AttikaGui.DTO;
+using Infotecs.Attika.AttikaGui.DataTransferObjects;
 
 namespace Infotecs.Attika.AttikaGui.GuiMessages
 {

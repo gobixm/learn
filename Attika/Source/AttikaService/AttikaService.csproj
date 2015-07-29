@@ -62,10 +62,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\ArticleDto.cs" />
-    <Compile Include="DTO\ArticleHeaderDto.cs" />
-    <Compile Include="DTO\CommentDto.cs" />
-    <Compile Include="DTO\WebFaultDto.cs" />
+    <Compile Include="DataTransferObjects\ArticleDto.cs" />
+    <Compile Include="DataTransferObjects\ArticleHeaderDto.cs" />
+    <Compile Include="DataTransferObjects\CommentDto.cs" />
+    <Compile Include="DataTransferObjects\WebFaultDto.cs" />
     <Compile Include="IArticleService.cs" />
     <Compile Include="Mapping\ArticleDtoConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
