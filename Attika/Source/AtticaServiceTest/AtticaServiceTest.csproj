@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq, Version=4.2.1507.118, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Moq.4.2.1507.0118\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -54,14 +58,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArticleServiceTest.cs" />
     <Compile Include="ArticleValidatorTest.cs" />
     <Compile Include="CommentValidatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AtticaDataModel\AtticaDataModel.csproj">
+      <Project>{FD6144C1-D0C6-4127-9862-FF9D5AFD1172}</Project>
+      <Name>AtticaDataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AttikaService\AttikaService.csproj">
       <Project>{53720DE0-DAA7-4D88-AB9E-A4BB5E5D5FB8}</Project>
       <Name>AttikaService</Name>
