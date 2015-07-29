@@ -65,10 +65,10 @@
     <Compile Include="Mappings\CommentMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ArticleHeader.cs" />
-    <Compile Include="Repos\ICommandRepo.cs" />
-    <Compile Include="Repos\IQueryRepo.cs" />
-    <Compile Include="Repos\StandardCommandRepo.cs" />
-    <Compile Include="Repos\StandardQueryRepo.cs" />
+    <Compile Include="Repositories\ICommandRepository.cs" />
+    <Compile Include="Repositories\IQueryRepository.cs" />
+    <Compile Include="Repositories\StandardCommandRepository.cs" />
+    <Compile Include="Repositories\StandardQueryRepository.cs" />
     <Compile Include="SessionHelper.cs" />
   </ItemGroup>
   <ItemGroup>

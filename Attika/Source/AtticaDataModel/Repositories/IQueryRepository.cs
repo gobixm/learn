@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Infotecs.Attika.AtticaDataModel.Repos
+namespace Infotecs.Attika.AtticaDataModel.Repositories
 {
-    public interface IQueryRepo
+    public interface IQueryRepository
     {
         Article GetArticle(Guid articleId);
         IEnumerable<Comment> GetComments(Guid articleId);

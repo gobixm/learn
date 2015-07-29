@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Infotecs.Attika.AtticaDataModel.Repos
+namespace Infotecs.Attika.AtticaDataModel.Repositories
 {
-    public interface ICommandRepo
+    public interface ICommandRepository
     {
         void CreateArticle(Article article);
         void CreateComment(Guid articleId, Comment comment);

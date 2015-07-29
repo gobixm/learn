@@ -1,4 +1,4 @@
-﻿using Infotecs.Attika.AtticaDataModel.Repos;
+﻿using Infotecs.Attika.AtticaDataModel.Repositories;
 using Ninject.Modules;
 
 namespace Infotecs.Attika.AttikaConsoleHost.Ninject
@@ -7,8 +7,8 @@ namespace Infotecs.Attika.AttikaConsoleHost.Ninject
     {
         public override void Load()
         {
-            Bind<ICommandRepo>().To<StandardCommandRepo>();
-            Bind<IQueryRepo>().To<StandardQueryRepo>();
+            Bind<ICommandRepository>().To<StandardCommandRepository>();
+            Bind<IQueryRepository>().To<StandardQueryRepository>();
         }
     }
 }

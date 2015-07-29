@@ -5,7 +5,7 @@ using System.Net;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using Infotecs.Attika.AtticaDataModel;
-using Infotecs.Attika.AtticaDataModel.Repos;
+using Infotecs.Attika.AtticaDataModel.Repositories;
 using Infotecs.Attika.AttikaService.DTO;
 using Infotecs.Attika.AttikaService.Validators;
 using Nelibur.ObjectMapper;
@@ -15,13 +15,13 @@ namespace Infotecs.Attika.AttikaService
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     public class ArticleService : IArticleService
     {
-        private readonly ICommandRepo _commandRepo;
-        private readonly IQueryRepo _queryRepo;
+        private readonly ICommandRepository _commandRepository;
+        private readonly IQueryRepository _queryRepository;
 
-        public ArticleService(ICommandRepo commandRepo, IQueryRepo queryRepo)
+        public ArticleService(ICommandRepository commandRepository, IQueryRepository queryRepository)
         {
-            _commandRepo = commandRepo;
-            _queryRepo = queryRepo;
+            _commandRepository = commandRepository;
+            _queryRepository = queryRepository;
             Configure();
         }
 
@@ -47,7 +47,7 @@ namespace Infotecs.Attika.AttikaService
             }
             try
             {
-                _commandRepo.CreateArticle(articleToSave);
+                _commandRepository.CreateArticle(articleToSave);
             }
             catch (Exception ex)
             {
@@ -68,7 +68,7 @@ namespace Infotecs.Attika.AttikaService
             }
             try
             {
-                _commandRepo.CreateComment(Guid.Parse(articleId), TinyMapper.Map<Comment>(comment));
+                _commandRepository.CreateComment(Guid.Parse(articleId), TinyMapper.Map<Comment>(comment));
             }
             catch (Exception ex)
             {
@@ -83,7 +83,7 @@ namespace Infotecs.Attika.AttikaService
             IEnumerable<ArticleHeader> headers;
             try
             {
-                headers = _queryRepo.GetHeaders();
+                headers = _queryRepository.GetHeaders();
             }
             catch (Exception ex)
             {
@@ -110,7 +110,7 @@ namespace Infotecs.Attika.AttikaService
             Article article;
             try
             {
-                article = _queryRepo.GetArticle(Guid.Parse(articleId));
+                article = _queryRepository.GetArticle(Guid.Parse(articleId));
             }
             catch (Exception ex)
             {
@@ -121,7 +121,7 @@ namespace Infotecs.Attika.AttikaService
             if (article == null)
             {
                 throw new WebFaultException<WebFaultDto>(
-                    new WebFaultDto("Ошибка при получении статьи", "Статьи с ID="+articleId+ " не существует"),
+                    new WebFaultDto("Ошибка при получении статьи", "Статьи с ID=" + articleId + " не существует"),
                     HttpStatusCode.NotFound);
             }
             try
@@ -140,7 +140,7 @@ namespace Infotecs.Attika.AttikaService
         {
             try
             {
-                _commandRepo.DeleteArticle(articleId);
+                _commandRepository.DeleteArticle(articleId);
             }
             catch (Exception ex)
             {
@@ -154,7 +154,7 @@ namespace Infotecs.Attika.AttikaService
         {
             try
             {
-                _commandRepo.DeleteComment(commentId);
+                _commandRepository.DeleteComment(commentId);
             }
             catch (Exception ex)
             {

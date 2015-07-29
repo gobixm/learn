@@ -5,13 +5,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
 
-namespace Infotecs.Attika.AtticaDataModel.Repos
+namespace Infotecs.Attika.AtticaDataModel.Repositories
 {
-    public sealed class StandardQueryRepo : IQueryRepo
+    public sealed class StandardQueryRepository : IQueryRepository
     {
         private readonly string _connectionString;
 
-        public StandardQueryRepo()
+        public StandardQueryRepository()
         {
             _connectionString = ConfigurationManager.ConnectionStrings["dapper"].ConnectionString;
         }

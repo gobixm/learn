@@ -1,9 +1,9 @@
 ﻿using System;
 using NHibernate;
 
-namespace Infotecs.Attika.AtticaDataModel.Repos
+namespace Infotecs.Attika.AtticaDataModel.Repositories
 {
-    public sealed class StandardCommandRepo : ICommandRepo
+    public sealed class StandardCommandRepository : ICommandRepository
     {
         public void CreateArticle(Article article)
         {

@@ -14,13 +14,16 @@ namespace Infotecs.Attika.AtticaDataModel
         {
             get
             {
-                if (_sessionFactory != null) return _sessionFactory;
-                var configuration = new Configuration();
-                configuration.Configure();
-                configuration.AddAssembly(typeof (SessionHelper).Assembly);
-                HbmMapping mapping = GetMappings();
-                configuration.AddDeserializedMapping(mapping, null);
-                _sessionFactory = configuration.BuildSessionFactory();
+                if (_sessionFactory == null)
+                {
+                    var configuration = new Configuration();
+                    configuration.Configure();
+                    configuration.AddAssembly(typeof (SessionHelper).Assembly);
+                    HbmMapping mapping = GetMappings();
+                    configuration.AddDeserializedMapping(mapping, null);
+                    _sessionFactory = configuration.BuildSessionFactory();
+                    return _sessionFactory;
+                }
                 return _sessionFactory;
             }
         }
