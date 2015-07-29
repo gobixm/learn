@@ -4,7 +4,7 @@ using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
 using Ninject;
 
-namespace Infotecs.Attika.AttikaConsoleHost.Ninject
+namespace Infotecs.Attika.AttikaConsoleHost.InstanceProviders
 {
     public class NinjectInstanceProvider : IInstanceProvider
     {

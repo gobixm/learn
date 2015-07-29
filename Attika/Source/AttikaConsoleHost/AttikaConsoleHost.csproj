@@ -48,12 +48,17 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TinyMapper, Version=2.0.0.30, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\TinyMapper.2.0.1\lib\net45\TinyMapper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ninject\DefaultModule.cs" />
-    <Compile Include="Ninject\NinjectBehaviorAttribute.cs" />
-    <Compile Include="Ninject\NinjectBehaviorExtensionElement.cs" />
-    <Compile Include="Ninject\NinjectInstanceProvider.cs" />
+    <Compile Include="Configurations\ApplicationRoots\DefaultModule.cs" />
+    <Compile Include="Extensions\Attributes\NinjectBehaviorAttribute.cs" />
+    <Compile Include="Extensions\NinjectBehaviorExtensionElement.cs" />
+    <Compile Include="InstanceProviders\NinjectInstanceProvider.cs" />
+    <Compile Include="Mappings\StandardTinyMapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,6 +84,7 @@
       <Name>AttikaService</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

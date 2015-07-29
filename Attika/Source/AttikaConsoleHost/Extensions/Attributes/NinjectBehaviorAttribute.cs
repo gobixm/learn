@@ -4,9 +4,11 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
+using Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots;
+using Infotecs.Attika.AttikaConsoleHost.InstanceProviders;
 using Ninject;
 
-namespace Infotecs.Attika.AttikaConsoleHost.Ninject
+namespace Infotecs.Attika.AttikaConsoleHost.Extensions.Attributes
 {
     public class NinjectBehaviorAttribute : Attribute, IServiceBehavior
     {

@@ -7,8 +7,8 @@ using System.ServiceModel.Web;
 using Infotecs.Attika.AtticaDataModel;
 using Infotecs.Attika.AtticaDataModel.Repositories;
 using Infotecs.Attika.AttikaService.DataTransferObjects;
+using Infotecs.Attika.AttikaService.Mappings;
 using Infotecs.Attika.AttikaService.Validators;
-using Nelibur.ObjectMapper;
 
 namespace Infotecs.Attika.AttikaService
 {
@@ -16,13 +16,14 @@ namespace Infotecs.Attika.AttikaService
     public class ArticleService : IArticleService
     {
         private readonly ICommandRepository _commandRepository;
+        private readonly IMapper _mapper;
         private readonly IQueryRepository _queryRepository;
 
-        public ArticleService(ICommandRepository commandRepository, IQueryRepository queryRepository)
+        public ArticleService(ICommandRepository commandRepository, IQueryRepository queryRepository, IMapper mapper)
         {
             _commandRepository = commandRepository;
             _queryRepository = queryRepository;
-            Configure();
+            _mapper = mapper;
         }
 
         public void NewArticle(ArticleDto article)
@@ -38,7 +39,7 @@ namespace Infotecs.Attika.AttikaService
             Article articleToSave;
             try
             {
-                articleToSave = TinyMapper.Map<Article>(article);
+                articleToSave = _mapper.Map<Article>(article);
             }
             catch (Exception ex)
             {
@@ -68,7 +69,7 @@ namespace Infotecs.Attika.AttikaService
             }
             try
             {
-                _commandRepository.CreateComment(Guid.Parse(articleId), TinyMapper.Map<Comment>(comment));
+                _commandRepository.CreateComment(Guid.Parse(articleId), _mapper.Map<Comment>(comment));
             }
             catch (Exception ex)
             {
@@ -94,7 +95,7 @@ namespace Infotecs.Attika.AttikaService
 
             try
             {
-                IEnumerable<ArticleHeaderDto> mappedHeaders = headers.Select(x => TinyMapper.Map<ArticleHeaderDto>(x));
+                IEnumerable<ArticleHeaderDto> mappedHeaders = headers.Select(_mapper.Map<ArticleHeaderDto>);
                 return mappedHeaders.ToList();
             }
             catch (Exception ex)
@@ -126,7 +127,7 @@ namespace Infotecs.Attika.AttikaService
             }
             try
             {
-                return TinyMapper.Map<ArticleDto>(article);
+                return _mapper.Map<ArticleDto>(article);
             }
             catch (Exception ex)
             {
@@ -162,12 +163,6 @@ namespace Infotecs.Attika.AttikaService
                     new WebFaultDto("Ошибка при удалении комментария", ex.Message),
                     HttpStatusCode.InternalServerError);
             }
-        }
-
-        private void Configure()
-        {
-            TinyMapper.Bind<ArticleDto, Article>();
-            TinyMapper.Bind<CommentDto, Comment>();
         }
     }
 }

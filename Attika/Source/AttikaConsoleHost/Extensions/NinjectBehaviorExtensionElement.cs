@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ServiceModel.Configuration;
+using Infotecs.Attika.AttikaConsoleHost.Extensions.Attributes;
 
-namespace Infotecs.Attika.AttikaConsoleHost.Ninject
+namespace Infotecs.Attika.AttikaConsoleHost.Extensions
 {
 // ReSharper disable UnusedMember.Global
 // Required for ninject behavior extension
