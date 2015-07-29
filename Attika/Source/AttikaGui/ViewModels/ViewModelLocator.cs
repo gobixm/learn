@@ -1,20 +1,9 @@
-﻿/*
-  In App.xaml:
-  <Application.Resources>
-      <vm:ViewModelLocatorTemplate xmlns:vm="clr-namespace:AttikaGui.ViewModel"
-                                   x:Key="Locator" />
-  </Application.Resources>
-  
-  In the View:
-  DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
-*/
-
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using GalaSoft.MvvmLight;
 using Infotecs.Attika.AttikaGui.NinjectModules;
 using Ninject;
 
-namespace Infotecs.Attika.AttikaGui.ViewModel
+namespace Infotecs.Attika.AttikaGui.ViewModels
 {
     public sealed class ViewModelLocator
     {

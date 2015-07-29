@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Infotecs.Attika.AttikaGui.DataTransferObjects;
 
-namespace Infotecs.Attika.AttikaGui.DesignTime
+namespace Infotecs.Attika.AttikaGui.DesignTimes
 {
     public static class DesignDataFixture
     {

@@ -96,7 +96,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DesignTime\DesignDataFixture.cs" />
+    <Compile Include="DesignTimes\DesignDataFixture.cs" />
     <Compile Include="DataTransferObjects\ArticleDto.cs" />
     <Compile Include="DataTransferObjects\ArticleHeaderDto.cs" />
     <Compile Include="DataTransferObjects\CommentDto.cs" />
@@ -113,12 +113,12 @@
     <Compile Include="DataServices\WcfJsonSerializer.cs" />
     <Compile Include="NinjectModules\DesignTimeModule.cs" />
     <Compile Include="NinjectModules\RunTimeModule.cs" />
-    <Compile Include="ViewModel\ArticleHeaderViewModel.cs" />
-    <Compile Include="ViewModel\CommentViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\ArticleViewModel.cs" />
-    <Compile Include="ViewModel\NavigationViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModels\ArticleHeaderViewModel.cs" />
+    <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ArticleViewModel.cs" />
+    <Compile Include="ViewModels\NavigationViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\ArticleHeaderView.xaml.cs">
       <DependentUpon>ArticleHeaderView.xaml</DependentUpon>
     </Compile>

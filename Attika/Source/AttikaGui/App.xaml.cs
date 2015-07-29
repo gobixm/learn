@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using GalaSoft.MvvmLight.Threading;
 
-namespace AttikaGui
+namespace Infotecs.Attika.AttikaGui
 {
     /// <summary>
     ///     Interaction logic for App.xaml

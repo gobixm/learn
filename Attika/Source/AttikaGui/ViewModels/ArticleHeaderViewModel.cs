@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Infotecs.Attika.AttikaGui.DataTransferObjects;
 using Infotecs.Attika.AttikaGui.GuiMessages;
 
-namespace Infotecs.Attika.AttikaGui.ViewModel
+namespace Infotecs.Attika.AttikaGui.ViewModels
 {
     public sealed class ArticleHeaderViewModel : ViewModelBase
     {

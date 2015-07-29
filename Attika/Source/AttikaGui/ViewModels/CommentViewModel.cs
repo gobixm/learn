@@ -7,7 +7,7 @@ using Infotecs.Attika.AttikaGui.DataServices;
 using Infotecs.Attika.AttikaGui.DataTransferObjects;
 using Infotecs.Attika.AttikaGui.GuiMessages;
 
-namespace Infotecs.Attika.AttikaGui.ViewModel
+namespace Infotecs.Attika.AttikaGui.ViewModels
 {
     public sealed class CommentViewModel : ViewModelBase
     {

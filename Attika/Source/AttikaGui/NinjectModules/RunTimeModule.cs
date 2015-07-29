@@ -1,5 +1,5 @@
 ﻿using Infotecs.Attika.AttikaGui.DataServices;
-using Infotecs.Attika.AttikaGui.ViewModel;
+using Infotecs.Attika.AttikaGui.ViewModels;
 using Ninject.Modules;
 
 namespace Infotecs.Attika.AttikaGui.NinjectModules

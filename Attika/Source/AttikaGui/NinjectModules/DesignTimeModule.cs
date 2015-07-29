@@ -2,8 +2,8 @@
 using System.Linq;
 using Infotecs.Attika.AttikaGui.DataServices;
 using Infotecs.Attika.AttikaGui.DataTransferObjects;
-using Infotecs.Attika.AttikaGui.DesignTime;
-using Infotecs.Attika.AttikaGui.ViewModel;
+using Infotecs.Attika.AttikaGui.DesignTimes;
+using Infotecs.Attika.AttikaGui.ViewModels;
 using Moq;
 using Ninject.Modules;
 

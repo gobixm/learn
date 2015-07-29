@@ -72,9 +72,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\AtticaDataModel\AtticaDataModel.csproj">
       <Project>{fd6144c1-d0c6-4127-9862-ff9d5afd1172}</Project>
       <Name>AtticaDataModel</Name>

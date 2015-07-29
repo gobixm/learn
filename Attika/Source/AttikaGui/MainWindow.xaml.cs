@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Infotecs.Attika.AttikaGui.ViewModel;
+using Infotecs.Attika.AttikaGui.ViewModels;
 
 namespace AttikaGui
 {

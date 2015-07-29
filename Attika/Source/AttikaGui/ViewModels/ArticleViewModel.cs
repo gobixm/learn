@@ -11,7 +11,7 @@ using Infotecs.Attika.AttikaGui.DataTransferObjects;
 using Infotecs.Attika.AttikaGui.GuiMessages;
 using NLog;
 
-namespace Infotecs.Attika.AttikaGui.ViewModel
+namespace Infotecs.Attika.AttikaGui.ViewModels
 {
     public sealed class ArticleViewModel : ViewModelBase
     {
