@@ -7,7 +7,7 @@ using Infotecs.Attika.AttikaGui.ViewModel;
 using Moq;
 using Ninject.Modules;
 
-namespace Infotecs.Attika.AttikaGui.Ninject
+namespace Infotecs.Attika.AttikaGui.NinjectModules
 {
     public sealed class DesignTimeModule : NinjectModule
     {

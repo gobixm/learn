@@ -13,15 +13,9 @@ using NLog;
 
 namespace Infotecs.Attika.AttikaGui.ViewModel
 {
-    /// <summary>
-    ///     This class contains properties that a View can data bind to.
-    ///     <para>
-    ///         See http://www.galasoft.ch/mvvm
-    ///     </para>
-    /// </summary>
     public sealed class ArticleViewModel : ViewModelBase
     {
-        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IDataService _dataService;
         private RelayCommand _addCommentCommand;
         private ArticleDto _articleDto;
@@ -150,7 +144,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
             catch (DataServiceException ex)
             {
                 Messenger.Default.Send(new ChangeStateMessage {State = ex.ToString()});
-                _logger.Warn(string.Format("Ошибка при попытке получения статьи с Id={0} : {1}", guid, ex));
+                Logger.Warn("Ошибка при попытке получения статьи с Id={0} : {1}", guid, ex);
             }
         }
 

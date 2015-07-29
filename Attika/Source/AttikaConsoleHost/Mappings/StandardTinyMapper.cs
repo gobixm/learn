@@ -23,10 +23,9 @@ namespace Infotecs.Attika.AttikaConsoleHost.Mappings
             return this;
         }
 
-        public IMapper Configure()
+        public void Configure()
         {
             _configuration();
-            return this;
         }
     }
 }

@@ -6,12 +6,6 @@ using Infotecs.Attika.AttikaGui.GuiMessages;
 
 namespace Infotecs.Attika.AttikaGui.ViewModel
 {
-    /// <summary>
-    ///     This class contains properties that the main View can data bind to.
-    ///     <para>
-    ///         See http://www.galasoft.ch/mvvm
-    ///     </para>
-    /// </summary>
     public sealed class MainViewModel : ViewModelBase
     {
         private readonly IDataService _dataService;
@@ -59,7 +53,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
 
         private void OnViewArticle(ViewArticleMessage message)
         {
-            ArticleDto article = null;
+            ArticleDto article;
             try
             {
                 article = _dataService.GetArticle(message.ArticleId);

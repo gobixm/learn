@@ -5,7 +5,7 @@ using System.Linq;
 using Infotecs.Attika.AtticaDataModel;
 using Infotecs.Attika.AttikaService.DataTransferObjects;
 
-namespace Infotecs.Attika.AttikaService.Mapping
+namespace Infotecs.Attika.AttikaService.Mappings
 {
     public class ArticleDtoConverter : TypeConverter
     {

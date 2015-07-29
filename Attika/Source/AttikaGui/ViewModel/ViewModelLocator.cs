@@ -11,18 +11,11 @@
 
 using System.Diagnostics.CodeAnalysis;
 using GalaSoft.MvvmLight;
-using Infotecs.Attika.AttikaGui.Ninject;
+using Infotecs.Attika.AttikaGui.NinjectModules;
 using Ninject;
 
 namespace Infotecs.Attika.AttikaGui.ViewModel
 {
-    /// <summary>
-    ///     This class contains static references to all the view models in the
-    ///     application and provides an entry point for the bindings.
-    ///     <para>
-    ///         See http://www.galasoft.ch/mvvm
-    ///     </para>
-    /// </summary>
     public sealed class ViewModelLocator
     {
         private static readonly IKernel Kernel;
@@ -35,9 +28,6 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
                 Kernel = new StandardKernel(new RunTimeModule());
         }
 
-        /// <summary>
-        ///     Gets the Main property.
-        /// </summary>
         [SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
@@ -46,9 +36,6 @@ namespace Infotecs.Attika.AttikaGui.ViewModel
             get { return Kernel.Get<MainViewModel>(); }
         }
 
-        /// <summary>
-        ///     Cleans up all the resources.
-        /// </summary>
         public static void Cleanup()
         {
         }

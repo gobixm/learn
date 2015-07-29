@@ -111,8 +111,8 @@
     <Compile Include="DataServices\IDataSerializer.cs" />
     <Compile Include="DataServices\IDataService.cs" />
     <Compile Include="DataServices\WcfJsonSerializer.cs" />
-    <Compile Include="Ninject\DesignTimeModule.cs" />
-    <Compile Include="Ninject\RunTimeModule.cs" />
+    <Compile Include="NinjectModules\DesignTimeModule.cs" />
+    <Compile Include="NinjectModules\RunTimeModule.cs" />
     <Compile Include="ViewModel\ArticleHeaderViewModel.cs" />
     <Compile Include="ViewModel\CommentViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

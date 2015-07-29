@@ -9,12 +9,6 @@ using Infotecs.Attika.AttikaGui.GuiMessages;
 
 namespace Infotecs.Attika.AttikaGui.ViewModel
 {
-    /// <summary>
-    ///     This class contains properties that a View can data bind to.
-    ///     <para>
-    ///         See http://www.galasoft.ch/mvvm
-    ///     </para>
-    /// </summary>
     public sealed class NavigationViewModel : ViewModelBase
     {
         private readonly IDataService _dataService;

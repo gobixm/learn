@@ -6,6 +6,6 @@ namespace Infotecs.Attika.AttikaService.Mappings
     {
         T Map<T>(object source);
         IMapper Configuration(Action configure);
-        IMapper Configure();
+        void Configure();
     }
 }

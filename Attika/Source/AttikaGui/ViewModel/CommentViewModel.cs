@@ -9,21 +9,12 @@ using Infotecs.Attika.AttikaGui.GuiMessages;
 
 namespace Infotecs.Attika.AttikaGui.ViewModel
 {
-    /// <summary>
-    ///     This class contains properties that a View can data bind to.
-    ///     <para>
-    ///         See http://www.galasoft.ch/mvvm
-    ///     </para>
-    /// </summary>
     public sealed class CommentViewModel : ViewModelBase
     {
         private readonly IDataService _dataService;
         private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
 
-        /// <summary>
-        ///     Initializes a new instance of the CommentViewModel class.
-        /// </summary>
         public CommentViewModel(CommentDto comment, IDataService dataService)
         {
             Comment = comment;
