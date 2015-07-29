@@ -6,8 +6,8 @@ namespace Infotecs.Attika.AttikaConsoleHost.Mappings
 {
     public sealed class StandardTinyMapper : IMapper
     {
+        private static readonly object LockObject = new object();
         private Action _configuration;
-        private static object LockObject = new object();
 
         public T Map<T>(object source)
         {
@@ -16,6 +16,7 @@ namespace Infotecs.Attika.AttikaConsoleHost.Mappings
                 return TinyMapper.Map<T>(source);
             }
         }
+
         public IMapper Configuration(Action configuration)
         {
             _configuration = configuration;
