@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Net;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
@@ -11,11 +10,11 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
     {
         public delegate BaseMessage HandleMethodDelegate(BaseMessage message);
 
-        private readonly IConfiguration _configuration;
+        private readonly IMessageProcessorConfiguration _messageProcessorConfiguration;
 
-        public MessageProcessor(IConfiguration configuration)
+        public MessageProcessor(IMessageProcessorConfiguration messageProcessorConfiguration)
         {
-            _configuration = configuration;
+            _messageProcessorConfiguration = messageProcessorConfiguration;
         }
 
         public Message HandleMessage(Message message)
@@ -23,8 +22,8 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
             if (WebOperationContext.Current == null)
                 return null;
 
-            UriTemplateMatch templateMatch = WebOperationContext.Current.IncomingRequest.UriTemplateMatch;
-            NameValueCollection queryParameters = templateMatch.QueryParameters;
+            var templateMatch = WebOperationContext.Current.IncomingRequest.UriTemplateMatch;
+            var queryParameters = templateMatch.QueryParameters;
             string messageHeader;
             try
             {
@@ -35,20 +34,20 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
                 throw new WebFaultException(HttpStatusCode.BadRequest);
             }
 
-            BaseHandler handler = _configuration.GetMessageHandler(messageHeader);
+            var handler = _messageProcessorConfiguration.GetMessageHandler(messageHeader);
 
             if (handler != null)
             {
-                InOutMessageType messageType = _configuration.GetMessageType(messageHeader);
+                var messageType = _messageProcessorConfiguration.GetMessageType(messageHeader);
                 if (messageType != null)
                 {
                     BaseMessage messageObject = null;
                     if (WebOperationContext.Current != null)
                     {
-                        NameValueCollection queryParams =
+                        var queryParams =
                             WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters;
                         messageObject = (BaseMessage) JsonMessageSerializer.DesearizeNameValueCollection(messageType.In,
-                                                                                                         queryParams);
+                            queryParams);
                     }
 //                    
 //                    {
@@ -56,7 +55,7 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
 //                    }
                     if (messageObject != null)
                     {
-                        BaseMessage resultMessage = handler.Handle(messageObject);
+                        var resultMessage = handler.Handle(messageObject);
                         if (resultMessage != null)
                             return JsonMessageSerializer.Serialize(messageType.Out, resultMessage);
                     }

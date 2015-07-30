@@ -8,15 +8,21 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
 {
     public sealed class ArticleHandler : BaseHandler
     {
+        private readonly ICommandRepository _commandRepository;
         private readonly IMapper _mapper;
         private readonly IQueryRepository _queryRepository;
-        private ICommandRepository _commandRepository;
 
         public ArticleHandler(IQueryRepository queryRepository, ICommandRepository commandRepository, IMapper mapper)
         {
             _queryRepository = queryRepository;
             _commandRepository = commandRepository;
             _mapper = mapper;
+        }
+
+        public override object Clone()
+        {
+            var handler = new ArticleHandler(_queryRepository, _commandRepository, _mapper);
+            return handler;
         }
 
         public BaseMessage Handle(GetArticleRequest getArticleRequest)
@@ -33,7 +39,7 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
             if (article == null)
             {
                 return new FaultMessage("Ошибка при получении статьи",
-                                        "Статьи с ID=" + getArticleRequest.Id + " не существует");
+                    "Статьи с ID=" + getArticleRequest.Id + " не существует");
             }
             try
             {

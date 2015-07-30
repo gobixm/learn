@@ -76,9 +76,9 @@
     <Compile Include="Messages\GetArticleResponse.cs" />
     <Compile Include="Messages\Handlers\ArticleHandler.cs" />
     <Compile Include="Messages\Handlers\BaseHandler.cs" />
-    <Compile Include="Messages\Handlers\Configuration.cs" />
+    <Compile Include="Messages\Handlers\MessageProcessorConfiguration.cs" />
     <Compile Include="Messages\Handlers\InOutMessageType.cs" />
-    <Compile Include="Messages\Handlers\IConfiguration.cs" />
+    <Compile Include="Messages\Handlers\IMessageProcessorConfiguration.cs" />
     <Compile Include="Messages\Handlers\IMessageProcessor.cs" />
     <Compile Include="Messages\Handlers\MessageProcessor.cs" />
     <Compile Include="Messages\Wcf\Serializers\JsonMessageSerializer.cs" />

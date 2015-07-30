@@ -1,7 +1,14 @@
-﻿namespace Infotecs.Attika.AttikaService.Messages.Handlers
+﻿using System;
+
+namespace Infotecs.Attika.AttikaService.Messages.Handlers
 {
-    public class BaseHandler
+    public class BaseHandler : ICloneable
     {
+        public virtual object Clone()
+        {
+            return new BaseHandler();
+        }
+
         public BaseMessage Handle(BaseMessage message)
         {
             dynamic handler = this;

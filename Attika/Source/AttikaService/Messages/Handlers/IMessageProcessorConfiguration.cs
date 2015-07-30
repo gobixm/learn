@@ -1,6 +1,6 @@
 ﻿namespace Infotecs.Attika.AttikaService.Messages.Handlers
 {
-    public interface IConfiguration
+    public interface IMessageProcessorConfiguration
     {
         void RegisterHandler(BaseHandler handler);
         BaseHandler GetMessageHandler(string messageHeader);
