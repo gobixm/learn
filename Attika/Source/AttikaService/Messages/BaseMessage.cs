@@ -1,5 +1,8 @@
-﻿namespace Infotecs.Attika.AttikaService.Messages
+﻿using System.Runtime.Serialization;
+
+namespace Infotecs.Attika.AttikaService.Messages
 {
+    [DataContract]
     public abstract class BaseMessage
     {
     }

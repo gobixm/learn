@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.ServiceModel.Web;
 using Infotecs.Attika.AtticaDataModel;
 using Infotecs.Attika.AtticaDataModel.Repositories;
 using Infotecs.Attika.AttikaService.DataTransferObjects;
@@ -25,7 +29,7 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
             return handler;
         }
 
-        public BaseMessage Handle(GetArticleRequest getArticleRequest)
+        public GetArticleResponse Handle(GetArticleRequest getArticleRequest)
         {
             Article article;
             try
@@ -34,12 +38,16 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
             }
             catch (Exception ex)
             {
-                return new FaultMessage("Ошибка при получении статьи из репозитория", ex.Message);
+                throw new WebFaultException<WebFaultDto>(
+                    new WebFaultDto("Ошибка при получении статьи из репозитория", ex.Message),
+                    HttpStatusCode.InternalServerError);
             }
             if (article == null)
             {
-                return new FaultMessage("Ошибка при получении статьи",
-                    "Статьи с ID=" + getArticleRequest.Id + " не существует");
+                throw new WebFaultException<WebFaultDto>(
+                    new WebFaultDto("Ошибка при получении статьи",
+                                    "Статьи с ID=" + getArticleRequest.Id + " не существует"),
+                    HttpStatusCode.BadRequest);
             }
             try
             {
@@ -47,7 +55,36 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
             }
             catch (Exception ex)
             {
-                return new FaultMessage("Ошибка при маппинге статьи", ex.Message);
+                throw new WebFaultException<WebFaultDto>(
+                    new WebFaultDto("Ошибка при маппинге статьи", ex.Message),
+                    HttpStatusCode.InternalServerError);
+            }
+        }
+
+        public GetArticleHeadersResponse Handle(GetArticleHeadersRequest getArticleHeadersRequest)
+        {
+            IEnumerable<ArticleHeader> headers;
+            try
+            {
+                headers = _queryRepository.GetHeaders();
+            }
+            catch (Exception ex)
+            {
+                throw new WebFaultException<WebFaultDto>(
+                    new WebFaultDto("Ошибка при получении списка статей из репозитория", ex.Message),
+                    HttpStatusCode.InternalServerError);
+            }
+
+            try
+            {
+                IEnumerable<ArticleHeaderDto> mappedHeaders = headers.Select(_mapper.Map<ArticleHeaderDto>);
+                return new GetArticleHeadersResponse {Headers = mappedHeaders.ToList()};
+            }
+            catch (Exception ex)
+            {
+                throw new WebFaultException<WebFaultDto>(
+                    new WebFaultDto("Ошибка при маппинге списка статей", ex.Message),
+                    HttpStatusCode.InternalServerError);
             }
         }
     }

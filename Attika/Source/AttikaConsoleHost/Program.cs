@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.ServiceModel;
 using Infotecs.Attika.AtticaDataModel;
 using Infotecs.Attika.AttikaService;
@@ -10,12 +11,23 @@ namespace Infotecs.Attika.AttikaConsoleHost
         private static void Main(string[] args)
         {
             SessionHelper.PrepareDatabase();
-            using (var attika = new ServiceHost(typeof (ArticleService)))
+
+            ServiceHost service;
+
+            if ((from a in args where a == "-classic" select a).Any())
             {
-                attika.Open();
-                Console.ReadKey();
-                attika.Close();
+                Console.WriteLine("Classic service");
+                service = new ServiceHost(typeof (ArticleService));
             }
+            else
+            {
+                Console.WriteLine("Message based service");
+                service = new ServiceHost(typeof (ArticleApiService));
+            }
+            service.Open();
+            Console.WriteLine("Service started. Press any key to stop service.");
+            Console.ReadKey();
+            service.Close();
         }
     }
 }

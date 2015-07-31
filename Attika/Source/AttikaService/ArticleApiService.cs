@@ -5,7 +5,7 @@ using Infotecs.Attika.AttikaService.Messages.Handlers;
 namespace Infotecs.Attika.AttikaService
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
-    public class ArticleApiService : IArticleApiService
+    public sealed class ArticleApiService : IArticleApiService
     {
         private readonly IMessageProcessor _messageProcessor;
 
@@ -14,9 +14,9 @@ namespace Infotecs.Attika.AttikaService
             _messageProcessor = messageProcessor;
         }
 
-        public void Get(Message message)
+        public Message Get(Message message)
         {
-            _messageProcessor.HandleMessage(message);
+            return _messageProcessor.HandleMessage(message);
         }
 
         public void Post(Message message)

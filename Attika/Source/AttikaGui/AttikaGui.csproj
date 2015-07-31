@@ -96,21 +96,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataServices\MessagedDataService.cs" />
     <Compile Include="DesignTimes\DesignDataFixture.cs" />
     <Compile Include="DataTransferObjects\ArticleDto.cs" />
     <Compile Include="DataTransferObjects\ArticleHeaderDto.cs" />
     <Compile Include="DataTransferObjects\CommentDto.cs" />
     <Compile Include="DataTransferObjects\FaultDto.cs" />
-    <Compile Include="GuiMessages\AddArticleMessage.cs" />
-    <Compile Include="GuiMessages\ChangeStateMessage.cs" />
-    <Compile Include="GuiMessages\DeleteArticleMessage.cs" />
-    <Compile Include="GuiMessages\RefreshHeaderListMessage.cs" />
-    <Compile Include="GuiMessages\ViewArticleMessage.cs" />
+    <Compile Include="Messages\Gui\AddArticleMessage.cs" />
+    <Compile Include="Messages\Gui\ChangeStateMessage.cs" />
+    <Compile Include="Messages\Gui\DeleteArticleMessage.cs" />
+    <Compile Include="Messages\Gui\RefreshHeaderListMessage.cs" />
+    <Compile Include="Messages\Gui\ViewArticleMessage.cs" />
     <Compile Include="DataServices\DataService.cs" />
     <Compile Include="DataServices\DataServiceException.cs" />
     <Compile Include="DataServices\IDataSerializer.cs" />
     <Compile Include="DataServices\IDataService.cs" />
     <Compile Include="DataServices\WcfJsonSerializer.cs" />
+    <Compile Include="Messages\Wcf\GetArticleHeadersResponse.cs" />
+    <Compile Include="Messages\Wcf\GetArticleResponse.cs" />
     <Compile Include="NinjectModules\DesignTimeModule.cs" />
     <Compile Include="NinjectModules\RunTimeModule.cs" />
     <Compile Include="ViewModels\ArticleHeaderViewModel.cs" />

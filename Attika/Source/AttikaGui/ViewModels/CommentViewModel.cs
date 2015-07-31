@@ -5,7 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Infotecs.Attika.AttikaGui.DataServices;
 using Infotecs.Attika.AttikaGui.DataTransferObjects;
-using Infotecs.Attika.AttikaGui.GuiMessages;
+using Infotecs.Attika.AttikaGui.Messages.Gui;
 
 namespace Infotecs.Attika.AttikaGui.ViewModels
 {

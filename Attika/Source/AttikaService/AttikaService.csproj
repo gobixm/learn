@@ -73,6 +73,8 @@
     <Compile Include="Mappings\ArticleDtoConverter.cs" />
     <Compile Include="Mappings\IMapper.cs" />
     <Compile Include="Messages\FaultMessage.cs" />
+    <Compile Include="Messages\GetArticleHeadersRequest.cs" />
+    <Compile Include="Messages\GetArticleHeadersResponse.cs" />
     <Compile Include="Messages\GetArticleResponse.cs" />
     <Compile Include="Messages\Handlers\ArticleHandler.cs" />
     <Compile Include="Messages\Handlers\BaseHandler.cs" />

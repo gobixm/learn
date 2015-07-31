@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Net;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
@@ -6,7 +7,7 @@ using Infotecs.Attika.AttikaService.Messages.Wcf.Serializers;
 
 namespace Infotecs.Attika.AttikaService.Messages.Handlers
 {
-    public class MessageProcessor : IMessageProcessor
+    public sealed class MessageProcessor : IMessageProcessor
     {
         public delegate BaseMessage HandleMethodDelegate(BaseMessage message);
 
@@ -22,8 +23,8 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
             if (WebOperationContext.Current == null)
                 return null;
 
-            var templateMatch = WebOperationContext.Current.IncomingRequest.UriTemplateMatch;
-            var queryParameters = templateMatch.QueryParameters;
+            UriTemplateMatch templateMatch = WebOperationContext.Current.IncomingRequest.UriTemplateMatch;
+            NameValueCollection queryParameters = templateMatch.QueryParameters;
             string messageHeader;
             try
             {
@@ -34,30 +35,32 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
                 throw new WebFaultException(HttpStatusCode.BadRequest);
             }
 
-            var handler = _messageProcessorConfiguration.GetMessageHandler(messageHeader);
+            BaseHandler handler = _messageProcessorConfiguration.GetMessageHandler(messageHeader);
 
             if (handler != null)
             {
-                var messageType = _messageProcessorConfiguration.GetMessageType(messageHeader);
+                InOutMessageType messageType = _messageProcessorConfiguration.GetMessageType(messageHeader);
                 if (messageType != null)
                 {
-                    BaseMessage messageObject = null;
-                    if (WebOperationContext.Current != null)
+                    BaseMessage messageObject;
+
+                    if (WebOperationContext.Current.IncomingRequest.Method == "GET")
                     {
-                        var queryParams =
-                            WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters;
                         messageObject = (BaseMessage) JsonMessageSerializer.DesearizeNameValueCollection(messageType.In,
-                            queryParams);
+                                                                                                         queryParameters);
                     }
-//                    
-//                    {
-//                        messageObject = JsonMessageSerializer.Desearize(message, handlerData.MessageType);
-//                    }
+                    else
+                    {
+                        messageObject = (BaseMessage) JsonMessageSerializer.Desearize(message, messageType.In);
+                    }
                     if (messageObject != null)
                     {
-                        var resultMessage = handler.Handle(messageObject);
+                        BaseMessage resultMessage = handler.Handle(messageObject);
                         if (resultMessage != null)
-                            return JsonMessageSerializer.Serialize(messageType.Out, resultMessage);
+                        {
+                            Message mess = JsonMessageSerializer.Serialize(messageType.Out, resultMessage);
+                            return mess;
+                        }
                     }
                 }
                 return null;

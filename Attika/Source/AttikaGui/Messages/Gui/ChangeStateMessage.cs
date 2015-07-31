@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 
-namespace Infotecs.Attika.AttikaGui.GuiMessages
+namespace Infotecs.Attika.AttikaGui.Messages.Gui
 {
     public sealed class ChangeStateMessage : MessageBase
     {

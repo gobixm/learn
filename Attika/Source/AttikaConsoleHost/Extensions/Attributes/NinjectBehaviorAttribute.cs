@@ -27,6 +27,7 @@ namespace Infotecs.Attika.AttikaConsoleHost.Extensions.Attributes
             Type serviceType = serviceDescription.ServiceType;
             IInstanceProvider provider = new NinjectInstanceProvider(serviceType,
                                                                      new StandardKernel(new DefaultModule()));
+
             foreach (ChannelDispatcherBase channelDispatcherBase in serviceHostBase.ChannelDispatchers)
             {
                 var channelDispatcher = (ChannelDispatcher) channelDispatcherBase;

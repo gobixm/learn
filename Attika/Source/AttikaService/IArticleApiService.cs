@@ -12,7 +12,7 @@ namespace Infotecs.Attika.AttikaService
             UriTemplate = "api/get",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json)]
-        void Get(Message message);
+        Message Get(Message message);
 
         [OperationContract]
         [WebInvoke(Method = "POST",

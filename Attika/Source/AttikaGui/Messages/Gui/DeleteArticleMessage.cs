@@ -1,9 +1,9 @@
 ﻿using System;
 using GalaSoft.MvvmLight.Messaging;
 
-namespace Infotecs.Attika.AttikaGui.GuiMessages
+namespace Infotecs.Attika.AttikaGui.Messages.Gui
 {
-    public class DeleteArticleMessage : MessageBase
+    public sealed class DeleteArticleMessage : MessageBase
     {
         public Guid ArticleId { get; set; }
     }

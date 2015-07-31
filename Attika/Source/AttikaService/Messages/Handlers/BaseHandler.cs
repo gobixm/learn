@@ -11,8 +11,8 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
 
         public BaseMessage Handle(BaseMessage message)
         {
-            dynamic handler = this;
-            return (BaseMessage) handler.Handle(message);
+            //BaseMessage is abstract, so no recursion problems here
+            return (BaseMessage) ((dynamic) this).Handle((dynamic) message);
         }
     }
 }

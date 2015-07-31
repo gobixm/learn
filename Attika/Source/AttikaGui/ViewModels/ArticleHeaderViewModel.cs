@@ -2,12 +2,13 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Infotecs.Attika.AttikaGui.DataTransferObjects;
-using Infotecs.Attika.AttikaGui.GuiMessages;
+using Infotecs.Attika.AttikaGui.Messages.Gui;
 
 namespace Infotecs.Attika.AttikaGui.ViewModels
 {
     public sealed class ArticleHeaderViewModel : ViewModelBase
     {
+        private string _title;
         private RelayCommand _viewArticleCommand;
 
         public ArticleHeaderViewModel(ArticleHeaderDto header)
@@ -16,7 +17,16 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             Title = header.Title;
         }
 
-        public string Title { get; set; }
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public ArticleHeaderDto Header { get; private set; }
 
         public RelayCommand ViewArticleCommand

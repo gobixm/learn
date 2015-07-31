@@ -43,7 +43,9 @@ namespace Infotecs.Attika.AttikaService.Messages.Wcf.Serializers
                 {
                     message[key] = collection[key];
                 }
-                catch (Exception)
+// ReSharper disable EmptyGeneralCatchClause
+                catch
+// ReSharper restore EmptyGeneralCatchClause
                 {
                 }
             }
