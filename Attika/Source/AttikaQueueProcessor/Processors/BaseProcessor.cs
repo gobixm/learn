@@ -2,7 +2,7 @@
 
 namespace Infotecs.Attika.AttikaQueueProcessor.Processors
 {
-    public sealed class BaseProcessor
+    public class BaseProcessor
     {
         public void Process(BaseMessage message)
         {
