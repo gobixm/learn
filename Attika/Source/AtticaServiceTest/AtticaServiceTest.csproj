@@ -76,6 +76,10 @@
       <Project>{53720DE0-DAA7-4D88-AB9E-A4BB5E5D5FB8}</Project>
       <Name>AttikaService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AttikaSharedDataObjects\AttikaSharedDataObjects.csproj">
+      <Project>{953adf60-119f-47e4-b843-e6c592ee8a50}</Project>
+      <Name>AttikaSharedDataObjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

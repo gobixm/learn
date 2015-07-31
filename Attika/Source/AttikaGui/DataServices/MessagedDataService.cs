@@ -24,7 +24,7 @@ namespace Infotecs.Attika.AttikaGui.DataServices
         {
             try
             {
-                string url = "/api/get?" + BuildQueryParams(new {request = "Article.GetArticleHeadersRequest"});
+                string url = "/api/get?" + BuildQueryParams(new {Request = "Article.GetArticleHeadersRequest"});
                 byte[] response = _webClient.DownloadData(url);
                 var message = _responseSerializer.Deserialize<GetArticleHeadersResponse>(response);
                 return message.Headers;
@@ -39,7 +39,7 @@ namespace Infotecs.Attika.AttikaGui.DataServices
         {
             try
             {
-                string url = "/api/get?" + BuildQueryParams(new {request = "Article.GetArticleRequest", Id = articleId});
+                string url = "/api/get?" + BuildQueryParams(new {Request = "Article.GetArticleRequest", Id = articleId});
                 byte[] response = _webClient.DownloadData(url);
                 var message = _responseSerializer.Deserialize<GetArticleResponse>(response);
                 return message.Article;
@@ -55,7 +55,8 @@ namespace Infotecs.Attika.AttikaGui.DataServices
             _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
             try
             {
-                _webClient.UploadData("/Article/New", "POST", _responseSerializer.Serialize(article));
+                string url = "/api/post?" + BuildQueryParams(new {Request = "Article.NewArticleRequest"});
+                _webClient.UploadData(url, "POST", _responseSerializer.Serialize(new {Article = article}));
             }
             catch (WebException ex)
             {

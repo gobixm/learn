@@ -3,9 +3,9 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using Infotecs.Attika.AtticaDataModel;
-using Infotecs.Attika.AttikaService.DataTransferObjects;
+using Infotecs.Attika.AttikaSharedDataObjects.DataTransferObjects;
 
-namespace Infotecs.Attika.AttikaService.Mappings
+namespace Infotecs.Attika.AttikaSharedDataObjects
 {
     public class ArticleDtoConverter : TypeConverter
     {

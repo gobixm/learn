@@ -4,6 +4,7 @@ using System.Net;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
 using Infotecs.Attika.AttikaService.Messages.Wcf.Serializers;
+using Infotecs.Attika.AttikaSharedDataObjects.Messages;
 
 namespace Infotecs.Attika.AttikaService.Messages.Handlers
 {
@@ -28,7 +29,7 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
             string messageHeader;
             try
             {
-                messageHeader = queryParameters["request"];
+                messageHeader = queryParameters["Request"];
             }
             catch (Exception)
             {
@@ -46,20 +47,21 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
 
                     if (WebOperationContext.Current.IncomingRequest.Method == "GET")
                     {
-                        messageObject = (BaseMessage) JsonMessageSerializer.DesearizeNameValueCollection(messageType.In,
-                                                                                                         queryParameters);
+                        messageObject =
+                            (BaseMessage) JsonMessageSerializer.DeserializeNameValueCollection(messageType.In,
+                                                                                               queryParameters);
                     }
                     else
                     {
-                        messageObject = (BaseMessage) JsonMessageSerializer.Desearize(message, messageType.In);
+                        messageObject = (BaseMessage) JsonMessageSerializer.Deserialize(message, messageType.In);
                     }
                     if (messageObject != null)
                     {
+                        messageObject.Request = messageHeader;
                         BaseMessage resultMessage = handler.Handle(messageObject);
                         if (resultMessage != null)
                         {
-                            Message mess = JsonMessageSerializer.Serialize(messageType.Out, resultMessage);
-                            return mess;
+                            return JsonMessageSerializer.Serialize(messageType.Out, resultMessage);
                         }
                     }
                 }

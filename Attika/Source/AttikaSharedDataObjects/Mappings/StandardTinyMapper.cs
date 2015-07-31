@@ -1,8 +1,7 @@
 ﻿using System;
-using Infotecs.Attika.AttikaService.Mappings;
 using Nelibur.ObjectMapper;
 
-namespace Infotecs.Attika.AttikaConsoleHost.Mappings
+namespace Infotecs.Attika.AttikaSharedDataObjects.Mappings
 {
     public sealed class StandardTinyMapper : IMapper
     {

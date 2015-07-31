@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Infotecs.Attika.AttikaService.Messages;
+using Infotecs.Attika.AttikaSharedDataObjects.Messages;
 
 namespace Infotecs.Attika.AttikaService.Validators
 {

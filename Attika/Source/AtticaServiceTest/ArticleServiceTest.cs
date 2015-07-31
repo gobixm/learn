@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Infotecs.Attika.AtticaDataModel;
 using Infotecs.Attika.AtticaDataModel.Repositories;
 using Infotecs.Attika.AttikaService;
-using Infotecs.Attika.AttikaService.DataTransferObjects;
-using Infotecs.Attika.AttikaService.Mappings;
+using Infotecs.Attika.AttikaSharedDataObjects.DataTransferObjects;
+using Infotecs.Attika.AttikaSharedDataObjects.Mappings;
 using Moq;
 using Xunit;
 

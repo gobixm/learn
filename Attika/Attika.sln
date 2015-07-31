@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaGui", "Source\AttikaG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtticaServiceTest", "Source\AtticaServiceTest\AtticaServiceTest.csproj", "{694DA5C9-AE9B-48B9-B98A-12B24AA9A9F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaSharedDataObjects", "Source\AttikaSharedDataObjects\AttikaSharedDataObjects.csproj", "{953ADF60-119F-47E4-B843-E6C592EE8A50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaQueueProcessor", "Source\AttikaQueueProcessor\AttikaQueueProcessor.csproj", "{95A76575-C3F7-461B-83FD-A54E387817D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,14 @@ Global
 		{694DA5C9-AE9B-48B9-B98A-12B24AA9A9F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{694DA5C9-AE9B-48B9-B98A-12B24AA9A9F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{694DA5C9-AE9B-48B9-B98A-12B24AA9A9F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{953ADF60-119F-47E4-B843-E6C592EE8A50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{953ADF60-119F-47E4-B843-E6C592EE8A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{953ADF60-119F-47E4-B843-E6C592EE8A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{953ADF60-119F-47E4-B843-E6C592EE8A50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95A76575-C3F7-461B-83FD-A54E387817D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95A76575-C3F7-461B-83FD-A54E387817D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95A76575-C3F7-461B-83FD-A54E387817D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95A76575-C3F7-461B-83FD-A54E387817D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

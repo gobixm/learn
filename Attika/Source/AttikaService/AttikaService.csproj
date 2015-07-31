@@ -53,6 +53,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RabbitMQ.Client, Version=3.5.4.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RabbitMQ.Client.3.5.4\lib\net40\RabbitMQ.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -64,18 +72,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArticleApiService.cs" />
-    <Compile Include="DataTransferObjects\ArticleDto.cs" />
-    <Compile Include="DataTransferObjects\ArticleHeaderDto.cs" />
-    <Compile Include="DataTransferObjects\CommentDto.cs" />
-    <Compile Include="DataTransferObjects\WebFaultDto.cs" />
     <Compile Include="IArticleApiService.cs" />
     <Compile Include="IArticleService.cs" />
-    <Compile Include="Mappings\ArticleDtoConverter.cs" />
-    <Compile Include="Mappings\IMapper.cs" />
-    <Compile Include="Messages\FaultMessage.cs" />
-    <Compile Include="Messages\GetArticleHeadersRequest.cs" />
-    <Compile Include="Messages\GetArticleHeadersResponse.cs" />
-    <Compile Include="Messages\GetArticleResponse.cs" />
     <Compile Include="Messages\Handlers\ArticleHandler.cs" />
     <Compile Include="Messages\Handlers\BaseHandler.cs" />
     <Compile Include="Messages\Handlers\MessageProcessorConfiguration.cs" />
@@ -83,11 +81,11 @@
     <Compile Include="Messages\Handlers\IMessageProcessorConfiguration.cs" />
     <Compile Include="Messages\Handlers\IMessageProcessor.cs" />
     <Compile Include="Messages\Handlers\MessageProcessor.cs" />
+    <Compile Include="Messages\Queues\IQueuePusher.cs" />
+    <Compile Include="Messages\Queues\QueuePusher.cs" />
     <Compile Include="Messages\Wcf\Serializers\JsonMessageSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ArticleService.cs" />
-    <Compile Include="Messages\BaseMessage.cs" />
-    <Compile Include="Messages\GetArticleRequest.cs" />
     <Compile Include="Validators\ArticleValidator.cs" />
     <Compile Include="Validators\CommentValidator.cs" />
     <Compile Include="Validators\HandlerValidator.cs" />
@@ -100,6 +98,10 @@
     <ProjectReference Include="..\AtticaDataModel\AtticaDataModel.csproj">
       <Project>{fd6144c1-d0c6-4127-9862-ff9d5afd1172}</Project>
       <Name>AtticaDataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AttikaSharedDataObjects\AttikaSharedDataObjects.csproj">
+      <Project>{953adf60-119f-47e4-b843-e6c592ee8a50}</Project>
+      <Name>AttikaSharedDataObjects</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -1,4 +1,5 @@
 ﻿using System;
+using Infotecs.Attika.AttikaSharedDataObjects.Messages;
 
 namespace Infotecs.Attika.AttikaService.Messages.Handlers
 {

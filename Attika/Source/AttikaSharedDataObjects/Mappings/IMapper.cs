@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infotecs.Attika.AttikaService.Mappings
+namespace Infotecs.Attika.AttikaSharedDataObjects.Mappings
 {
     public interface IMapper
     {

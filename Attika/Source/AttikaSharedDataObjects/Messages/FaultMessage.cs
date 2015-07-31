@@ -1,5 +1,8 @@
-﻿namespace Infotecs.Attika.AttikaService.Messages
+﻿using System.Runtime.Serialization;
+
+namespace Infotecs.Attika.AttikaSharedDataObjects.Messages
 {
+    [DataContract]
     public class FaultMessage : BaseMessage
     {
         public FaultMessage(string message, string detail)
@@ -8,7 +11,10 @@
             Detail = detail;
         }
 
+        [DataMember]
         public string Message { get; set; }
+
+        [DataMember]
         public string Detail { get; set; }
     }
 }

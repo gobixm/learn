@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Infotecs.Attika.AttikaService.DataTransferObjects;
 using Infotecs.Attika.AttikaService.Validators;
+using Infotecs.Attika.AttikaSharedDataObjects.DataTransferObjects;
 using Xunit;
 
 namespace AtticaServiceTest

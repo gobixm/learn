@@ -6,6 +6,7 @@ using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
 using System.Xml;
 using FastMember;
+using Infotecs.Attika.AttikaSharedDataObjects.Messages;
 
 namespace Infotecs.Attika.AttikaService.Messages.Wcf.Serializers
 {
@@ -21,7 +22,7 @@ namespace Infotecs.Attika.AttikaService.Messages.Wcf.Serializers
             return null;
         }
 
-        public static object Desearize(Message message, Type messageType)
+        public static object Deserialize(Message message, Type messageType)
         {
             using (var memoryStream = new MemoryStream())
             {
@@ -34,7 +35,7 @@ namespace Infotecs.Attika.AttikaService.Messages.Wcf.Serializers
             }
         }
 
-        public static object DesearizeNameValueCollection(Type messageType, NameValueCollection collection)
+        public static object DeserializeNameValueCollection(Type messageType, NameValueCollection collection)
         {
             ObjectAccessor message = ObjectAccessor.Create(Activator.CreateInstance(messageType));
             foreach (string key in collection.AllKeys)

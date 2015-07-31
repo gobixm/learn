@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Infotecs.Attika.AttikaService.DataTransferObjects;
+using Infotecs.Attika.AttikaSharedDataObjects.DataTransferObjects;
 
 namespace Infotecs.Attika.AttikaService.Validators
 {

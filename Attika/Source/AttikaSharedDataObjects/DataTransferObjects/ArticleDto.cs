@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
-using Infotecs.Attika.AttikaService.Mappings;
 
-namespace Infotecs.Attika.AttikaService.DataTransferObjects
+namespace Infotecs.Attika.AttikaSharedDataObjects.DataTransferObjects
 {
     [DataContract]
     [TypeConverter(typeof (ArticleDtoConverter))]

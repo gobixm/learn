@@ -5,8 +5,11 @@ using System.Net;
 using System.ServiceModel.Web;
 using Infotecs.Attika.AtticaDataModel;
 using Infotecs.Attika.AtticaDataModel.Repositories;
-using Infotecs.Attika.AttikaService.DataTransferObjects;
-using Infotecs.Attika.AttikaService.Mappings;
+using Infotecs.Attika.AttikaService.Messages.Queues;
+using Infotecs.Attika.AttikaService.Validators;
+using Infotecs.Attika.AttikaSharedDataObjects.DataTransferObjects;
+using Infotecs.Attika.AttikaSharedDataObjects.Mappings;
+using Infotecs.Attika.AttikaSharedDataObjects.Messages;
 
 namespace Infotecs.Attika.AttikaService.Messages.Handlers
 {
@@ -15,17 +18,20 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
         private readonly ICommandRepository _commandRepository;
         private readonly IMapper _mapper;
         private readonly IQueryRepository _queryRepository;
+        private readonly IQueuePusher _queue;
 
-        public ArticleHandler(IQueryRepository queryRepository, ICommandRepository commandRepository, IMapper mapper)
+        public ArticleHandler(IQueryRepository queryRepository, ICommandRepository commandRepository, IMapper mapper,
+                              IQueuePusher queue)
         {
             _queryRepository = queryRepository;
             _commandRepository = commandRepository;
             _mapper = mapper;
+            _queue = queue;
         }
 
         public override object Clone()
         {
-            var handler = new ArticleHandler(_queryRepository, _commandRepository, _mapper);
+            var handler = new ArticleHandler(_queryRepository, _commandRepository, _mapper, _queue);
             return handler;
         }
 
@@ -86,6 +92,19 @@ namespace Infotecs.Attika.AttikaService.Messages.Handlers
                     new WebFaultDto("Ошибка при маппинге списка статей", ex.Message),
                     HttpStatusCode.InternalServerError);
             }
+        }
+
+        public object Handle(NewArticleRequest newArticleRequest)
+        {
+            string[] validationErrors;
+            if (!newArticleRequest.Article.Validate(out validationErrors, true))
+            {
+                throw new WebFaultException<WebFaultDto>(
+                    new WebFaultDto("Не удалось добавить статью", string.Join("\n", validationErrors)),
+                    HttpStatusCode.BadRequest);
+            }
+            _queue.PushMessage(newArticleRequest);
+            return null;
         }
     }
 }

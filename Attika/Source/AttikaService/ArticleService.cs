@@ -6,9 +6,9 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using Infotecs.Attika.AtticaDataModel;
 using Infotecs.Attika.AtticaDataModel.Repositories;
-using Infotecs.Attika.AttikaService.DataTransferObjects;
-using Infotecs.Attika.AttikaService.Mappings;
 using Infotecs.Attika.AttikaService.Validators;
+using Infotecs.Attika.AttikaSharedDataObjects.DataTransferObjects;
+using Infotecs.Attika.AttikaSharedDataObjects.Mappings;
 
 namespace Infotecs.Attika.AttikaService
 {

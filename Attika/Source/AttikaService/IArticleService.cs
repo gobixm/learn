@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using Infotecs.Attika.AttikaService.DataTransferObjects;
+using Infotecs.Attika.AttikaSharedDataObjects.DataTransferObjects;
 
 namespace Infotecs.Attika.AttikaService
 {
