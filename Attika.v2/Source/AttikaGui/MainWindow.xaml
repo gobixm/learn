@@ -1,0 +1,42 @@
+﻿<Window x:Class="AttikaGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+        xmlns:ignore="http://www.ignore.com"
+        xmlns:views="clr-namespace:Infotecs.Attika.AttikaGui.Views"
+        mc:Ignorable="d ignore"
+        Height="300"
+        Width="660"
+        Title="Attika"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Skins/MainSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <views:NavigationView DataContext="{Binding NavigationViewModel}" />
+        </Grid>
+        <Grid Grid.Column="1">
+            <views:ArticleView DataContext="{Binding ArticleViewModel}" />
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <TextBlock Text="{Binding State}"></TextBlock>
+        </Grid>
+    </Grid>
+</Window>

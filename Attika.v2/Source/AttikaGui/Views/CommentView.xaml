@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Infotecs.Attika.AttikaGui.Views.CommentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ignore="http://www.ignore.com"
+             mc:Ignorable="d ignore">
+
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <TextBlock Text="{Binding Created}" HorizontalAlignment="Left"></TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{Binding DeleteCommand}">Удалить</Button>
+                <Button Command="{Binding SaveCommand}">Сохранить</Button>
+            </StackPanel>
+        </DockPanel>
+        <TextBox Grid.Row="1" Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                 HorizontalAlignment="Stretch" AcceptsReturn="True" TextWrapping="Wrap">
+        </TextBox>
+    </Grid>
+</UserControl>
