@@ -2,9 +2,10 @@
 
 namespace Infotecs.Attika.AttikaDomain.Services.Queuing
 {
-    public interface IQueueService
+    public interface IQueueService : IDisposable
     {
         void PushMessage(byte[] message);
-        void RegisterConsumer(Action<byte[]> arrived);
+        void RegisterConsumer(EventHandler<byte[]> arrived);
+        void UnregisterConsumer(EventHandler<byte[]> arrived);
     }
 }

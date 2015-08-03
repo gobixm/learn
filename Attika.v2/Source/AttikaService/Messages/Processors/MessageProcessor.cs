@@ -19,13 +19,16 @@ namespace Infotecs.Attika.AttikaService.Messages.Processors
 
         private readonly IMessageProcessorConfiguration _messageProcessorConfiguration;
         private readonly IMessageSerializationService _messageSerializationService;
+        private readonly IQueueService _queueService;
+        private bool _disposed;
 
         public MessageProcessor(IMessageProcessorConfiguration messageProcessorConfiguration, IQueueService queueService,
                                 IMessageSerializationService messageSerializationService)
         {
             _messageProcessorConfiguration = messageProcessorConfiguration;
+            _queueService = queueService;
             _messageSerializationService = messageSerializationService;
-            queueService.RegisterConsumer(HandleMessageFromQueue);
+            _queueService.RegisterConsumer(HandleMessageFromQueue);
         }
 
         public Message HandleMessage(Message message)
@@ -106,7 +109,27 @@ namespace Infotecs.Attika.AttikaService.Messages.Processors
             return null;
         }
 
-        private void HandleMessageFromQueue(byte[] message)
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                _queueService.UnregisterConsumer(HandleMessageFromQueue);
+                _disposed = true;
+            }
+        }
+
+        ~MessageProcessor()
+        {
+            Dispose(false);
+        }
+
+        private void HandleMessageFromQueue(object sender, byte[] message)
         {
             BaseMessage decodedMessage = _messageSerializationService.Deseriallize(message,
                                                                                    header =>

@@ -30,21 +30,21 @@ namespace Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots
             Bind<IValidator<Comment>>().To<CommentValidator>().InSingletonScope();
             Bind<IMappingService>().To<StandardTinyMappingService>().InSingletonScope().OnActivation(
                 (ctx, standardTynyMapper) =>
-                {
-                    standardTynyMapper.Bind<ArticleDto, ArticleState>();
-                    standardTynyMapper.Bind<CommentDto, CommentState>();
-                    standardTynyMapper.Bind<Article, ArticleDto>();
-                });
+                    {
+                        standardTynyMapper.Bind<ArticleDto, ArticleState>();
+                        standardTynyMapper.Bind<CommentDto, CommentState>();
+                        standardTynyMapper.Bind<Article, ArticleDto>();
+                    });
 
             Bind<IMessageSerializationService>().To<MessageSerializationService>().InSingletonScope();
             Bind<ArticleHandler>().ToSelf();
             Bind<IQueueService>().To<QueueService>().InSingletonScope();
             Bind<IMessageProcessorConfiguration>().To<MessageProcessorConfiguration>()
-                .InSingletonScope()
-                .WithConstructorArgument("handlers",
-                    new BaseHandler[]
-                    {Kernel.Get<ArticleHandler>()});
-            Bind<IMessageProcessor>().To<MessageProcessor>();
+                                                  .InSingletonScope()
+                                                  .WithConstructorArgument("handlers",
+                                                                           new BaseHandler[]
+                                                                               {Kernel.Get<ArticleHandler>()});
+            Bind<IMessageProcessor>().To<MessageProcessor>().InSingletonScope();
         }
     }
 }

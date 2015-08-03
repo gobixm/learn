@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\ApplicationRoots\DefaultConfigurationModule.cs" />
+    <Compile Include="Configurations\ApplicationRoots\NinjectServiceLocator.cs" />
     <Compile Include="Extensions\Attributes\NinjectBehaviorAttribute.cs" />
     <Compile Include="Extensions\NinjectBehaviorExtensionElement.cs" />
     <Compile Include="InstanceProviders\NinjectInstanceProvider.cs" />

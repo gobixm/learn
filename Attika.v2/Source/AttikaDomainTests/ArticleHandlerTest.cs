@@ -72,10 +72,10 @@ namespace Infotecs.Attika.AttikaDomainTests
         private void Check_DeleteArticle_CalledAfter_DeleteArticleHandled()
         {
             _articleHandler.Handle(new DeleteArticleRequest
-            {
-                Request = "Article.DeleteArticleRequest",
-                ArticleId = Guid.NewGuid().ToString()
-            });
+                {
+                    Request = "Article.DeleteArticleRequest",
+                    ArticleId = Guid.NewGuid().ToString()
+                });
             try
             {
                 _commandRepository.Verify(cr => cr.DeleteArticle(It.IsAny<string>()), Times.AtLeastOnce());

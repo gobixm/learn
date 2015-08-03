@@ -6,16 +6,16 @@ using RabbitMQ.Client.Framing;
 
 namespace Infotecs.Attika.AttikaDomain.Services.Queuing
 {
-    public sealed class QueueService : IQueueService
+    public sealed class QueueService : IQueueService, IDisposable
     {
-        private Action<byte[]> _arrival;
         private IModel _channel;
         private IConnection _connection;
+        private bool _disposed;
         private ConnectionFactory _factory;
 
-        public void RegisterConsumer(Action<byte[]> arrived)
+        public void RegisterConsumer(EventHandler<byte[]> arrived)
         {
-            _arrival += arrived;
+            Arrival += arrived;
             EnshureMessageProcessingEnabled();
         }
 
@@ -28,6 +28,34 @@ namespace Infotecs.Attika.AttikaDomain.Services.Queuing
                 var properties = new BasicProperties {Persistent = true};
                 channel.BasicPublish("attika_exchange", "", properties, message);
             }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public void UnregisterConsumer(EventHandler<byte[]> arrived)
+        {
+            Arrival -= arrived;
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (_channel != null)
+                    _channel.Dispose();
+                if (_connection != null)
+                    _connection.Dispose();
+                _disposed = true;
+            }
+        }
+
+        ~QueueService()
+        {
+            Dispose(false);
         }
 
         private void EnshureMessageProcessingEnabled()
@@ -44,8 +72,6 @@ namespace Infotecs.Attika.AttikaDomain.Services.Queuing
                         HostName = hostname
                     };
 
-                _arrival = (bytes => { });
-
                 _connection = _factory.CreateConnection();
 
                 _channel = _connection.CreateModel();
@@ -56,11 +82,13 @@ namespace Infotecs.Attika.AttikaDomain.Services.Queuing
                 var consumer = new EventingBasicConsumer(_channel);
                 consumer.Received += (model, e) =>
                     {
-                        _arrival(e.Body);
+                        Arrival(this, e.Body);
                         _channel.BasicAck(e.DeliveryTag, false);
                     };
                 _channel.BasicConsume("attika_queue", false, consumer);
             }
         }
+
+        public event EventHandler<byte[]> Arrival = (sender, bytes) => { };
     }
 }

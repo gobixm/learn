@@ -6,7 +6,6 @@ using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
 using Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots;
 using Infotecs.Attika.AttikaConsoleHost.InstanceProviders;
-using Ninject;
 
 namespace Infotecs.Attika.AttikaConsoleHost.Extensions.Attributes
 {
@@ -26,7 +25,7 @@ namespace Infotecs.Attika.AttikaConsoleHost.Extensions.Attributes
         {
             Type serviceType = serviceDescription.ServiceType;
             IInstanceProvider provider = new NinjectInstanceProvider(serviceType,
-                                                                     new StandardKernel(new DefaultConfigurationModule()));
+                                                                     NinjectServiceLocator.Kernel);
 
             foreach (ChannelDispatcherBase channelDispatcherBase in serviceHostBase.ChannelDispatchers)
             {
