@@ -57,8 +57,8 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
         {
             try
             {
-                _dataService.DeleteComment(Comment.Id.ToString());
-                Messenger.Default.Send(new ViewArticleMessage {ArticleId = Comment.ArticleId.ToString()});
+                _dataService.DeleteComment(Comment.ArticleId.ToString(), Comment.Id.ToString());
+                Messenger.Default.Send(new CommentDeletedMessage {Comment = Comment});
                 Messenger.Default.Send(new ChangeStateMessage {State = "ok"});
             }
             catch (DataServiceException ex)

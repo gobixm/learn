@@ -10,6 +10,6 @@ namespace Infotecs.Attika.AttikaGui.DataServices
         void NewArticle(ArticleDto article);
         void NewComment(string articleId, CommentDto comment);
         void DeleteArticle(string articleId);
-        void DeleteComment(string commentId);
+        void DeleteComment(string articleId, string commentId);
     }
 }

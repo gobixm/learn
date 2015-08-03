@@ -104,6 +104,7 @@
     <Compile Include="DataTransferObjects\FaultDto.cs" />
     <Compile Include="Messages\Gui\AddArticleMessage.cs" />
     <Compile Include="Messages\Gui\ChangeStateMessage.cs" />
+    <Compile Include="Messages\Gui\CommentDeletedMessage.cs" />
     <Compile Include="Messages\Gui\DeleteArticleMessage.cs" />
     <Compile Include="Messages\Gui\NewArticleAddedMessage.cs" />
     <Compile Include="Messages\Gui\RefreshHeaderListMessage.cs" />

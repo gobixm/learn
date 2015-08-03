@@ -91,11 +91,14 @@ namespace Infotecs.Attika.AttikaGui.DataServices
             }
         }
 
-        public void DeleteComment(string commentId)
+        public void DeleteComment(string articleId, string commentId)
         {
+            _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
             try
             {
-                _webClient.UploadString("/Comment/" + commentId + "/Delete", "DELETE", "");
+                string url = "/api/delete?" + BuildQueryParams(new {Request = "Article.DeleteArticleCommentRequest"});
+                _webClient.UploadData(url, "DELETE",
+                                      _responseSerializer.Serialize(new {ArticleId = articleId, CommentId = commentId}));
             }
             catch (WebException ex)
             {

@@ -41,6 +41,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
                     Title = "Новая статья",
                     Comments = new List<CommentDto>()
                 };
+            SubscribeToGuiMessages();
         }
 
         public RelayCommand BadCommand
@@ -132,6 +133,18 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
         public RelayCommand DeleteCommand
         {
             get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(Delete, CanDelete)); }
+        }
+
+        private void SubscribeToGuiMessages()
+        {
+            Messenger.Default.Register(this, (CommentDeletedMessage message) => OnCommentDeleted(message));
+        }
+
+        private void OnCommentDeleted(CommentDeletedMessage message)
+        {
+            CommentViewModel comment =
+                (from c in Comments where c.Comment.Id == message.Comment.Id select c).FirstOrDefault();
+            Comments.Remove(comment);
         }
 
         private void Bad()

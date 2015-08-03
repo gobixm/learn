@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Net;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
+using Infotecs.Attika.AttikaDomain.Services.Exceptions;
 using Infotecs.Attika.AttikaDomain.Services.Queuing;
+using Infotecs.Attika.AttikaDomain.Services.RequestProcessors;
+using Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects;
 using Infotecs.Attika.AttikaInfrastructure.Messaging.Messages;
 using Infotecs.Attika.AttikaInfrastructure.Messaging.Serializers;
 using Infotecs.Attika.AttikaService.Messages.Wcf.Serializers;
@@ -17,7 +21,7 @@ namespace Infotecs.Attika.AttikaService.Messages.Processors
         private readonly IMessageSerializationService _messageSerializationService;
 
         public MessageProcessor(IMessageProcessorConfiguration messageProcessorConfiguration, IQueueService queueService,
-            IMessageSerializationService messageSerializationService)
+                                IMessageSerializationService messageSerializationService)
         {
             _messageProcessorConfiguration = messageProcessorConfiguration;
             _messageSerializationService = messageSerializationService;
@@ -29,8 +33,8 @@ namespace Infotecs.Attika.AttikaService.Messages.Processors
             if (WebOperationContext.Current == null)
                 return null;
 
-            var templateMatch = WebOperationContext.Current.IncomingRequest.UriTemplateMatch;
-            var queryParameters = templateMatch.QueryParameters;
+            UriTemplateMatch templateMatch = WebOperationContext.Current.IncomingRequest.UriTemplateMatch;
+            NameValueCollection queryParameters = templateMatch.QueryParameters;
             string messageHeader;
             try
             {
@@ -41,11 +45,11 @@ namespace Infotecs.Attika.AttikaService.Messages.Processors
                 throw new WebFaultException(HttpStatusCode.BadRequest);
             }
 
-            var handler = _messageProcessorConfiguration.GetMessageHandler(messageHeader);
+            BaseHandler handler = _messageProcessorConfiguration.GetMessageHandler(messageHeader);
 
             if (handler != null)
             {
-                var messageType = _messageProcessorConfiguration.GetMessageType(messageHeader);
+                InOutMessageType messageType = _messageProcessorConfiguration.GetMessageType(messageHeader);
                 if (messageType != null)
                 {
                     BaseMessage messageObject;
@@ -54,19 +58,47 @@ namespace Infotecs.Attika.AttikaService.Messages.Processors
                     {
                         messageObject =
                             (BaseMessage) JsonMessageSerializer.DeserializeNameValueCollection(messageType.In,
-                                queryParameters);
+                                                                                               queryParameters);
                         messageObject.Request = messageHeader;
-                        var resultMessage = handler.Handle(messageObject);
-                        if (resultMessage != null)
+                        try
                         {
-                            return JsonMessageSerializer.Serialize(messageType.Out, resultMessage);
+                            BaseMessage resultMessage = handler.Handle(messageObject);
+                            if (resultMessage != null)
+                            {
+                                return JsonMessageSerializer.Serialize(messageType.Out, resultMessage);
+                            }
+                        }
+                        catch (ServiceException ex)
+                        {
+                            throw new WebFaultException<WebFaultDto>(new WebFaultDto(ex.Message, ex.ToString()),
+                                                                     HttpStatusCode.Forbidden);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new WebFaultException<WebFaultDto>(
+                                new WebFaultDto("Неизвестная ошибка на сервере", ex.ToString()),
+                                HttpStatusCode.Forbidden);
                         }
                     }
                     else
                     {
                         messageObject = (BaseMessage) JsonMessageSerializer.Deserialize(message, messageType.In);
                         messageObject.Request = messageHeader;
-                        handler.Enqueue(messageObject);
+                        try
+                        {
+                            handler.Enqueue(messageObject);
+                        }
+                        catch (ServiceException ex)
+                        {
+                            throw new WebFaultException<WebFaultDto>(new WebFaultDto(ex.Message, ex.ToString()),
+                                                                     HttpStatusCode.Forbidden);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new WebFaultException<WebFaultDto>(
+                                new WebFaultDto("Неизвестная ошибка на сервере", ex.ToString()),
+                                HttpStatusCode.Forbidden);
+                        }
                     }
                 }
                 return null;
@@ -74,11 +106,13 @@ namespace Infotecs.Attika.AttikaService.Messages.Processors
             return null;
         }
 
-        public void HandleMessageFromQueue(byte[] message)
+        private void HandleMessageFromQueue(byte[] message)
         {
-            var decodedMessage = _messageSerializationService.Deseriallize(message,
-                header => _messageProcessorConfiguration.GetMessageType(header).In);
-            var handler = _messageProcessorConfiguration.GetMessageHandler(decodedMessage.Request);
+            BaseMessage decodedMessage = _messageSerializationService.Deseriallize(message,
+                                                                                   header =>
+                                                                                   _messageProcessorConfiguration
+                                                                                       .GetMessageType(header).In);
+            BaseHandler handler = _messageProcessorConfiguration.GetMessageHandler(decodedMessage.Request);
             handler.Handle(decodedMessage);
         }
     }

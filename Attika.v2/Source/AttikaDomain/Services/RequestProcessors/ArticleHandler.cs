@@ -177,21 +177,6 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
                 throw new ServiceException(ServiceMetadata.BadRequestError);
             }
 
-            Article article;
-            try
-            {
-                article = _articleFactory.CreateArticleFromRepository(articleGuid);
-            }
-            catch (RepositoryException ex)
-            {
-                throw new ServiceException(ServiceMetadata.InternalServiceError, ex);
-            }
-
-            if (article == null)
-            {
-                throw new ServiceException(ServiceMetadata.ArticleNotFoundError);
-            }
-
             //just ensure we're able to construct valid comment later
             try
             {
@@ -248,6 +233,73 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
             }
 
             article.AddComment(comment);
+            try
+            {
+                _commandRepository.UpdateArticle(article.State);
+            }
+            catch (RepositoryException ex)
+            {
+                Logger.Warn(ex, "Ошибка репозитория при обновлении статьи.");
+            }
+
+            return null;
+        }
+
+        public void Enqueue(DeleteArticleCommentRequest deleteArticleCommentRequest)
+        {
+            if (deleteArticleCommentRequest == null)
+            {
+                throw new ServiceException(ServiceMetadata.RequestIsEmptyError);
+            }
+
+            Guid articleGuid;
+            if (!Guid.TryParse(deleteArticleCommentRequest.ArticleId, out articleGuid))
+            {
+                throw new ServiceException(ServiceMetadata.BadRequestError);
+            }
+            Guid commentGuid;
+            if (!Guid.TryParse(deleteArticleCommentRequest.CommentId, out commentGuid))
+            {
+                throw new ServiceException(ServiceMetadata.BadRequestError);
+            }
+
+            try
+            {
+                _queue.PushMessage(_messageSerializationService.Serialize(deleteArticleCommentRequest));
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException(ServiceMetadata.InternalServiceError, ex);
+            }
+        }
+
+        public object Handle(DeleteArticleCommentRequest deleteArticleCommentRequest)
+        {
+            Article article = null;
+            try
+            {
+                article = _articleFactory.CreateArticleFromRepository(Guid.Parse(deleteArticleCommentRequest.ArticleId));
+            }
+            catch (RepositoryException ex)
+            {
+                Logger.Warn(ex, "Ошибка репозитория.");
+            }
+            catch (ArgumentException ex)
+            {
+                Logger.Warn(ex, "Ошибка валидации создании статьи.");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Неизвестная ошибка при получении статьи по идентификатору.");
+            }
+
+            if (article == null)
+            {
+                Logger.Warn("Статья с id {0} не найдена.", deleteArticleCommentRequest.ArticleId);
+                return null;
+            }
+
+            article.DeleteComment(Guid.Parse(deleteArticleCommentRequest.CommentId));
             try
             {
                 _commandRepository.UpdateArticle(article.State);

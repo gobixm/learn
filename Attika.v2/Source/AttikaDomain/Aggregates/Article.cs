@@ -71,7 +71,8 @@ namespace Infotecs.Attika.AttikaDomain.Aggregates
 
         public void DeleteComment(Guid idGuid)
         {
-            IEnumerable<CommentState> comments = from c in State.Comments where c.Id == idGuid select c;
+            CommentState[] comments = (from c in State.Comments where c.Id == idGuid select c).ToArray();
+
             foreach (CommentState comment in comments)
             {
                 State.Comments.Remove(comment);

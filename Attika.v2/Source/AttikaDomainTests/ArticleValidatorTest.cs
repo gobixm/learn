@@ -7,24 +7,51 @@ namespace Infotecs.Attika.AttikaDomainTests
 {
     public class ArticleValidatorTest
     {
+        private string GetStringWithDesiredLength(int length)
+        {
+            return new string('x', length);
+        }
+
         [Theory]
         [InlineData(101)]
-        private void FailValidateArticleWithLongTitle(int titleLength)
+        private void Check_ArticleTitle_Invalid(int titleLength)
         {
-            var title = new string('x', titleLength);
+            string title = GetStringWithDesiredLength(titleLength);
             var validator = new ArticleValidator();
             string[] errors;
             Assert.False(validator.Validate(Article.Create(new ArticleState {Title = title}), out errors));
         }
 
         [Theory]
-        [InlineData(201)]
-        private void FailValidateArticleWithLongText(int textLength)
+        [InlineData(0)]
+        [InlineData(100)]
+        private void Check_ArticleTitle_Valid(int titleLength)
         {
-            var text = new string('x', textLength);
+            string title = GetStringWithDesiredLength(titleLength);
+            var validator = new ArticleValidator();
+            string[] errors;
+            Assert.True(validator.Validate(Article.Create(new ArticleState {Title = title}), out errors));
+        }
+
+        [Theory]
+        [InlineData(201)]
+        private void Check_ArticleText_Invalid(int textLength)
+        {
+            string text = GetStringWithDesiredLength(textLength);
             var validator = new ArticleValidator();
             string[] errors;
             Assert.False(validator.Validate(Article.Create(new ArticleState {Text = text}), out errors));
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(200)]
+        private void Check_ArticleText_Valid(int textLength)
+        {
+            string text = GetStringWithDesiredLength(textLength);
+            var validator = new ArticleValidator();
+            string[] errors;
+            Assert.True(validator.Validate(Article.Create(new ArticleState {Text = text}), out errors));
         }
     }
 }
