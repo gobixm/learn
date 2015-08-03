@@ -284,10 +284,6 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
             {
                 Logger.Warn(ex, "Ошибка репозитория.");
             }
-            catch (ArgumentException ex)
-            {
-                Logger.Warn(ex, "Ошибка валидации создании статьи.");
-            }
             catch (Exception ex)
             {
                 Logger.Error(ex, "Неизвестная ошибка при получении статьи по идентификатору.");
@@ -309,6 +305,46 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
                 Logger.Warn(ex, "Ошибка репозитория при обновлении статьи.");
             }
 
+            return null;
+        }
+
+        public void Enqueue(DeleteArticleRequest deleteArticleRequest)
+        {
+            if (deleteArticleRequest == null)
+            {
+                throw new ServiceException(ServiceMetadata.RequestIsEmptyError);
+            }
+
+            Guid articleGuid;
+            if (!Guid.TryParse(deleteArticleRequest.ArticleId, out articleGuid))
+            {
+                throw new ServiceException(ServiceMetadata.BadRequestError);
+            }
+
+            try
+            {
+                _queue.PushMessage(_messageSerializationService.Serialize(deleteArticleRequest));
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException(ServiceMetadata.InternalServiceError, ex);
+            }
+        }
+
+        public object Handle(DeleteArticleRequest deleteArticleRequest)
+        {
+            try
+            {
+                _commandRepository.DeleteArticle(deleteArticleRequest.ArticleId);
+            }
+            catch (RepositoryException ex)
+            {
+                Logger.Warn(ex, "Ошибка репозитория.");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Неизвестная ошибка при удалении статьи по идентификатору.");
+            }
             return null;
         }
     }

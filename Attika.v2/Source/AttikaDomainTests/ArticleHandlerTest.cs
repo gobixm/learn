@@ -50,7 +50,7 @@ namespace Infotecs.Attika.AttikaDomainTests
         }
 
         [Fact]
-        private void TestCreateArticleCalled()
+        private void Check_CreateArticle_CalledAfter_NewArtilceHandled()
         {
             _articleHandler.Handle(new NewArticleRequest
                 {
@@ -69,8 +69,13 @@ namespace Infotecs.Attika.AttikaDomainTests
         }
 
         [Fact]
-        private void TestDeleteArticleCalled()
+        private void Check_DeleteArticle_CalledAfter_DeleteArticleHandled()
         {
+            _articleHandler.Handle(new DeleteArticleRequest
+            {
+                Request = "Article.DeleteArticleRequest",
+                ArticleId = Guid.NewGuid().ToString()
+            });
             try
             {
                 _commandRepository.Verify(cr => cr.DeleteArticle(It.IsAny<string>()), Times.AtLeastOnce());
@@ -83,7 +88,7 @@ namespace Infotecs.Attika.AttikaDomainTests
         }
 
         [Fact]
-        private void TestGetArticleHeadersCalled()
+        private void Check_GetHeaders_CalledAfter_GetArticleHeadersHandled()
         {
             _articleHandler.Handle(new GetArticleHeadersRequest
                 {
@@ -101,7 +106,7 @@ namespace Infotecs.Attika.AttikaDomainTests
         }
 
         [Fact]
-        private void TestGetArticleCalled()
+        private void Check_GetArticle_CalledAfter_GetArticleHandled()
         {
             _articleHandler.Handle(new GetArticleRequest
                 {
@@ -120,7 +125,7 @@ namespace Infotecs.Attika.AttikaDomainTests
         }
 
         [Fact]
-        private void TestUpdateArticleCalledAfterAddCommentHandled()
+        private void Check_UpdateArticle_CalledAfter_AddArticleCommentHandled()
         {
             _articleHandler.Handle(new AddArticleCommentRequest
                 {

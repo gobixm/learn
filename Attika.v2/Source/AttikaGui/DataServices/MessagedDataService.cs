@@ -81,9 +81,12 @@ namespace Infotecs.Attika.AttikaGui.DataServices
 
         public void DeleteArticle(string articleId)
         {
+            _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
             try
             {
-                _webClient.UploadString("/Article/" + articleId + "/Delete", "DELETE", "");
+                string url = "/api/delete?" + BuildQueryParams(new {Request = "Article.DeleteArticleRequest"});
+                _webClient.UploadData(url, "DELETE",
+                                      _responseSerializer.Serialize(new {ArticleId = articleId}));
             }
             catch (WebException ex)
             {

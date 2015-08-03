@@ -54,7 +54,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
         private void SubscribeToGuiMessages()
         {
             Messenger.Default.Register(this, (RefreshHeaderListMessage message) => RebuildHeaderList());
-            Messenger.Default.Register(this, (DeleteArticleMessage message) => OnDeleteArticle(message));
+            Messenger.Default.Register(this, (ArticleDeletedMessage message) => OnDeleteArticle(message));
             Messenger.Default.Register(this, (NewArticleAddedMessage message) => OnNewArticleAdded(message));
         }
 
@@ -69,10 +69,11 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             RaisePropertyChanged(() => ArticleHeaders);
         }
 
-        private void OnDeleteArticle(DeleteArticleMessage message)
+        private void OnDeleteArticle(ArticleDeletedMessage deletedMessage)
         {
             ArticleHeaderViewModel header =
-                ((from a in ArticleHeaders where a.Header.ArticleId == message.ArticleId select a)).FirstOrDefault();
+                ((from a in ArticleHeaders where a.Header.ArticleId == deletedMessage.ArticleId select a))
+                    .FirstOrDefault();
             if (header == null)
             {
                 return;

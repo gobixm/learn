@@ -75,6 +75,7 @@
     <Compile Include="Messaging\Messages\DataContract.cs" />
     <Compile Include="Messaging\Messages\DataMember.cs" />
     <Compile Include="Messaging\Messages\DeleteArticleCommentRequest.cs" />
+    <Compile Include="Messaging\Messages\DeleteArticleRequest.cs" />
     <Compile Include="Messaging\Messages\FaultMessage.cs" />
     <Compile Include="Messaging\Messages\GetArticleHeadersRequest.cs" />
     <Compile Include="Messaging\Messages\GetArticleHeadersResponse.cs" />

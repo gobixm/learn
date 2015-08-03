@@ -183,7 +183,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             try
             {
                 _dataService.DeleteArticle(ArticleDto.Id.ToString());
-                Messenger.Default.Send(new DeleteArticleMessage {ArticleId = ArticleDto.Id});
+                Messenger.Default.Send(new ArticleDeletedMessage {ArticleId = ArticleDto.Id});
                 Messenger.Default.Send(new ChangeStateMessage {State = "ok"});
             }
             catch (DataServiceException ex)
