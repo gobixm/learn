@@ -27,7 +27,7 @@ namespace Infotecs.Attika.AttikaDomain.Factories
             _mappingService = mappingService;
         }
 
-        public Article CreateArticle(Guid id)
+        public Article CreateArticleFromRepository(Guid id)
         {
             ArticleState articleState = _queryRepository.GetArticle(id);
             if (articleState == null)

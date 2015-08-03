@@ -6,7 +6,7 @@ namespace Infotecs.Attika.AttikaDomain.Factories.Contracts
 {
     public interface IArticleFactory
     {
-        Article CreateArticle(Guid id);
+        Article CreateArticleFromRepository(Guid id);
         Article CreateArticle(ArticleDto articleDto);
     }
 }

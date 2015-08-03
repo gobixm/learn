@@ -69,8 +69,9 @@ namespace Infotecs.Attika.AttikaGui.DataServices
             _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
             try
             {
-                _webClient.UploadData("/Article/" + articleId + "/Comment/New", "POST",
-                                      _responseSerializer.Serialize(new {articleId, commentDto = comment}));
+                string url = "/api/post?" + BuildQueryParams(new {Request = "Article.AddArticleCommentRequest"});
+                _webClient.UploadData(url, "POST",
+                                      _responseSerializer.Serialize(new {ArticleId = articleId, Comment = comment}));
             }
             catch (WebException ex)
             {

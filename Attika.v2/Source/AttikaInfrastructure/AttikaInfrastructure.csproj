@@ -70,6 +70,7 @@
     <Compile Include="Data\Mappings\ArticleMap.cs" />
     <Compile Include="Data\Mappings\CommentMap.cs" />
     <Compile Include="Data\Repositories\Exceptions\RepositoryException.cs" />
+    <Compile Include="Messaging\Messages\AddArticleCommentRequest.cs" />
     <Compile Include="Messaging\Messages\BaseMessage.cs" />
     <Compile Include="Messaging\Messages\DataContract.cs" />
     <Compile Include="Messaging\Messages\DataMember.cs" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Infotecs.Attika.AttikaDomain.Aggregates;
+using Infotecs.Attika.AttikaDomain.Entities;
 using Infotecs.Attika.AttikaDomain.Factories.Contracts;
 using Infotecs.Attika.AttikaDomain.Services.Exceptions;
 using Infotecs.Attika.AttikaDomain.Services.Metadata;
@@ -22,6 +23,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IArticleFactory _articleFactory;
         private readonly ICommandRepository _commandRepository;
+        private readonly ICommentFactory _commentFactory;
         private readonly IMappingService _mappingService;
         private readonly IMessageSerializationService _messageSerializationService;
         private readonly IQueryRepository _queryRepository;
@@ -29,7 +31,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
 
         public ArticleHandler(IQueryRepository queryRepository, ICommandRepository commandRepository,
                               IMappingService mappingService,
-                              IQueueService queue, IArticleFactory articleFactory,
+                              IQueueService queue, IArticleFactory articleFactory, ICommentFactory commentFactory,
                               IMessageSerializationService messageSerializationService)
         {
             _queryRepository = queryRepository;
@@ -37,13 +39,14 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
             _mappingService = mappingService;
             _queue = queue;
             _articleFactory = articleFactory;
+            _commentFactory = commentFactory;
             _messageSerializationService = messageSerializationService;
         }
 
         public override object Clone()
         {
             var handler = new ArticleHandler(_queryRepository, _commandRepository, _mappingService, _queue,
-                                             _articleFactory, _messageSerializationService);
+                                             _articleFactory, _commentFactory, _messageSerializationService);
             return handler;
         }
 
@@ -62,7 +65,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
             Article article;
             try
             {
-                article = _articleFactory.CreateArticle(guid);
+                article = _articleFactory.CreateArticleFromRepository(guid);
             }
             catch (RepositoryException ex)
             {
@@ -144,10 +147,9 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
 
         public object Handle(NewArticleRequest newArticleRequest)
         {
-            Article article;
             try
             {
-                article = _articleFactory.CreateArticle(newArticleRequest.Article);
+                Article article = _articleFactory.CreateArticle(newArticleRequest.Article);
                 _commandRepository.CreateArticle(article.State);
             }
             catch (ArgumentException ex)
@@ -157,6 +159,102 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
             catch (Exception ex)
             {
                 Logger.Error(ex, "Неизвестная ошибка при создании статьи.");
+            }
+
+            return null;
+        }
+
+        public void Enqueue(AddArticleCommentRequest addArticleCommentRequest)
+        {
+            if (addArticleCommentRequest == null)
+            {
+                throw new ServiceException(ServiceMetadata.RequestIsEmptyError);
+            }
+
+            Guid articleGuid;
+            if (!Guid.TryParse(addArticleCommentRequest.ArticleId, out articleGuid))
+            {
+                throw new ServiceException(ServiceMetadata.BadRequestError);
+            }
+
+            Article article;
+            try
+            {
+                article = _articleFactory.CreateArticleFromRepository(articleGuid);
+            }
+            catch (RepositoryException ex)
+            {
+                throw new ServiceException(ServiceMetadata.InternalServiceError, ex);
+            }
+
+            if (article == null)
+            {
+                throw new ServiceException(ServiceMetadata.ArticleNotFoundError);
+            }
+
+            //just ensure we're able to construct valid comment later
+            try
+            {
+                _commentFactory.CreateComment(addArticleCommentRequest.Comment);
+            }
+            catch (ArgumentException ex)
+            {
+                throw new ServiceException(ex.Message, ex);
+            }
+            try
+            {
+                _queue.PushMessage(_messageSerializationService.Serialize(addArticleCommentRequest));
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException(ServiceMetadata.InternalServiceError, ex);
+            }
+        }
+
+        public object Handle(AddArticleCommentRequest addArticleCommentRequest)
+        {
+            Article article = null;
+            try
+            {
+                article = _articleFactory.CreateArticleFromRepository(Guid.Parse(addArticleCommentRequest.ArticleId));
+            }
+            catch (RepositoryException ex)
+            {
+                Logger.Warn(ex, "Ошибка репозитория.");
+            }
+            catch (ArgumentException ex)
+            {
+                Logger.Warn(ex, "Ошибка валидации создании статьи.");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Неизвестная ошибка при получении статьи по идентификатору.");
+            }
+
+            if (article == null)
+            {
+                Logger.Warn("Статья с id {0} не найдена.", addArticleCommentRequest.ArticleId);
+                return null;
+            }
+
+            Comment comment = null;
+            try
+            {
+                comment = _commentFactory.CreateComment(addArticleCommentRequest.Comment);
+            }
+            catch (ArgumentException ex)
+            {
+                Logger.Warn(ex, "Ошибка валидации комментария.");
+            }
+
+            article.AddComment(comment);
+            try
+            {
+                _commandRepository.UpdateArticle(article.State);
+            }
+            catch (RepositoryException ex)
+            {
+                Logger.Warn(ex, "Ошибка репозитория при обновлении статьи.");
             }
 
             return null;

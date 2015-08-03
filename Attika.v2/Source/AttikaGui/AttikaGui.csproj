@@ -108,7 +108,6 @@
     <Compile Include="Messages\Gui\NewArticleAddedMessage.cs" />
     <Compile Include="Messages\Gui\RefreshHeaderListMessage.cs" />
     <Compile Include="Messages\Gui\ViewArticleMessage.cs" />
-    <Compile Include="DataServices\DataService.cs" />
     <Compile Include="DataServices\DataServiceException.cs" />
     <Compile Include="DataServices\IDataSerializer.cs" />
     <Compile Include="DataServices\IDataService.cs" />

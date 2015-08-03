@@ -10,15 +10,7 @@ namespace Infotecs.Attika.AttikaGui.NinjectModules
     {
         public override void Load()
         {
-            string[] args = Environment.GetCommandLineArgs();
-            if ((from a in args where a == "-classic" select a).Any())
-            {
-                Bind<IDataService>().To<DataService>();
-            }
-            else
-            {
-                Bind<IDataService>().To<MessagedDataService>();
-            }
+            Bind<IDataService>().To<MessagedDataService>();
             Bind<MainViewModel>().ToSelf();
             Bind<NavigationViewModel>().ToSelf();
             Bind<ArticleViewModel>().ToSelf();

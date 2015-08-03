@@ -36,11 +36,13 @@ namespace Infotecs.Attika.AttikaDomainTests
             standardTinyMappingService.Bind<CommentState, CommentDto>();
             standardTinyMappingService.Bind<Article, ArticleDto>();
             var commentFactory = new CommentFactory(new CommentValidator(), standardTinyMappingService);
-            var articleFactory = new ArticleFactory(_queryRepository.Object, new ArticleValidator(), new CommentValidator(), 
-                standardTinyMappingService);
+            var articleFactory = new ArticleFactory(_queryRepository.Object, new ArticleValidator(),
+                                                    new CommentValidator(),
+                                                    standardTinyMappingService);
 
             _articleHandler = new ArticleHandler(_queryRepository.Object, _commandRepository.Object,
-                standardTinyMappingService, null, articleFactory, new MessageSerializationService());
+                                                 standardTinyMappingService, null, articleFactory, commentFactory,
+                                                 new MessageSerializationService());
         }
 
         public void Dispose()
@@ -51,10 +53,10 @@ namespace Infotecs.Attika.AttikaDomainTests
         private void TestCreateArticleCalled()
         {
             _articleHandler.Handle(new NewArticleRequest
-            {
-                Article = new ArticleDto(),
-                Request = "Article.NewArticleRequest"
-            });
+                {
+                    Article = new ArticleDto(),
+                    Request = "Article.NewArticleRequest"
+                });
             try
             {
                 _commandRepository.Verify(cr => cr.CreateArticle(It.IsAny<ArticleState>()), Times.AtLeastOnce());
@@ -84,9 +86,9 @@ namespace Infotecs.Attika.AttikaDomainTests
         private void TestGetArticleHeadersCalled()
         {
             _articleHandler.Handle(new GetArticleHeadersRequest
-            {
-                Request = "Article.GetArticleHeadersRequest"
-            });
+                {
+                    Request = "Article.GetArticleHeadersRequest"
+                });
             try
             {
                 _queryRepository.Verify(cr => cr.GetHeaders(), Times.AtLeastOnce());
@@ -102,13 +104,33 @@ namespace Infotecs.Attika.AttikaDomainTests
         private void TestGetArticleCalled()
         {
             _articleHandler.Handle(new GetArticleRequest
-            {
-                Request = "Article.GetArticleRequest",
-                Id = Guid.NewGuid().ToString()
-            });
+                {
+                    Request = "Article.GetArticleRequest",
+                    Id = Guid.NewGuid().ToString()
+                });
             try
             {
                 _queryRepository.Verify(cr => cr.GetArticle(It.IsAny<Guid>()), Times.AtLeastOnce());
+                Assert.True(true);
+            }
+            catch (MockException)
+            {
+                Assert.False(true);
+            }
+        }
+
+        [Fact]
+        private void TestUpdateArticleCalledAfterAddCommentHandled()
+        {
+            _articleHandler.Handle(new AddArticleCommentRequest
+                {
+                    Request = "Article.AddArticleCommentRequest",
+                    ArticleId = Guid.NewGuid().ToString(),
+                    Comment = new CommentDto {ArticleId = Guid.NewGuid(), Id = Guid.NewGuid()}
+                });
+            try
+            {
+                _commandRepository.Verify(cr => cr.UpdateArticle(It.IsAny<ArticleState>()), Times.AtLeastOnce());
                 Assert.True(true);
             }
             catch (MockException)

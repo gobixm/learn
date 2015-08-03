@@ -58,9 +58,10 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories
                 {
                     using (var transaction = session.BeginTransaction())
                     {
-                        session.Load<ArticleState>(articleState.Id);
+                        var article = session.Load<ArticleState>(articleState.Id);
                         foreach (var comment in articleState.Comments)
                         {
+                            comment.ArticleState = article;
                             session.Merge(comment);
                         }
                         var s = session.Merge(articleState);

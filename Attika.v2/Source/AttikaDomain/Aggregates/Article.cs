@@ -14,14 +14,14 @@ namespace Infotecs.Attika.AttikaDomain.Aggregates
     {
         private IEnumerable<Comment> _comments;
 
+        private Article()
+        {
+        }
+
         public IEnumerable<Comment> Comments
 
         {
             get { return _comments ?? (_comments = LoadComments()); }
-        }
-
-        private Article()
-        {
         }
 
         public string Text
@@ -59,19 +59,20 @@ namespace Infotecs.Attika.AttikaDomain.Aggregates
         public void AddComment(Comment comment)
         {
             State.Comments.Add(new CommentState
-            {
-                ArticleId = Id,
-                ArticleState = State,
-                Created = comment.Created,
-                Id = comment.Id,
-                Text = comment.Text
-            });
+                {
+                    ArticleId = Id,
+                    ArticleState = State,
+                    Created = comment.Created,
+                    Id = comment.Id,
+                    Text = comment.Text
+                });
+            _comments = null;
         }
 
         public void DeleteComment(Guid idGuid)
         {
-            var comments = from c in State.Comments where c.Id == idGuid select c;
-            foreach (var comment in comments)
+            IEnumerable<CommentState> comments = from c in State.Comments where c.Id == idGuid select c;
+            foreach (CommentState comment in comments)
             {
                 State.Comments.Remove(comment);
             }
@@ -81,9 +82,9 @@ namespace Infotecs.Attika.AttikaDomain.Aggregates
         public static Article Create(ArticleState articleState)
         {
             return new Article
-            {
-                State = articleState
-            };
+                {
+                    State = articleState
+                };
         }
     }
 }

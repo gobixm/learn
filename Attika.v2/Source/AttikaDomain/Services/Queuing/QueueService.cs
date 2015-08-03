@@ -25,8 +25,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.Queuing
             using (IModel channel = connection.CreateModel())
             {
                 channel.ExchangeDeclare("attika_exchange", ExchangeType.Fanout);
-                var properties = new BasicProperties();
-                properties.Persistent = true;
+                var properties = new BasicProperties {Persistent = true};
                 channel.BasicPublish("attika_exchange", "", properties, message);
             }
         }
@@ -36,7 +35,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.Queuing
             if (_factory == null)
             {
                 ConnectionStringSettings host = ConfigurationManager.ConnectionStrings["rabbit"];
-                var hostname = "localhost";
+                string hostname = "localhost";
                 if (host != null)
                     hostname = host.ConnectionString;
 

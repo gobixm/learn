@@ -78,7 +78,8 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             {
                 Comment.Id = Guid.NewGuid();
                 _dataService.NewComment(Comment.ArticleId.ToString(), Comment);
-                Messenger.Default.Send(new ViewArticleMessage {ArticleId = Comment.ArticleId.ToString()});
+                SaveCommand.RaiseCanExecuteChanged();
+                DeleteCommand.RaiseCanExecuteChanged();
                 Messenger.Default.Send(new ChangeStateMessage {State = "ok"});
             }
             catch (DataServiceException ex)
