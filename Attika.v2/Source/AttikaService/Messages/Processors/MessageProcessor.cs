@@ -119,7 +119,10 @@ namespace Infotecs.Attika.AttikaService.Messages.Processors
         {
             if (!_disposed)
             {
-                _queueService.UnregisterConsumer(HandleMessageFromQueue);
+                if (disposing)
+                {
+                    _queueService.UnregisterConsumer(HandleMessageFromQueue);
+                }
                 _disposed = true;
             }
         }
@@ -129,9 +132,9 @@ namespace Infotecs.Attika.AttikaService.Messages.Processors
             Dispose(false);
         }
 
-        private void HandleMessageFromQueue(object sender, byte[] message)
+        private void HandleMessageFromQueue(object sender, QueueMessageEventArgs message)
         {
-            BaseMessage decodedMessage = _messageSerializationService.Deseriallize(message,
+            BaseMessage decodedMessage = _messageSerializationService.Deseriallize(message.MessageBody,
                                                                                    header =>
                                                                                    _messageProcessorConfiguration
                                                                                        .GetMessageType(header).In);

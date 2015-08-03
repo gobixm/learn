@@ -13,7 +13,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.Queuing
         private bool _disposed;
         private ConnectionFactory _factory;
 
-        public void RegisterConsumer(EventHandler<byte[]> arrived)
+        public void RegisterConsumer(EventHandler<QueueMessageEventArgs> arrived)
         {
             Arrival += arrived;
             EnshureMessageProcessingEnabled();
@@ -36,7 +36,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.Queuing
             GC.SuppressFinalize(this);
         }
 
-        public void UnregisterConsumer(EventHandler<byte[]> arrived)
+        public void UnregisterConsumer(EventHandler<QueueMessageEventArgs> arrived)
         {
             Arrival -= arrived;
         }
@@ -45,10 +45,13 @@ namespace Infotecs.Attika.AttikaDomain.Services.Queuing
         {
             if (!_disposed)
             {
-                if (_channel != null)
-                    _channel.Dispose();
-                if (_connection != null)
-                    _connection.Dispose();
+                if (disposing)
+                {
+                    if (_channel != null)
+                        _channel.Dispose();
+                    if (_connection != null)
+                        _connection.Dispose();
+                }
                 _disposed = true;
             }
         }
@@ -82,13 +85,23 @@ namespace Infotecs.Attika.AttikaDomain.Services.Queuing
                 var consumer = new EventingBasicConsumer(_channel);
                 consumer.Received += (model, e) =>
                     {
-                        Arrival(this, e.Body);
+                        Arrival(this, new QueueMessageEventArgs(e.Body));
                         _channel.BasicAck(e.DeliveryTag, false);
                     };
                 _channel.BasicConsume("attika_queue", false, consumer);
             }
         }
 
-        public event EventHandler<byte[]> Arrival = (sender, bytes) => { };
+        public event EventHandler<QueueMessageEventArgs> Arrival = (sender, message) => { };
+    }
+
+    public class QueueMessageEventArgs : EventArgs
+    {
+        public byte[] MessageBody { get; set; }
+
+        public QueueMessageEventArgs(byte[] messageBody)
+        {
+            MessageBody = messageBody;
+        }
     }
 }

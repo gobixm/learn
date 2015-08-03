@@ -15,7 +15,7 @@ using Xunit;
 
 namespace Infotecs.Attika.AttikaDomainTests
 {
-    public class ArticleHandlerTest : IDisposable
+    public class ArticleHandlerTest
     {
         private readonly ArticleHandler _articleHandler;
         private readonly Mock<ICommandRepository> _commandRepository;
@@ -43,10 +43,6 @@ namespace Infotecs.Attika.AttikaDomainTests
             _articleHandler = new ArticleHandler(_queryRepository.Object, _commandRepository.Object,
                                                  standardTinyMappingService, null, articleFactory, commentFactory,
                                                  new MessageSerializationService());
-        }
-
-        public void Dispose()
-        {
         }
 
         [Fact]
