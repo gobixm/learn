@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using Infotecs.Attika.AttikaService.Validators;
 using Infotecs.Attika.AttikaSharedDataObjects.DataTransferObjects;
 using Xunit;
@@ -7,55 +9,37 @@ namespace AtticaServiceTest
 {
     public class ArticleValidatorTest
     {
-        public static IEnumerable<object[]> ArticleValidationData
+        [Theory]
+        [InlineData(101)]
+        private void TestInvalidArticleTitle(int titleLength)
         {
-            get
-            {
-                yield return new object[]
-                    {
-                        new ArticleDto {Title = "article 1"}, true, ""
-                    };
-                yield return new object[]
-                    {
-                        new ArticleDto {Title = new string('x', 100)}, true, ""
-                    };
-                yield return new object[]
-                    {
-                        new ArticleDto {Title = new string('x', 101)}, false,
-                        "Заголовок статьи не может превышать 100 символов."
-                    };
-                yield return new object[]
-                    {
-                        new ArticleDto {Text = "simple text"}, true, ""
-                    };
-                yield return new object[]
-                    {
-                        new ArticleDto {Text = new string('x', 200)}, true, ""
-                    };
-                yield return new object[]
-                    {
-                        new ArticleDto {Text = new string('x', 201)}, false,
-                        "Текст статьи не может превышать 200 символов."
-                    };
-                yield return new object[]
-                    {
-                        new ArticleDto {Comments = new List<CommentDto> {new CommentDto {Text = new string('x', 500)}}},
-                        false, "Текст комментария не может превышать 50 символов."
-                    };
-            }
+            var title = new string('x', titleLength);
+            var article = new ArticleDto {Title = title};
+            string[] errors;
+            var valid = article.Validate(out errors, true);
+            Assert.False(valid, string.Join(";",errors));
         }
 
         [Theory]
-        [MemberData("ArticleValidationData", null)]
-        private void TestArticleValidationRules(ArticleDto article, bool valid, string message)
+        [InlineData(201)]
+        private void TestInvalidArticleText(int textLength)
         {
+            var text = new string('x', textLength);
+            var article = new ArticleDto { Title = text };
             string[] errors;
-            bool validated = article.Validate(out errors, true);
-            Assert.Equal(valid, validated);
-            if (!validated)
-            {
-                Assert.Equal(errors[0], message);
-            }
+            var valid = article.Validate(out errors, true);
+            Assert.False(valid, string.Join(";", errors));
+        }
+
+        [Theory]
+        [InlineData(51)]
+        private void TestInvalidArticleCommentText(int textLength)
+        {
+            var text = new string('x', textLength);
+            var article = new ArticleDto { Title = text, Comments = new List<CommentDto>(){new CommentDto(){Text = text}}};
+            string[] errors;
+            var valid = article.Validate(out errors, true);
+            Assert.False(valid, string.Join(";", errors));
         }
     }
 }
