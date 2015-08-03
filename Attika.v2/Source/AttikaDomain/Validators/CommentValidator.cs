@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Infotecs.Attika.AttikaDomain.Aggregates;
 using Infotecs.Attika.AttikaDomain.Entities;
 
 namespace Infotecs.Attika.AttikaDomain.Validators
@@ -8,9 +7,10 @@ namespace Infotecs.Attika.AttikaDomain.Validators
     {
         public const string TextOverflowError = "Текст комментария не может превышать 50 символов.";
         public const int TextOverflowRange = 50;
+
         protected override IEnumerable<string> GetErrors(Comment comment)
         {
-            if (comment.Text.Length > TextOverflowRange)
+            if ((comment.Text != null) && (comment.Text.Length > TextOverflowRange))
             {
                 yield return TextOverflowError;
             }

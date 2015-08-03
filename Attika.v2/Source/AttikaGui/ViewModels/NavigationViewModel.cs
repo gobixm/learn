@@ -55,6 +55,18 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
         {
             Messenger.Default.Register(this, (RefreshHeaderListMessage message) => RebuildHeaderList());
             Messenger.Default.Register(this, (DeleteArticleMessage message) => OnDeleteArticle(message));
+            Messenger.Default.Register(this, (NewArticleAddedMessage message) => OnNewArticleAdded(message));
+        }
+
+        private void OnNewArticleAdded(NewArticleAddedMessage message)
+        {
+            ArticleHeaders.Add(
+                new ArticleHeaderViewModel(new ArticleHeaderDto
+                    {
+                        ArticleId = message.Article.Id,
+                        Title = message.Article.Title
+                    }));
+            RaisePropertyChanged(() => ArticleHeaders);
         }
 
         private void OnDeleteArticle(DeleteArticleMessage message)

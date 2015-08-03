@@ -105,6 +105,7 @@
     <Compile Include="Messages\Gui\AddArticleMessage.cs" />
     <Compile Include="Messages\Gui\ChangeStateMessage.cs" />
     <Compile Include="Messages\Gui\DeleteArticleMessage.cs" />
+    <Compile Include="Messages\Gui\NewArticleAddedMessage.cs" />
     <Compile Include="Messages\Gui\RefreshHeaderListMessage.cs" />
     <Compile Include="Messages\Gui\ViewArticleMessage.cs" />
     <Compile Include="DataServices\DataService.cs" />

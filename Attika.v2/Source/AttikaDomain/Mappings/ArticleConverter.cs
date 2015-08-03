@@ -8,7 +8,7 @@ using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 
 namespace Infotecs.Attika.AttikaDomain.Mappings
 {
-    public class ArticleConverter : TypeConverter
+    public sealed class ArticleConverter : TypeConverter
     {
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {

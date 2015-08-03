@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Infotecs.Attika.AttikaInfrastructure.Messaging.Serializers
 {
-    public class MessageSerializer : IMessageSerializer
+    public class MessageSerializationService : IMessageSerializationService
     {
         public byte[] Serialize(BaseMessage message)
         {

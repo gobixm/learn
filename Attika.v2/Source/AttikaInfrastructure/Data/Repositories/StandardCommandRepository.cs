@@ -31,27 +31,6 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories
             
         }
 
-        public void CreateComment(Guid articleId, CommentState commentState)
-        {
-            try
-            {
-                using (var session = SessionHelper.OpenSession())
-                {
-                    using (var transaction = session.BeginTransaction())
-                    {
-                        commentState.Created = DateTime.Now;
-                        commentState.ArticleState = session.Get<ArticleState>(articleId);
-                        session.Save(commentState);
-                        transaction.Commit();
-                    }
-                }
-            }
-            catch (HibernateException ex)
-            {
-                throw new RepositoryException("Ошибка репозитория", ex);
-            }
-        }
-
         public void DeleteArticle(string articleId)
         {
             try
@@ -70,26 +49,7 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories
                 throw new RepositoryException("Ошибка репозитория", ex);
             }
         }
-
-        public void DeleteComment(string commentId)
-        {
-            try
-            {
-                using (var session = SessionHelper.OpenSession())
-                {
-                    using (var transaction = session.BeginTransaction())
-                    {
-                        session.Delete(session.Load<CommentState>(Guid.Parse(commentId)));
-                        transaction.Commit();
-                    }
-                }
-            }
-            catch (HibernateException ex)
-            {
-                throw new RepositoryException("Ошибка репозитория", ex);
-            }
-        }
-
+        
         public void UpdateArticle(ArticleState articleState)
         {
             try
@@ -98,7 +58,7 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories
                 {
                     using (var transaction = session.BeginTransaction())
                     {
-                        var existingArticle = session.Load<ArticleState>(articleState.Id);
+                        session.Load<ArticleState>(articleState.Id);
                         foreach (var comment in articleState.Comments)
                         {
                             session.Merge(comment);

@@ -36,7 +36,7 @@ namespace Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots
                     standardTynyMapper.Bind<Article, ArticleDto>();
                 });
 
-            Bind<IMessageSerializer>().To<MessageSerializer>().InSingletonScope();
+            Bind<IMessageSerializationService>().To<MessageSerializationService>().InSingletonScope();
             Bind<ArticleHandler>().ToSelf();
             Bind<IQueueService>().To<QueueService>().InSingletonScope();
             Bind<IMessageProcessorConfiguration>().To<MessageProcessorConfiguration>()

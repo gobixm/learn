@@ -14,13 +14,13 @@ namespace Infotecs.Attika.AttikaService.Messages.Processors
         public delegate BaseMessage HandleMethodDelegate(BaseMessage message);
 
         private readonly IMessageProcessorConfiguration _messageProcessorConfiguration;
-        private readonly IMessageSerializer _messageSerializer;
+        private readonly IMessageSerializationService _messageSerializationService;
 
         public MessageProcessor(IMessageProcessorConfiguration messageProcessorConfiguration, IQueueService queueService,
-            IMessageSerializer messageSerializer)
+            IMessageSerializationService messageSerializationService)
         {
             _messageProcessorConfiguration = messageProcessorConfiguration;
-            _messageSerializer = messageSerializer;
+            _messageSerializationService = messageSerializationService;
             queueService.RegisterConsumer(HandleMessageFromQueue);
         }
 
@@ -76,7 +76,7 @@ namespace Infotecs.Attika.AttikaService.Messages.Processors
 
         public void HandleMessageFromQueue(byte[] message)
         {
-            var decodedMessage = _messageSerializer.Deseriallize(message,
+            var decodedMessage = _messageSerializationService.Deseriallize(message,
                 header => _messageProcessorConfiguration.GetMessageType(header).In);
             var handler = _messageProcessorConfiguration.GetMessageHandler(decodedMessage.Request);
             handler.Handle(decodedMessage);

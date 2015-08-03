@@ -1,72 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using Infotecs.Attika.AttikaDomain.Aggregates;
+using Infotecs.Attika.AttikaDomain.Entities;
 using Infotecs.Attika.AttikaDomain.Factories.Contracts;
 using Infotecs.Attika.AttikaDomain.Validators.Contracts;
 using Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects;
 using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 using Infotecs.Attika.AttikaInfrastructure.Data.Repositories;
-using Infotecs.Attika.AttikaInfrastructure.Data.Repositories.Exceptions;
 using Infotecs.Attika.AttikaInfrastructure.Services.Contracts;
 
 namespace Infotecs.Attika.AttikaDomain.Factories
 {
-    public class ArticleFactory : IArticleFactory
+    public sealed class ArticleFactory : IArticleFactory
     {
-        private readonly ICommentFactory _commentFactory;
+        private readonly IValidator<Article> _articleValidator;
+        private readonly IValidator<Comment> _commentValidator;
         private readonly IMappingService _mappingService;
         private readonly IQueryRepository _queryRepository;
-        private readonly IValidator<Article> _validator;
 
-        public ArticleFactory(IQueryRepository queryRepository, IValidator<Article> validator,
-            ICommentFactory commentFactory,
-            IMappingService mappingService)
+        public ArticleFactory(IQueryRepository queryRepository, IValidator<Article> articleValidator,
+                              IValidator<Comment> commentValidator, IMappingService mappingService)
         {
             _queryRepository = queryRepository;
-            _validator = validator;
-            _commentFactory = commentFactory;
+            _articleValidator = articleValidator;
+            _commentValidator = commentValidator;
             _mappingService = mappingService;
         }
 
         public Article CreateArticle(Guid id)
         {
-            ArticleState articleState;
-            articleState = _queryRepository.GetArticle(id);
+            ArticleState articleState = _queryRepository.GetArticle(id);
             if (articleState == null)
             {
                 return null;
             }
-            var article = Article.Create(articleState);
-            return article;
-        }
-
-        public Article NewArticle(string title, string description, string text)
-        {
-            var article = Article.Create(new ArticleState
-            {
-                Comments = new List<CommentState>(),
-                Created = DateTime.Now,
-                Description = description,
-                Id = Guid.NewGuid(),
-                Text = text,
-                Title = title
-            });
-            string[] errors;
-            if (!_validator.Validate(article, out errors))
-            {
-                throw new ArgumentException(string.Join("\n", errors));
-            }
+            Article article = Article.Create(articleState);
             return article;
         }
 
         public Article CreateArticle(ArticleDto articleDto)
         {
             var state = _mappingService.Map<ArticleState>(articleDto);
-            var article = Article.Create(state);
+            Article article = Article.Create(state);
             string[] errors;
-            if (!_validator.Validate(article, out errors))
+            if (!_articleValidator.Validate(article, out errors))
             {
                 throw new ArgumentException(string.Join("\n", errors));
+            }
+            if (article.Comments != null)
+            {
+                if (article.Comments.Any(comment => !_commentValidator.Validate(comment, out errors)))
+                {
+                    throw new ArgumentException(string.Join("\n", errors));
+                }
             }
             return article;
         }

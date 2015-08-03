@@ -2,10 +2,10 @@
 {
     public static class ServiceMetadata
     {
-        public static string RequestIsEmptyError = "Запрос не может быть пустым.";
-        public static string BadRequestError = "Неверный запрос.";
-        public static string ArticleNotFoundError = "Статья не найдена.";
-        public static string InternalServiceError = "Ошибка на стороне сервера.";
-        public static string UnsupportedMethod = "Метод не поддерживается.";
+        public const string RequestIsEmptyError = "Запрос не может быть пустым.";
+        public const string BadRequestError = "Неверный запрос.";
+        public const string ArticleNotFoundError = "Статья не найдена.";
+        public const string InternalServiceError = "Ошибка на стороне сервера.";
+        public const string UnsupportedMethod = "Метод не поддерживается.";
     }
 }

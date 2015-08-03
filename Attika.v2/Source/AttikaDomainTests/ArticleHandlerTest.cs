@@ -29,21 +29,18 @@ namespace Infotecs.Attika.AttikaDomainTests
 
             _commandRepository = new Mock<ICommandRepository>();
             _commandRepository.Setup(cr => cr.CreateArticle(It.IsAny<ArticleState>()));
-            _commandRepository.Setup(cr => cr.CreateComment(It.IsAny<Guid>(), It.IsAny<CommentState>()));
             _commandRepository.Setup(cr => cr.DeleteArticle(It.IsAny<string>()));
-            _commandRepository.Setup(cr => cr.DeleteComment(It.IsAny<string>()));
 
             var standardTinyMappingService = new StandardTinyMappingService();
             standardTinyMappingService.Bind<ArticleDto, ArticleState>();
             standardTinyMappingService.Bind<CommentState, CommentDto>();
             standardTinyMappingService.Bind<Article, ArticleDto>();
-            var validator = new ArticleValidator();
             var commentFactory = new CommentFactory(new CommentValidator(), standardTinyMappingService);
-            var articleFactory = new ArticleFactory(_queryRepository.Object, new ArticleValidator(), commentFactory,
+            var articleFactory = new ArticleFactory(_queryRepository.Object, new ArticleValidator(), new CommentValidator(), 
                 standardTinyMappingService);
 
             _articleHandler = new ArticleHandler(_queryRepository.Object, _commandRepository.Object,
-                standardTinyMappingService, null, articleFactory, new MessageSerializer());
+                standardTinyMappingService, null, articleFactory, new MessageSerializationService());
         }
 
         public void Dispose()
@@ -61,35 +58,6 @@ namespace Infotecs.Attika.AttikaDomainTests
             try
             {
                 _commandRepository.Verify(cr => cr.CreateArticle(It.IsAny<ArticleState>()), Times.AtLeastOnce());
-                Assert.True(true);
-            }
-            catch (MockException)
-            {
-                Assert.False(true);
-            }
-        }
-
-        [Fact]
-        private void TestCreateCommentCalled()
-        {
-            try
-            {
-                _commandRepository.Verify(cr => cr.CreateComment(It.IsAny<Guid>(), It.IsAny<CommentState>()),
-                    Times.AtLeastOnce());
-                Assert.True(true);
-            }
-            catch (MockException)
-            {
-                Assert.False(true);
-            }
-        }
-
-        [Fact]
-        private void TestDeleteCommentCalled()
-        {
-            try
-            {
-                _commandRepository.Verify(cr => cr.DeleteComment(It.IsAny<string>()), Times.AtLeastOnce());
                 Assert.True(true);
             }
             catch (MockException)

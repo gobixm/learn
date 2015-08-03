@@ -10,7 +10,7 @@ using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 namespace Infotecs.Attika.AttikaDomain.Aggregates
 {
     [TypeConverter(typeof (ArticleConverter))]
-    public class Article : IEntity
+    public sealed class Article : IEntity
     {
         private IEnumerable<Comment> _comments;
 
@@ -27,19 +27,16 @@ namespace Infotecs.Attika.AttikaDomain.Aggregates
         public string Text
         {
             get { return State.Text; }
-            set { State.Text = value; }
         }
 
         public string Description
         {
             get { return State.Description; }
-            set { State.Description = value; }
         }
 
         public DateTime Created
         {
             get { return State.Created; }
-            set { State.Created = value; }
         }
 
         public ArticleState State { get; private set; }
@@ -47,13 +44,11 @@ namespace Infotecs.Attika.AttikaDomain.Aggregates
         public string Title
         {
             get { return State.Title; }
-            private set { State.Title = value; }
         }
 
         public Guid Id
         {
             get { return State.Id; }
-            private set { State.Id = value; }
         }
 
         private IEnumerable<Comment> LoadComments()

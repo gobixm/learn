@@ -197,15 +197,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
                 return;
             }
 
-            Messenger.Default.Send(new RefreshHeaderListMessage());
-            try
-            {
-                ArticleDto = _dataService.GetArticle(ArticleDto.Id.ToString());
-            }
-            catch (DataServiceException ex)
-            {
-                Messenger.Default.Send(new ChangeStateMessage {State = ex.ToString()});
-            }
+            Messenger.Default.Send(new NewArticleAddedMessage {Article = ArticleDto});
         }
     }
 }
