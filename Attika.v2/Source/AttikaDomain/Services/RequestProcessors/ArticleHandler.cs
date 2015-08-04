@@ -12,7 +12,6 @@ using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 using Infotecs.Attika.AttikaInfrastructure.Data.Repositories;
 using Infotecs.Attika.AttikaInfrastructure.Data.Repositories.Exceptions;
 using Infotecs.Attika.AttikaInfrastructure.Messaging.Messages;
-using Infotecs.Attika.AttikaInfrastructure.Messaging.Serializers;
 using Infotecs.Attika.AttikaInfrastructure.Services.Contracts;
 using NLog;
 
@@ -27,17 +26,21 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
         private readonly IMappingService _mappingService;
         private readonly IMessageSerializationService _messageSerializationService;
         private readonly IQueryRepository _queryRepository;
-        private readonly IQueueService _queue;
+        private readonly IQueueService _queueService;
 
-        public ArticleHandler(IQueryRepository queryRepository, ICommandRepository commandRepository,
-                              IMappingService mappingService,
-                              IQueueService queue, IArticleFactory articleFactory, ICommentFactory commentFactory,
-                              IMessageSerializationService messageSerializationService)
+        public ArticleHandler(
+            IQueryRepository queryRepository,
+            ICommandRepository commandRepository,
+            IMappingService mappingService,
+            IQueueService queueService,
+            IArticleFactory articleFactory,
+            ICommentFactory commentFactory,
+            IMessageSerializationService messageSerializationService)
         {
             _queryRepository = queryRepository;
             _commandRepository = commandRepository;
             _mappingService = mappingService;
-            _queue = queue;
+            _queueService = queueService;
             _articleFactory = articleFactory;
             _commentFactory = commentFactory;
             _messageSerializationService = messageSerializationService;
@@ -45,7 +48,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
 
         public override object Clone()
         {
-            var handler = new ArticleHandler(_queryRepository, _commandRepository, _mappingService, _queue,
+            var handler = new ArticleHandler(_queryRepository, _commandRepository, _mappingService, _queueService,
                                              _articleFactory, _commentFactory, _messageSerializationService);
             return handler;
         }
@@ -137,7 +140,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
             }
             try
             {
-                _queue.PushMessage(_messageSerializationService.Serialize(newArticleRequest));
+                _queueService.PushMessage(_messageSerializationService.Serialize(newArticleRequest));
             }
             catch (Exception ex)
             {
@@ -188,7 +191,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
             }
             try
             {
-                _queue.PushMessage(_messageSerializationService.Serialize(addArticleCommentRequest));
+                _queueService.PushMessage(_messageSerializationService.Serialize(addArticleCommentRequest));
             }
             catch (Exception ex)
             {
@@ -265,7 +268,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
 
             try
             {
-                _queue.PushMessage(_messageSerializationService.Serialize(deleteArticleCommentRequest));
+                _queueService.PushMessage(_messageSerializationService.Serialize(deleteArticleCommentRequest));
             }
             catch (Exception ex)
             {
@@ -323,7 +326,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
 
             try
             {
-                _queue.PushMessage(_messageSerializationService.Serialize(deleteArticleRequest));
+                _queueService.PushMessage(_messageSerializationService.Serialize(deleteArticleRequest));
             }
             catch (Exception ex)
             {

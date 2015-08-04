@@ -6,7 +6,7 @@ using RabbitMQ.Client.Framing;
 
 namespace Infotecs.Attika.AttikaDomain.Services.Queuing
 {
-    public sealed class QueueService : IQueueService, IDisposable
+    public sealed class QueueService : IQueueService
     {
         private IModel _channel;
         private IConnection _connection;
@@ -97,11 +97,11 @@ namespace Infotecs.Attika.AttikaDomain.Services.Queuing
 
     public class QueueMessageEventArgs : EventArgs
     {
-        public byte[] MessageBody { get; set; }
-
         public QueueMessageEventArgs(byte[] messageBody)
         {
             MessageBody = messageBody;
         }
+
+        public byte[] MessageBody { get; set; }
     }
 }

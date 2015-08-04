@@ -15,13 +15,13 @@ namespace Infotecs.Attika.AttikaDomain.Entities
         public DateTime Created { get; private set; }
         public Guid Id { get; private set; }
 
-        public static Comment Create(CommentState c)
+        public static Comment Create(CommentState comment)
         {
             return new Comment
                 {
-                    Id = c.Id,
-                    Text = c.Text,
-                    Created = c.Created
+                    Id = comment.Id,
+                    Text = comment.Text,
+                    Created = comment.Created
                 };
         }
     }

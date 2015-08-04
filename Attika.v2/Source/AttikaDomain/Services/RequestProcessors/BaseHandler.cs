@@ -18,21 +18,19 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
             try
             {
                 //BaseMessage is abstract, so no recursion problems here
-                return (BaseMessage)((dynamic)this).Handle((dynamic)message);
+                return (BaseMessage) ((dynamic) this).Handle((dynamic) message);
             }
             catch (RuntimeBinderException ex)
             {
                 throw new ServiceException(ServiceMetadata.UnsupportedMethod, ex);
             }
-            
         }
 
         public void Enqueue(BaseMessage message)
         {
             try
             {
-
-                ((dynamic)this).Enqueue((dynamic)message);
+                ((dynamic) this).Enqueue((dynamic) message);
             }
             catch (RuntimeBinderException ex)
             {

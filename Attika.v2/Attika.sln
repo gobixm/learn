@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaService", "Source\AttikaService\AttikaService.csproj", "{53720DE0-DAA7-4D88-AB9E-A4BB5E5D5FB8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaConsoleHost", "Source\AttikaConsoleHost\AttikaConsoleHost.csproj", "{B064B72F-FD3E-4A39-A53E-FC54CAA83697}"
@@ -14,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaInfrastructure", "Source\AttikaInfrastructure\AttikaInfrastructure.csproj", "{C3B8CCFA-086D-4245-840C-863D269E4DBD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaDomainTests", "Source\AttikaDomainTests\AttikaDomainTests.csproj", "{3D902CE8-F5B8-4687-A041-FCC91BB0C856}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaSpecs", "Source\AttikaSpecs\AttikaSpecs.csproj", "{F66C78EA-D222-453C-B8E2-7C9D5E0009B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A6790EF5-2688-4E54-9F2A-A3819F084C65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,8 +47,16 @@ Global
 		{3D902CE8-F5B8-4687-A041-FCC91BB0C856}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D902CE8-F5B8-4687-A041-FCC91BB0C856}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D902CE8-F5B8-4687-A041-FCC91BB0C856}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F66C78EA-D222-453C-B8E2-7C9D5E0009B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F66C78EA-D222-453C-B8E2-7C9D5E0009B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F66C78EA-D222-453C-B8E2-7C9D5E0009B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F66C78EA-D222-453C-B8E2-7C9D5E0009B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3D902CE8-F5B8-4687-A041-FCC91BB0C856} = {A6790EF5-2688-4E54-9F2A-A3819F084C65}
+		{F66C78EA-D222-453C-B8E2-7C9D5E0009B4} = {A6790EF5-2688-4E54-9F2A-A3819F084C65}
 	EndGlobalSection
 EndGlobal

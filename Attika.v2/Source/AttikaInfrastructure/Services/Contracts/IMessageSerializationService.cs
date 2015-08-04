@@ -1,7 +1,7 @@
 ﻿using System;
 using Infotecs.Attika.AttikaInfrastructure.Messaging.Messages;
 
-namespace Infotecs.Attika.AttikaInfrastructure.Messaging.Serializers
+namespace Infotecs.Attika.AttikaInfrastructure.Services.Contracts
 {
     public interface IMessageSerializationService
     {

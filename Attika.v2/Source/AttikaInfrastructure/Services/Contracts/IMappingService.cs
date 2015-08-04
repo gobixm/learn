@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Infotecs.Attika.AttikaInfrastructure.Services.Contracts
+﻿namespace Infotecs.Attika.AttikaInfrastructure.Services.Contracts
 {
     public interface IMappingService
     {

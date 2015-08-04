@@ -2,9 +2,10 @@
 using System.IO;
 using System.Text;
 using Infotecs.Attika.AttikaInfrastructure.Messaging.Messages;
+using Infotecs.Attika.AttikaInfrastructure.Services.Contracts;
 using Newtonsoft.Json;
 
-namespace Infotecs.Attika.AttikaInfrastructure.Messaging.Serializers
+namespace Infotecs.Attika.AttikaInfrastructure.Services
 {
     public class MessageSerializationService : IMessageSerializationService
     {

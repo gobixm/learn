@@ -8,7 +8,6 @@ using Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects;
 using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 using Infotecs.Attika.AttikaInfrastructure.Data.Repositories;
 using Infotecs.Attika.AttikaInfrastructure.Messaging.Messages;
-using Infotecs.Attika.AttikaInfrastructure.Messaging.Serializers;
 using Infotecs.Attika.AttikaInfrastructure.Services;
 using Moq;
 using Xunit;

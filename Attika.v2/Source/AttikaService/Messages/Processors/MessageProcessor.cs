@@ -8,7 +8,7 @@ using Infotecs.Attika.AttikaDomain.Services.Queuing;
 using Infotecs.Attika.AttikaDomain.Services.RequestProcessors;
 using Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects;
 using Infotecs.Attika.AttikaInfrastructure.Messaging.Messages;
-using Infotecs.Attika.AttikaInfrastructure.Messaging.Serializers;
+using Infotecs.Attika.AttikaInfrastructure.Services.Contracts;
 using Infotecs.Attika.AttikaService.Messages.Wcf.Serializers;
 
 namespace Infotecs.Attika.AttikaService.Messages.Processors

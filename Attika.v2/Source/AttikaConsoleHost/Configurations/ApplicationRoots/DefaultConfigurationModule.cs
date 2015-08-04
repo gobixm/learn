@@ -9,7 +9,6 @@ using Infotecs.Attika.AttikaDomain.Validators.Contracts;
 using Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects;
 using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 using Infotecs.Attika.AttikaInfrastructure.Data.Repositories;
-using Infotecs.Attika.AttikaInfrastructure.Messaging.Serializers;
 using Infotecs.Attika.AttikaInfrastructure.Services;
 using Infotecs.Attika.AttikaInfrastructure.Services.Contracts;
 using Infotecs.Attika.AttikaService.Messages.Processors;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories.Exceptions
 {
@@ -20,6 +21,10 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories.Exceptions
         public override string ToString()
         {
             return InnerException == null ? Message : string.Format("{0}-><{1}>", Message, InnerException);
+        }
+
+        protected RepositoryException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
         }
     }
 }
