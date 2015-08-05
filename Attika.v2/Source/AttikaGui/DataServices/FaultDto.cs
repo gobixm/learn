@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace Infotecs.Attika.AttikaGui.DataServices
 {
@@ -12,9 +13,9 @@ namespace Infotecs.Attika.AttikaGui.DataServices
         }
 
         [DataMember]
-        public string Message { get; set; }
+        public string Detail { get; set; }
 
         [DataMember]
-        public string Detail { get; set; }
+        public string Message { get; set; }
     }
 }

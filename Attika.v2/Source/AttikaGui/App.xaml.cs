@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using GalaSoft.MvvmLight.Threading;
 
 namespace Infotecs.Attika.AttikaGui

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Infotecs.Attika.AttikaGui.DataServices;
 using Infotecs.Attika.AttikaGui.ViewModels;
 using Ninject.Modules;

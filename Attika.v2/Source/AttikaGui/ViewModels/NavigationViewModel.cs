@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using AttikaContracts.DataTransferObjects;
 using GalaSoft.MvvmLight;
@@ -38,35 +39,18 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             }
         }
 
-        private void RebuildHeaderList()
+        private void AddArticle()
         {
-            try
-            {
-                ArticleHeaders = new ObservableCollection<ArticleHeaderViewModel>(
-                    from a in _dataService.GetArticleHeaders() select new ArticleHeaderViewModel(a));
-            }
-            catch (DataServiceException ex)
-            {
-                Messenger.Default.Send(new ChangeStateMessage {State = ex.Message});
-            }
-        }
-
-        private void SubscribeToGuiMessages()
-        {
-            Messenger.Default.Register(this, (RefreshHeaderListMessage message) => RebuildHeaderList());
-            Messenger.Default.Register(this, (ArticleDeletedMessage message) => OnDeleteArticle(message));
-            Messenger.Default.Register(this, (NewArticleAddedMessage message) => OnNewArticleAdded(message));
-        }
-
-        private void OnNewArticleAdded(NewArticleAddedMessage message)
-        {
-            ArticleHeaders.Add(
-                new ArticleHeaderViewModel(new ArticleHeaderDto
+            Messenger.Default.Send(
+                new AddArticleMessage
+                {
+                    Article = new ArticleDto
                     {
-                        ArticleId = message.Article.Id,
-                        Title = message.Article.Title
-                    }));
-            RaisePropertyChanged(() => ArticleHeaders);
+                        Description = "",
+                        Text = "",
+                        Title = "Новая статья"
+                    }
+                });
         }
 
         private void OnDeleteArticle(ArticleDeletedMessage deletedMessage)
@@ -83,9 +67,9 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             if (index < ArticleHeaders.Count)
             {
                 Messenger.Default.Send(new ViewArticleMessage
-                    {
-                        ArticleId = ArticleHeaders[index].Header.ArticleId.ToString()
-                    });
+                {
+                    ArticleId = ArticleHeaders[index].Header.ArticleId.ToString()
+                });
             }
             else
             {
@@ -93,18 +77,35 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             }
         }
 
-        private void AddArticle()
+        private void OnNewArticleAdded(NewArticleAddedMessage message)
         {
-            Messenger.Default.Send(
-                new AddArticleMessage
-                    {
-                        Article = new ArticleDto
-                            {
-                                Description = "",
-                                Text = "",
-                                Title = "Новая статья"
-                            }
-                    });
+            ArticleHeaders.Add(
+                new ArticleHeaderViewModel(new ArticleHeaderDto
+                {
+                    ArticleId = message.Article.Id,
+                    Title = message.Article.Title
+                }));
+            RaisePropertyChanged(() => ArticleHeaders);
+        }
+
+        private void RebuildHeaderList()
+        {
+            try
+            {
+                ArticleHeaders = new ObservableCollection<ArticleHeaderViewModel>(
+                    from a in _dataService.GetArticleHeaders() select new ArticleHeaderViewModel(a));
+            }
+            catch (DataServiceException ex)
+            {
+                Messenger.Default.Send(new ChangeStateMessage { State = ex.Message });
+            }
+        }
+
+        private void SubscribeToGuiMessages()
+        {
+            Messenger.Default.Register(this, (RefreshHeaderListMessage message) => RebuildHeaderList());
+            Messenger.Default.Register(this, (ArticleDeletedMessage message) => OnDeleteArticle(message));
+            Messenger.Default.Register(this, (NewArticleAddedMessage message) => OnNewArticleAdded(message));
         }
     }
 }

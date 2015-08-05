@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using System;
+using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Mapping.ByCode;
@@ -18,8 +19,7 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data
                 {
                     var configuration = new Configuration();
                     configuration.Configure();
-                    configuration.AddAssembly(typeof (SessionHelper).Assembly);
-                    var mapping = GetMappings();
+                    HbmMapping mapping = GetMappings();
                     configuration.AddDeserializedMapping(mapping, null);
                     _sessionFactory = configuration.BuildSessionFactory();
                     return _sessionFactory;
@@ -37,8 +37,7 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data
         {
             var configuration = new Configuration();
             configuration.Configure();
-            configuration.AddAssembly(typeof (SessionHelper).Assembly);
-            var mapping = GetMappings();
+            HbmMapping mapping = GetMappings();
             configuration.AddDeserializedMapping(mapping, null);
             new SchemaUpdate(configuration).Execute(true, true);
         }
@@ -46,8 +45,8 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data
         private static HbmMapping GetMappings()
         {
             var mapper = new ModelMapper();
-            mapper.AddMappings(typeof (SessionHelper).Assembly.GetExportedTypes());
-            var mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
+            mapper.AddMappings(typeof(SessionHelper).Assembly.GetExportedTypes());
+            HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
             return mapping;
         }
     }

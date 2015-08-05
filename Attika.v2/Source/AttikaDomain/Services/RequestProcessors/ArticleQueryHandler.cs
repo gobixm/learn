@@ -35,6 +35,14 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
 
         public object Get(GetArticleHeadersRequest request)
         {
+//            GetArticleHeadersResponse result = request.ToOption()
+//                                                      .Map(x => _queryRepository.GetHeaders())
+//                                                      .Map(x => x.Select(_mappingService.Map<ArticleHeaderDto>))
+//                                                      .Map(x => new GetArticleHeadersResponse {Headers = x.ToList()})
+//                                                      .ThrowOnEmpty(
+//                                                          () =>
+//                                                          new WebFaultException(HttpStatusCode.InternalServerError))
+//                                                      .Value;
             if (request == null)
             {
                 throw new WebFaultException(HttpStatusCode.BadRequest);
@@ -53,7 +61,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
             try
             {
                 IEnumerable<ArticleHeaderDto> mappedHeaders = headers.Select(_mappingService.Map<ArticleHeaderDto>);
-                return new GetArticleHeadersResponse {Headers = mappedHeaders.ToList()};
+                return new GetArticleHeadersResponse { Headers = mappedHeaders.ToList() };
             }
             catch (Exception)
             {
@@ -94,7 +102,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
 
             try
             {
-                return new GetArticleResponse {Article = _mappingService.Map<ArticleDto>(article.State)};
+                return new GetArticleResponse { Article = _mappingService.Map<ArticleDto>(article.State) };
             }
             catch (Exception)
             {

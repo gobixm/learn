@@ -1,4 +1,5 @@
-﻿using Infotecs.Attika.AttikaInfrastructure.Data.Models;
+﻿using System;
+using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 

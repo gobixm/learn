@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Infotecs.Attika.AttikaDomain.Entities;
 
 namespace Infotecs.Attika.AttikaDomain.Validators

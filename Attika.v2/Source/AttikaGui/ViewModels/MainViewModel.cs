@@ -1,4 +1,5 @@
-﻿using AttikaContracts.DataTransferObjects;
+﻿using System;
+using AttikaContracts.DataTransferObjects;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using Infotecs.Attika.AttikaGui.DataServices;
@@ -19,14 +20,14 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             SubscribeToGuiMessages();
         }
 
-        public NavigationViewModel NavigationViewModel
-        {
-            get { return _navigationViewModel ?? (_navigationViewModel = new NavigationViewModel(_dataService)); }
-        }
-
         public ArticleViewModel ArticleViewModel
         {
             get { return _articleViewModel ?? (_articleViewModel = new ArticleViewModel(_dataService)); }
+        }
+
+        public NavigationViewModel NavigationViewModel
+        {
+            get { return _navigationViewModel ?? (_navigationViewModel = new NavigationViewModel(_dataService)); }
         }
 
         public string State
@@ -39,11 +40,9 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             }
         }
 
-        private void SubscribeToGuiMessages()
+        private void OnAddArticle(AddArticleMessage message)
         {
-            Messenger.Default.Register(this, (AddArticleMessage message) => OnAddArticle(message));
-            Messenger.Default.Register(this, (ViewArticleMessage message) => OnViewArticle(message));
-            Messenger.Default.Register(this, (ChangeStateMessage message) => OnChangeState(message));
+            ArticleViewModel.ArticleDto = message.Article;
         }
 
         private void OnChangeState(ChangeStateMessage message)
@@ -67,9 +66,11 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             ArticleViewModel.ArticleDto = article;
         }
 
-        private void OnAddArticle(AddArticleMessage message)
+        private void SubscribeToGuiMessages()
         {
-            ArticleViewModel.ArticleDto = message.Article;
+            Messenger.Default.Register(this, (AddArticleMessage message) => OnAddArticle(message));
+            Messenger.Default.Register(this, (ViewArticleMessage message) => OnViewArticle(message));
+            Messenger.Default.Register(this, (ChangeStateMessage message) => OnChangeState(message));
         }
     }
 }

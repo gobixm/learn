@@ -16,21 +16,21 @@ namespace AttikaContracts.DataTransferObjects
         }
 
         [DataMember]
-        public Guid Id { get; set; }
-
-        [DataMember]
-        public string Title { get; set; }
-
-        [DataMember]
-        public string Description { get; set; }
-
-        [DataMember]
-        public string Text { get; set; }
+        public List<CommentDto> Comments { get; set; }
 
         [DataMember]
         public DateTime Created { get; set; }
 
         [DataMember]
-        public List<CommentDto> Comments { get; set; }
+        public string Description { get; set; }
+
+        [DataMember]
+        public Guid Id { get; set; }
+
+        [DataMember]
+        public string Text { get; set; }
+
+        [DataMember]
+        public string Title { get; set; }
     }
 }

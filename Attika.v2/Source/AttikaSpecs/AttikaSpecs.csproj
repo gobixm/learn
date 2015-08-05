@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props" Condition="Exists('..\..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -33,8 +32,25 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Nelibur, Version=3.0.3.223, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nelibur.3.1.6\lib\net45\Nelibur.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nelibur.Sword, Version=3.0.3.223, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nelibur.Sword.3.1.6\lib\net45\Nelibur.Sword.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,43 +60,101 @@
       <HintPath>..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="xunit.assert, Version=2.0.0.2929, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.assert.2.0.0\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.assert.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="xunit.core, Version=2.0.0.2929, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.extensibility.core.2.0.0\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.dll</HintPath>
+    <Reference Include="TechTalk.SpecRun, Version=1.2.0.15, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SpecRun.NUnit.1.2.0\lib\net40\TechTalk.SpecRun.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NewArticle.feature.cs">
+    <Compile Include="AddArticleComment\AddArticleComment.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddArticleComment.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AddArticleComment\AddArticleCommentSteps.cs" />
+    <Compile Include="DeleteArticle\DeleteArticle.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeleteArticle.feature</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteArticleComment\DeleteArticleComment.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeleteArticleComment.feature</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteArticleComment\DeleteArticleCommentSteps.cs" />
+    <Compile Include="DeleteArticle\DeleteArticleSteps.cs" />
+    <Compile Include="GetArticle\GetArticleFeature.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetArticleFeature.feature</DependentUpon>
+    </Compile>
+    <Compile Include="GetArticle\GetArticleFeatureSteps.cs" />
+    <Compile Include="Metadata.cs" />
+    <Compile Include="NewArticle\NewArticle.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NewArticle.feature</DependentUpon>
     </Compile>
+    <Compile Include="NewArticle\NewArticleSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="СохранениеНовойСтатьиНаСерверSteps.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AddArticleComment\AddArticleComment.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AddArticleComment.feature.cs</LastGenOutput>
+    </None>
     <None Include="App.config" />
-    <None Include="NewArticle.feature">
+    <None Include="Default.srprofile">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DeleteArticle\DeleteArticle.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>DeleteArticle.feature.cs</LastGenOutput>
+    </None>
+    <None Include="DeleteArticleComment\DeleteArticleComment.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>DeleteArticleComment.feature.cs</LastGenOutput>
+    </None>
+    <None Include="GetArticle\GetArticleFeature.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GetArticleFeature.feature.cs</LastGenOutput>
+    </None>
+    <None Include="NewArticle\NewArticle.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>NewArticle.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="runtests.cmd" />
+    <None Include="SpecRunTestProfile.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AttikaConsoleHost\AttikaConsoleHost.csproj">
+      <Project>{b064b72f-fd3e-4a39-a53e-fc54caa83697}</Project>
+      <Name>AttikaConsoleHost</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AttikaContracts\AttikaContracts.csproj">
+      <Project>{96124a75-2ac7-4f89-9b21-0dcfb0a1adf3}</Project>
+      <Name>AttikaContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AttikaDomain\AttikaDomain.csproj">
+      <Project>{e6e5d1b0-19a0-49cf-93c7-b9a88d05a4e9}</Project>
+      <Name>AttikaDomain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AttikaInfrastructure\AttikaInfrastructure.csproj">
+      <Project>{C3B8CCFA-086D-4245-840C-863D269E4DBD}</Project>
+      <Name>AttikaInfrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="hibernate.cfg.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -18,13 +18,13 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories.Exceptions
         {
         }
 
+        protected RepositoryException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+
         public override string ToString()
         {
             return InnerException == null ? Message : string.Format("{0}-><{1}>", Message, InnerException);
-        }
-
-        protected RepositoryException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
         }
     }
 }

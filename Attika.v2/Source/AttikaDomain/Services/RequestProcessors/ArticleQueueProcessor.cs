@@ -10,7 +10,7 @@ using NLog;
 
 namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
 {
-    public class ArticleQueueProcessor :
+    public sealed class ArticleQueueProcessor :
         IQueueProcessor<NewArticleRequest>,
         IQueueProcessor<AddArticleCommentRequest>,
         IQueueProcessor<DeleteArticleRequest>,
@@ -23,7 +23,7 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
         private readonly ICommentFactory _commentFactory;
 
         public ArticleQueueProcessor(IArticleFactory articleFactory, ICommentFactory commentFactory,
-                                     ICommandRepository commandRepository)
+            ICommandRepository commandRepository)
         {
             _articleFactory = articleFactory;
             _commentFactory = commentFactory;
@@ -56,20 +56,15 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
                 return;
             }
 
-            Comment comment = null;
             try
             {
-                comment = _commentFactory.CreateComment(request.Comment);
+                Comment comment = _commentFactory.CreateComment(request.Comment);
+                article.AddComment(comment);
+                _commandRepository.UpdateArticle(article.State);
             }
             catch (ArgumentException ex)
             {
                 Logger.Warn(ex, "Ошибка валидации комментария.");
-            }
-
-            article.AddComment(comment);
-            try
-            {
-                _commandRepository.UpdateArticle(article.State);
             }
             catch (RepositoryException ex)
             {

@@ -35,20 +35,23 @@ namespace Infotecs.Attika.AttikaDomainTests
             standardTinyMappingService.Bind<CommentState, CommentDto>();
             standardTinyMappingService.Bind<Article, ArticleDto>();
             var articleFactory = new ArticleFactory(_queryRepository.Object, new ArticleValidator(),
-                                                    new CommentValidator(),
-                                                    standardTinyMappingService);
+                new CommentValidator(),
+                standardTinyMappingService);
 
             _articleQueryHandler = new ArticleQueryHandler(_queryRepository.Object, standardTinyMappingService,
-                                                           articleFactory);
+                articleFactory);
         }
 
         [Fact]
-        private void Check_GetHeaders_CalledAfter_GetArticleHeadersHandled()
+        private void Check_GetArticle_CalledAfter_GetArticleHandled()
         {
-            _articleQueryHandler.Get(new GetArticleHeadersRequest());
+            _articleQueryHandler.Get(new GetArticleRequest
+            {
+                Id = Guid.NewGuid().ToString()
+            });
             try
             {
-                _queryRepository.Verify(cr => cr.GetHeaders(), Times.AtLeastOnce());
+                _queryRepository.Verify(cr => cr.GetArticle(It.IsAny<Guid>()), Times.AtLeastOnce());
                 Assert.True(true);
             }
             catch (MockException)
@@ -58,15 +61,12 @@ namespace Infotecs.Attika.AttikaDomainTests
         }
 
         [Fact]
-        private void Check_GetArticle_CalledAfter_GetArticleHandled()
+        private void Check_GetHeaders_CalledAfter_GetArticleHeadersHandled()
         {
-            _articleQueryHandler.Get(new GetArticleRequest
-                {
-                    Id = Guid.NewGuid().ToString()
-                });
+            _articleQueryHandler.Get(new GetArticleHeadersRequest());
             try
             {
-                _queryRepository.Verify(cr => cr.GetArticle(It.IsAny<Guid>()), Times.AtLeastOnce());
+                _queryRepository.Verify(cr => cr.GetHeaders(), Times.AtLeastOnce());
                 Assert.True(true);
             }
             catch (MockException)

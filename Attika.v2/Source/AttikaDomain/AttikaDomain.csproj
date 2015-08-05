@@ -81,7 +81,6 @@
     <Compile Include="Services\Queuing\QueueService.cs" />
     <Compile Include="Services\RequestProcessors\ArticleCommandHandler.cs" />
     <Compile Include="Services\RequestProcessors\ArticleQueryHandler.cs" />
-    <Compile Include="Services\RequestProcessors\InOutMessageType.cs" />
     <Compile Include="Services\Exceptions\ServiceException.cs" />
     <Compile Include="Validators\CommentValidator.cs" />
     <Compile Include="Validators\Contracts\IValidator.cs" />

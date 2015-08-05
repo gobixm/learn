@@ -1,4 +1,5 @@
-﻿using AttikaContracts.DataTransferObjects;
+﻿using System;
+using AttikaContracts.DataTransferObjects;
 using Infotecs.Attika.AttikaDomain.Entities;
 
 namespace Infotecs.Attika.AttikaDomain.Factories.Contracts

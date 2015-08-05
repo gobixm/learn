@@ -23,7 +23,7 @@ namespace Infotecs.Attika.AttikaGui.DataServices
         protected DataServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             Fault = new FaultDto(info.GetString("DataServiceException.FaultMessage"),
-                                 info.GetString("DataServiceException.FaultDetail"));
+                info.GetString("DataServiceException.FaultDetail"));
         }
 
         public FaultDto Fault { get; private set; }

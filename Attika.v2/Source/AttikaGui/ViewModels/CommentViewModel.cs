@@ -28,6 +28,16 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             get { return Comment.Created.ToString(CultureInfo.InvariantCulture); }
         }
 
+        public RelayCommand DeleteCommand
+        {
+            get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(Delete, CanDelete)); }
+        }
+
+        public RelayCommand SaveCommand
+        {
+            get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save, CanSave)); }
+        }
+
         public string Text
         {
             get { return Comment.Text; }
@@ -38,19 +48,14 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             }
         }
 
-        public RelayCommand SaveCommand
-        {
-            get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save, CanSave)); }
-        }
-
-        public RelayCommand DeleteCommand
-        {
-            get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(Delete, CanDelete)); }
-        }
-
         private bool CanDelete()
         {
             return Comment.Id != Guid.Empty;
+        }
+
+        private bool CanSave()
+        {
+            return Comment.Id == Guid.Empty;
         }
 
         private void Delete()
@@ -58,18 +63,13 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             try
             {
                 _dataService.DeleteComment(Comment.ArticleId.ToString(), Comment.Id.ToString());
-                Messenger.Default.Send(new CommentDeletedMessage {Comment = Comment});
-                Messenger.Default.Send(new ChangeStateMessage {State = "ok"});
+                Messenger.Default.Send(new CommentDeletedMessage { Comment = Comment });
+                Messenger.Default.Send(new ChangeStateMessage { State = "ok" });
             }
             catch (DataServiceException ex)
             {
-                Messenger.Default.Send(new ChangeStateMessage {State = ex.ToString()});
+                Messenger.Default.Send(new ChangeStateMessage { State = ex.ToString() });
             }
-        }
-
-        private bool CanSave()
-        {
-            return Comment.Id == Guid.Empty;
         }
 
         private void Save()
@@ -80,12 +80,12 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
                 _dataService.NewComment(Comment.ArticleId.ToString(), Comment);
                 SaveCommand.RaiseCanExecuteChanged();
                 DeleteCommand.RaiseCanExecuteChanged();
-                Messenger.Default.Send(new ChangeStateMessage {State = "ok"});
+                Messenger.Default.Send(new ChangeStateMessage { State = "ok" });
             }
             catch (DataServiceException ex)
             {
                 Comment.Id = Guid.Empty;
-                Messenger.Default.Send(new ChangeStateMessage {State = ex.ToString()});
+                Messenger.Default.Send(new ChangeStateMessage { State = ex.ToString() });
             }
         }
     }

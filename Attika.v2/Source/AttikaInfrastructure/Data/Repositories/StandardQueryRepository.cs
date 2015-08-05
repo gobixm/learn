@@ -19,17 +19,19 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories
 
         public ArticleState GetArticle(Guid articleId)
         {
-            using (var conn = GetConnection())
+            using (SqlConnection conn = GetConnection())
             {
                 conn.Open();
-                var query = @"select * from Article where Id=@ArticleId; 
+                const string Query = @"select * from Article where Id=@ArticleId; 
                                  select * from Comment where ArticleId=@ArticleId order by Created desc;";
 
-                using (var multi = conn.QueryMultiple(query, new {ArticleId = articleId}))
+                using (SqlMapper.GridReader multi = conn.QueryMultiple(Query, new { ArticleId = articleId }))
                 {
-                    var article = multi.Read<ArticleState>().FirstOrDefault();
+                    ArticleState article = multi.Read<ArticleState>().FirstOrDefault();
                     if (article != null)
+                    {
                         article.Comments = multi.Read<CommentState>().ToList();
+                    }
                     return article;
                 }
             }
@@ -37,7 +39,7 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories
 
         public IEnumerable<ArticleHeaderState> GetHeaders()
         {
-            using (var conn = GetConnection())
+            using (SqlConnection conn = GetConnection())
             {
                 conn.Open();
                 return conn.Query<ArticleHeaderState>("select Id as ArticleId, Title from Article order by Title");

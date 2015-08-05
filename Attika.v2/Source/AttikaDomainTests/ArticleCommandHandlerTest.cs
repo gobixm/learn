@@ -41,19 +41,19 @@ namespace Infotecs.Attika.AttikaDomainTests
             standardTinyMappingService.Bind<Article, ArticleDto>();
             var commentFactory = new CommentFactory(new CommentValidator(), standardTinyMappingService);
             var articleFactory = new ArticleFactory(_queryRepository.Object, new ArticleValidator(),
-                                                    new CommentValidator(),
-                                                    standardTinyMappingService);
+                new CommentValidator(),
+                standardTinyMappingService);
             _articleCommandHandler = new ArticleCommandHandler(_queueService.Object,
-                                                               articleFactory, commentFactory);
+                articleFactory, commentFactory);
         }
 
         [Fact]
         private void Check_CreateArticle_QueuedAfter_NewArtilceHandled()
         {
             var request = new NewArticleRequest
-                {
-                    Article = new ArticleDto()
-                };
+            {
+                Article = new ArticleDto()
+            };
             _articleCommandHandler.PostOneWay(request);
             try
             {
@@ -69,7 +69,7 @@ namespace Infotecs.Attika.AttikaDomainTests
         [Fact]
         private void Check_DeleteArticle_QueuedAfter_DeleteArticleHandled()
         {
-            var request = new DeleteArticleRequest {ArticleId = Guid.NewGuid().ToString()};
+            var request = new DeleteArticleRequest { ArticleId = Guid.NewGuid().ToString() };
             _articleCommandHandler.DeleteOneWay(request);
             try
             {
@@ -86,10 +86,10 @@ namespace Infotecs.Attika.AttikaDomainTests
         private void Check_UpdateArticle_Queued_AddArticleCommentHandled()
         {
             var request = new AddArticleCommentRequest
-                {
-                    ArticleId = Guid.NewGuid().ToString(),
-                    Comment = new CommentDto {ArticleId = Guid.NewGuid(), Id = Guid.NewGuid()}
-                };
+            {
+                ArticleId = Guid.NewGuid().ToString(),
+                Comment = new CommentDto { ArticleId = Guid.NewGuid(), Id = Guid.NewGuid() }
+            };
             _articleCommandHandler.PostOneWay(request);
             try
             {

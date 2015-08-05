@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Infotecs.Attika.AttikaGui.ViewModels;
 
 namespace AttikaGui

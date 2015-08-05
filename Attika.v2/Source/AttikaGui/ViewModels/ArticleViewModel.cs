@@ -33,20 +33,20 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
         {
             _dataService = dataService;
             ArticleDto = new ArticleDto
-                {
-                    Id = Guid.Empty,
-                    Created = DateTime.Today,
-                    Description = "",
-                    Text = "",
-                    Title = "Новая статья",
-                    Comments = new List<CommentDto>()
-                };
+            {
+                Id = Guid.Empty,
+                Created = DateTime.Today,
+                Description = "",
+                Text = "",
+                Title = "Новая статья",
+                Comments = new List<CommentDto>()
+            };
             SubscribeToGuiMessages();
         }
 
-        public RelayCommand BadCommand
+        public RelayCommand AddCommentCommand
         {
-            get { return _badCommand ?? (_badCommand = new RelayCommand(Bad)); }
+            get { return _addCommentCommand ?? (_addCommentCommand = new RelayCommand(AddComment, CanAddComment)); }
         }
 
         public ArticleDto ArticleDto
@@ -63,9 +63,11 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
                 DeleteCommand.RaiseCanExecuteChanged();
                 AddCommentCommand.RaiseCanExecuteChanged();
                 if ((value != null) && (value.Comments != null))
+                {
                     Comments =
                         new ObservableCollection<CommentViewModel>(from c in ArticleDto.Comments
                                                                    select new CommentViewModel(c, _dataService));
+                }
                 else
                 {
                     Comments = null;
@@ -75,44 +77,9 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             }
         }
 
-        public RelayCommand AddCommentCommand
+        public RelayCommand BadCommand
         {
-            get { return _addCommentCommand ?? (_addCommentCommand = new RelayCommand(AddComment, CanAddComment)); }
-        }
-
-        public string Title
-        {
-            get { return ArticleDto.Title; }
-            set
-            {
-                ArticleDto.Title = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string Description
-        {
-            get { return ArticleDto.Description; }
-            set
-            {
-                ArticleDto.Description = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string Text
-        {
-            get { return ArticleDto.Text; }
-            set
-            {
-                ArticleDto.Text = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string Created
-        {
-            get { return ArticleDto.Created.ToString(CultureInfo.InvariantCulture); }
+            get { return _badCommand ?? (_badCommand = new RelayCommand(Bad)); }
         }
 
         public ObservableCollection<CommentViewModel> Comments
@@ -125,9 +92,9 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             }
         }
 
-        public RelayCommand SaveCommand
+        public string Created
         {
-            get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save, CanSave)); }
+            get { return ArticleDto.Created.ToString(CultureInfo.InvariantCulture); }
         }
 
         public RelayCommand DeleteCommand
@@ -135,16 +102,46 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(Delete, CanDelete)); }
         }
 
-        private void SubscribeToGuiMessages()
+        public string Description
         {
-            Messenger.Default.Register(this, (CommentDeletedMessage message) => OnCommentDeleted(message));
+            get { return ArticleDto.Description; }
+            set
+            {
+                ArticleDto.Description = value;
+                RaisePropertyChanged();
+            }
         }
 
-        private void OnCommentDeleted(CommentDeletedMessage message)
+        public RelayCommand SaveCommand
         {
-            CommentViewModel comment =
-                (from c in Comments where c.Comment.Id == message.Comment.Id select c).FirstOrDefault();
-            Comments.Remove(comment);
+            get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save, CanSave)); }
+        }
+
+        public string Text
+        {
+            get { return ArticleDto.Text; }
+            set
+            {
+                ArticleDto.Text = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string Title
+        {
+            get { return ArticleDto.Title; }
+            set
+            {
+                ArticleDto.Title = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private void AddComment()
+        {
+            Comments.Insert(0, new CommentViewModel(new CommentDto { ArticleId = ArticleDto.Id, Created = DateTime.Now },
+                _dataService));
+            RaisePropertyChanged(() => Comments);
         }
 
         private void Bad()
@@ -156,7 +153,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             }
             catch (DataServiceException ex)
             {
-                Messenger.Default.Send(new ChangeStateMessage {State = ex.ToString()});
+                Messenger.Default.Send(new ChangeStateMessage { State = ex.ToString() });
                 Logger.Warn("Ошибка при попытке получения статьи с Id={0} : {1}", guid, ex);
             }
         }
@@ -166,16 +163,14 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             return ArticleDto.Id != Guid.Empty;
         }
 
-        private void AddComment()
-        {
-            Comments.Insert(0, new CommentViewModel(new CommentDto {ArticleId = ArticleDto.Id, Created = DateTime.Now},
-                                                    _dataService));
-            RaisePropertyChanged(() => Comments);
-        }
-
         private bool CanDelete()
         {
             return ArticleDto.Id != Guid.Empty;
+        }
+
+        private bool CanSave()
+        {
+            return ArticleDto.Id == Guid.Empty;
         }
 
         private void Delete()
@@ -183,18 +178,20 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             try
             {
                 _dataService.DeleteArticle(ArticleDto.Id.ToString());
-                Messenger.Default.Send(new ArticleDeletedMessage {ArticleId = ArticleDto.Id});
-                Messenger.Default.Send(new ChangeStateMessage {State = "ok"});
+                Messenger.Default.Send(new ArticleDeletedMessage { ArticleId = ArticleDto.Id });
+                Messenger.Default.Send(new ChangeStateMessage { State = "ok" });
             }
             catch (DataServiceException ex)
             {
-                Messenger.Default.Send(new ChangeStateMessage {State = ex.ToString()});
+                Messenger.Default.Send(new ChangeStateMessage { State = ex.ToString() });
             }
         }
 
-        private bool CanSave()
+        private void OnCommentDeleted(CommentDeletedMessage message)
         {
-            return ArticleDto.Id == Guid.Empty;
+            CommentViewModel comment =
+                (from c in Comments where c.Comment.Id == message.Comment.Id select c).FirstOrDefault();
+            Comments.Remove(comment);
         }
 
         private void Save()
@@ -207,11 +204,16 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             }
             catch (DataServiceException ex)
             {
-                Messenger.Default.Send(new ChangeStateMessage {State = ex.ToString()});
+                Messenger.Default.Send(new ChangeStateMessage { State = ex.ToString() });
                 return;
             }
 
-            Messenger.Default.Send(new NewArticleAddedMessage {Article = ArticleDto});
+            Messenger.Default.Send(new NewArticleAddedMessage { Article = ArticleDto });
+        }
+
+        private void SubscribeToGuiMessages()
+        {
+            Messenger.Default.Register(this, (CommentDeletedMessage message) => OnCommentDeleted(message));
         }
     }
 }

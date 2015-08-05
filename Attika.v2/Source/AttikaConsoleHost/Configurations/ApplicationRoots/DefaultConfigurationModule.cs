@@ -1,4 +1,5 @@
-﻿using AttikaContracts.DataTransferObjects;
+﻿using System;
+using AttikaContracts.DataTransferObjects;
 using AttikaContracts.Messages;
 using Infotecs.Attika.AttikaDomain.Aggregates;
 using Infotecs.Attika.AttikaDomain.Entities;
@@ -31,6 +32,12 @@ namespace Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots
             Bind<IQueueService>().To<QueueService>().InSingletonScope();
 
             BindHandlers();
+        }
+
+        private void BindFactories()
+        {
+            Bind<IArticleFactory>().To<ArticleFactory>().InSingletonScope();
+            Bind<ICommentFactory>().To<CommentFactory>().InSingletonScope();
         }
 
         private void BindHandlers()
@@ -66,33 +73,27 @@ namespace Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots
             });
         }
 
+        private void BindMappings()
+        {
+            Bind<IMappingService>().To<StandardTinyMappingService>().InSingletonScope().OnActivation(
+                (ctx, standardTynyMapper) =>
+                {
+                    standardTynyMapper.Bind<ArticleDto, ArticleState>();
+                    standardTynyMapper.Bind<CommentDto, CommentState>();
+                    standardTynyMapper.Bind<Article, ArticleDto>();
+                });
+        }
+
         private void BindRepositories()
         {
             Bind<ICommandRepository>().To<StandardCommandRepository>();
             Bind<IQueryRepository>().To<StandardQueryRepository>();
         }
 
-        private void BindFactories()
-        {
-            Bind<IArticleFactory>().To<ArticleFactory>().InSingletonScope();
-            Bind<ICommentFactory>().To<CommentFactory>().InSingletonScope();
-        }
-
         private void BindValidators()
         {
             Bind<IValidator<Article>>().To<ArticleValidator>().InSingletonScope();
             Bind<IValidator<Comment>>().To<CommentValidator>().InSingletonScope();
-        }
-
-        private void BindMappings()
-        {
-            Bind<IMappingService>().To<StandardTinyMappingService>().InSingletonScope().OnActivation(
-                (ctx, standardTynyMapper) =>
-                    {
-                        standardTynyMapper.Bind<ArticleDto, ArticleState>();
-                        standardTynyMapper.Bind<CommentDto, CommentState>();
-                        standardTynyMapper.Bind<Article, ArticleDto>();
-                    });
         }
     }
 }

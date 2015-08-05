@@ -16,7 +16,7 @@ namespace Infotecs.Attika.AttikaConsoleHost
                 SessionHelper.PrepareDatabase();
 
                 Console.WriteLine("Message based service");
-                var service = new WebServiceHost(typeof (JsonServicePerCall));
+                var service = new WebServiceHost(typeof(JsonServicePerCall));
                 try
                 {
                     service.Open();

@@ -1,4 +1,5 @@
-﻿using AttikaContracts.DataTransferObjects;
+﻿using System;
+using AttikaContracts.DataTransferObjects;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace Infotecs.Attika.AttikaGui.Messages.Gui

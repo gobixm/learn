@@ -1,4 +1,5 @@
-﻿using Ninject;
+﻿using System;
+using Ninject;
 
 namespace Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots
 {

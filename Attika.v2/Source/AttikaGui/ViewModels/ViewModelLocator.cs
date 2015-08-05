@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using GalaSoft.MvvmLight;
 using Infotecs.Attika.AttikaGui.NinjectModules;
 using Ninject;
@@ -12,9 +13,13 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
         static ViewModelLocator()
         {
             if (ViewModelBase.IsInDesignModeStatic)
+            {
                 Kernel = new StandardKernel(new DesignTimeModule());
+            }
             else
+            {
                 Kernel = new StandardKernel(new RunTimeModule());
+            }
         }
 
         [SuppressMessage("Microsoft.Performance",

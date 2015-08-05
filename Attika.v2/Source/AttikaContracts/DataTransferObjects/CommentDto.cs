@@ -12,15 +12,15 @@ namespace AttikaContracts.DataTransferObjects
         }
 
         [DataMember]
-        public Guid Id { get; set; }
-
-        [DataMember]
-        public string Text { get; set; }
+        public Guid ArticleId { get; set; }
 
         [DataMember]
         public DateTime Created { get; set; }
 
         [DataMember]
-        public Guid ArticleId { get; set; }
+        public Guid Id { get; set; }
+
+        [DataMember]
+        public string Text { get; set; }
     }
 }

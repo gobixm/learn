@@ -78,11 +78,6 @@
     <Compile Include="Services\StandardTinyMappingService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="hibernate.cfg.xml">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

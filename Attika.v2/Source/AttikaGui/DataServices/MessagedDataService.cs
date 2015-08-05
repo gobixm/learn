@@ -17,6 +17,43 @@ namespace Infotecs.Attika.AttikaGui.DataServices
             _webClient = new JsonServiceClient(ConfigurationManager.ConnectionStrings["host"].ConnectionString);
         }
 
+        public void DeleteArticle(string articleId)
+        {
+            try
+            {
+                _webClient.Delete(new DeleteArticleRequest { ArticleId = articleId });
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(new FaultDto(ex.Message, ex.ToString()));
+            }
+        }
+
+        public void DeleteComment(string articleId, string commentId)
+        {
+            try
+            {
+                _webClient.Delete(new DeleteArticleCommentRequest { ArticleId = articleId, CommentId = commentId });
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(new FaultDto(ex.Message, ex.ToString()));
+            }
+        }
+
+        public ArticleDto GetArticle(string articleId)
+        {
+            try
+            {
+                var response = _webClient.Get<GetArticleResponse>(new GetArticleRequest { Id = articleId });
+                return response.Article;
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(new FaultDto(ex.Message, ex.ToString()));
+            }
+        }
+
         public IEnumerable<ArticleHeaderDto> GetArticleHeaders()
         {
             try
@@ -30,24 +67,11 @@ namespace Infotecs.Attika.AttikaGui.DataServices
             }
         }
 
-        public ArticleDto GetArticle(string articleId)
-        {
-            try
-            {
-                var response = _webClient.Get<GetArticleResponse>(new GetArticleRequest {Id = articleId});
-                return response.Article;
-            }
-            catch (Exception ex)
-            {
-                throw new DataServiceException(new FaultDto(ex.Message, ex.ToString()));
-            }
-        }
-
         public void NewArticle(ArticleDto article)
         {
             try
             {
-                _webClient.Post(new NewArticleRequest {Article = article});
+                _webClient.Post(new NewArticleRequest { Article = article });
             }
             catch (Exception ex)
             {
@@ -59,31 +83,7 @@ namespace Infotecs.Attika.AttikaGui.DataServices
         {
             try
             {
-                _webClient.Post(new AddArticleCommentRequest {ArticleId = articleId, Comment = comment});
-            }
-            catch (Exception ex)
-            {
-                throw new DataServiceException(new FaultDto(ex.Message, ex.ToString()));
-            }
-        }
-
-        public void DeleteArticle(string articleId)
-        {
-            try
-            {
-                _webClient.Delete(new DeleteArticleRequest {ArticleId = articleId});
-            }
-            catch (Exception ex)
-            {
-                throw new DataServiceException(new FaultDto(ex.Message, ex.ToString()));
-            }
-        }
-
-        public void DeleteComment(string articleId, string commentId)
-        {
-            try
-            {
-                _webClient.Delete(new DeleteArticleCommentRequest {ArticleId = articleId, CommentId = commentId});
+                _webClient.Post(new AddArticleCommentRequest { ArticleId = articleId, Comment = comment });
             }
             catch (Exception ex)
             {

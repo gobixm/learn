@@ -10,19 +10,18 @@ namespace Infotecs.Attika.AttikaDomain.Entities
         {
         }
 
-        public string Text { get; private set; }
-
         public DateTime Created { get; private set; }
         public Guid Id { get; private set; }
+        public string Text { get; private set; }
 
         public static Comment Create(CommentState comment)
         {
             return new Comment
-                {
-                    Id = comment.Id,
-                    Text = comment.Text,
-                    Created = comment.Created
-                };
+            {
+                Id = comment.Id,
+                Text = comment.Text,
+                Created = comment.Created
+            };
         }
     }
 }

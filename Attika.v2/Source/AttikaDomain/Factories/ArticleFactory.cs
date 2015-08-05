@@ -19,23 +19,12 @@ namespace Infotecs.Attika.AttikaDomain.Factories
         private readonly IQueryRepository _queryRepository;
 
         public ArticleFactory(IQueryRepository queryRepository, IValidator<Article> articleValidator,
-                              IValidator<Comment> commentValidator, IMappingService mappingService)
+            IValidator<Comment> commentValidator, IMappingService mappingService)
         {
             _queryRepository = queryRepository;
             _articleValidator = articleValidator;
             _commentValidator = commentValidator;
             _mappingService = mappingService;
-        }
-
-        public Article CreateArticleFromRepository(Guid id)
-        {
-            ArticleState articleState = _queryRepository.GetArticle(id);
-            if (articleState == null)
-            {
-                return null;
-            }
-            Article article = Article.Create(articleState);
-            return article;
         }
 
         public Article CreateArticle(ArticleDto articleDto)
@@ -54,6 +43,17 @@ namespace Infotecs.Attika.AttikaDomain.Factories
                     throw new ArgumentException(string.Join("\n", errors));
                 }
             }
+            return article;
+        }
+
+        public Article CreateArticleFromRepository(Guid id)
+        {
+            ArticleState articleState = _queryRepository.GetArticle(id);
+            if (articleState == null)
+            {
+                return null;
+            }
+            Article article = Article.Create(articleState);
             return article;
         }
     }

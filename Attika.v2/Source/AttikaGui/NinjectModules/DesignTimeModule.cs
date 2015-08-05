@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AttikaContracts.DataTransferObjects;
 using Infotecs.Attika.AttikaGui.DataServices;
@@ -21,17 +22,17 @@ namespace Infotecs.Attika.AttikaGui.NinjectModules
                 .Returns((string id) => (from a in articles where a.Id.ToString() == id select a).FirstOrDefault());
             dataService.
                 Setup(s => s.GetArticleHeaders())
-                       .Returns(
-                           () => headers);
+                .Returns(
+                    () => headers);
             dataService.Setup(s => s.NewArticle(It.IsAny<ArticleDto>())).Callback<ArticleDto>(a =>
+            {
+                articles.Add(a);
+                headers.Add(new ArticleHeaderDto
                 {
-                    articles.Add(a);
-                    headers.Add(new ArticleHeaderDto
-                        {
-                            ArticleId = a.Id,
-                            Title = a.Title
-                        });
+                    ArticleId = a.Id,
+                    Title = a.Title
                 });
+            });
 
             Bind<IDataService>().ToMethod(ctx => dataService.Object);
             Bind<MainViewModel>().ToSelf();

@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using System;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Infotecs.Attika.AttikaGui.Messages.Gui
 {

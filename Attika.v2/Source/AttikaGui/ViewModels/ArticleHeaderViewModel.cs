@@ -1,4 +1,5 @@
-﻿using AttikaContracts.DataTransferObjects;
+﻿using System;
+using AttikaContracts.DataTransferObjects;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -17,6 +18,8 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             Title = header.Title;
         }
 
+        public ArticleHeaderDto Header { get; private set; }
+
         public string Title
         {
             get { return _title; }
@@ -27,8 +30,6 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             }
         }
 
-        public ArticleHeaderDto Header { get; private set; }
-
         public RelayCommand ViewArticleCommand
         {
             get { return _viewArticleCommand ?? (_viewArticleCommand = new RelayCommand(ViewArticle)); }
@@ -36,7 +37,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
 
         private void ViewArticle()
         {
-            Messenger.Default.Send(new ViewArticleMessage {ArticleId = Header.ArticleId.ToString()});
+            Messenger.Default.Send(new ViewArticleMessage { ArticleId = Header.ArticleId.ToString() });
         }
     }
 }

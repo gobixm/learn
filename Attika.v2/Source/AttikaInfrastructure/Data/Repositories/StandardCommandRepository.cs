@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 using Infotecs.Attika.AttikaInfrastructure.Data.Repositories.Exceptions;
 using NHibernate;
@@ -11,11 +12,11 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories
         {
             try
             {
-                using (var session = SessionHelper.OpenSession())
+                using (ISession session = SessionHelper.OpenSession())
                 {
-                    using (var transaction = session.BeginTransaction())
+                    using (ITransaction transaction = session.BeginTransaction())
                     {
-                        foreach (var comment in articleState.Comments)
+                        foreach (CommentState comment in articleState.Comments)
                         {
                             session.Save(comment);
                         }
@@ -28,18 +29,22 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories
             {
                 throw new RepositoryException("Ошибка репозитория", ex);
             }
-            
         }
 
         public void DeleteArticle(string articleId)
         {
             try
             {
-                using (var session = SessionHelper.OpenSession())
+                using (ISession session = SessionHelper.OpenSession())
                 {
-                    using (var transaction = session.BeginTransaction())
+                    using (ITransaction transaction = session.BeginTransaction())
                     {
-                        session.Delete(session.Load<ArticleState>(Guid.Parse(articleId)));
+                        var article = session.Load<ArticleState>(Guid.Parse(articleId));
+                        foreach (CommentState comment in article.Comments)
+                        {
+                            session.Delete(comment);
+                        }
+                        session.Delete(article);
                         transaction.Commit();
                     }
                 }
@@ -49,23 +54,31 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories
                 throw new RepositoryException("Ошибка репозитория", ex);
             }
         }
-        
+
         public void UpdateArticle(ArticleState articleState)
         {
             try
             {
-                using (var session = SessionHelper.OpenSession())
+                using (ISession session = SessionHelper.OpenSession())
                 {
-                    using (var transaction = session.BeginTransaction())
+                    using (ITransaction transaction = session.BeginTransaction())
                     {
                         var article = session.Load<ArticleState>(articleState.Id);
-                        foreach (var comment in articleState.Comments)
+                        foreach (CommentState comment in article.Comments)
+                        {
+                            CommentState existingComment = articleState.Comments.FirstOrDefault(c => c.Id == comment.Id);
+                            if (existingComment == null)
+                            {
+                                session.Delete(comment);
+                            }
+                        }
+                        foreach (CommentState comment in articleState.Comments)
                         {
                             comment.ArticleState = article;
                             session.Merge(comment);
                         }
-                        var s = session.Merge(articleState);
-                        session.Update(s);
+                        ArticleState loadedState = session.Merge(articleState);
+                        session.Update(loadedState);
                         transaction.Commit();
                     }
                 }
