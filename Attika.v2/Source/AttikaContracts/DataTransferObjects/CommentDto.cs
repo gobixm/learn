@@ -1,11 +1,16 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects
+namespace AttikaContracts.DataTransferObjects
 {
     [DataContract]
     public sealed class CommentDto
     {
+        public CommentDto()
+        {
+            Text = "";
+        }
+
         [DataMember]
         public Guid Id { get; set; }
 
@@ -17,10 +22,5 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects
 
         [DataMember]
         public Guid ArticleId { get; set; }
-
-        public CommentDto()
-        {
-            Text = "";
-        }
     }
 }

@@ -59,29 +59,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\DataTransferObjects\ArticleDto.cs" />
-    <Compile Include="Data\DataTransferObjects\ArticleHeaderDto.cs" />
-    <Compile Include="Data\DataTransferObjects\CommentDto.cs" />
-    <Compile Include="Data\DataTransferObjects\WebFaultDto.cs" />
-    <Compile Include="Data\Mappings\ArticleDtoConverter.cs" />
+    <Compile Include="Data\Mappings\ArticleStateConverter.cs" />
     <Compile Include="Data\Models\ArticleState.cs" />
     <Compile Include="Data\Models\ArticleHeaderState.cs" />
     <Compile Include="Data\Models\CommentState.cs" />
     <Compile Include="Data\Mappings\ArticleMap.cs" />
     <Compile Include="Data\Mappings\CommentMap.cs" />
     <Compile Include="Data\Repositories\Exceptions\RepositoryException.cs" />
-    <Compile Include="Messaging\Messages\AddArticleCommentRequest.cs" />
-    <Compile Include="Messaging\Messages\BaseMessage.cs" />
-    <Compile Include="Messaging\Messages\DataContract.cs" />
-    <Compile Include="Messaging\Messages\DataMember.cs" />
-    <Compile Include="Messaging\Messages\DeleteArticleCommentRequest.cs" />
-    <Compile Include="Messaging\Messages\DeleteArticleRequest.cs" />
-    <Compile Include="Messaging\Messages\FaultMessage.cs" />
-    <Compile Include="Messaging\Messages\GetArticleHeadersRequest.cs" />
-    <Compile Include="Messaging\Messages\GetArticleHeadersResponse.cs" />
-    <Compile Include="Messaging\Messages\GetArticleRequest.cs" />
-    <Compile Include="Messaging\Messages\GetArticleResponse.cs" />
-    <Compile Include="Messaging\Messages\NewArticleRequest.cs" />
     <Compile Include="Services\MessageSerializationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\Repositories\ICommandRepository.cs" />
@@ -101,7 +85,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AttikaContracts\AttikaContracts.csproj">
+      <Project>{96124a75-2ac7-4f89-9b21-0dcfb0a1adf3}</Project>
+      <Name>AttikaContracts</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

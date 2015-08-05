@@ -1,37 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
-using System.Net;
 using System.Reflection;
-using Infotecs.Attika.AttikaGui.DataTransferObjects;
-using Infotecs.Attika.AttikaGui.Messages.Wcf;
+using AttikaContracts.DataTransferObjects;
+using AttikaContracts.Messages;
+using Nelibur.ServiceModel.Clients;
 
 namespace Infotecs.Attika.AttikaGui.DataServices
 {
     public sealed class MessagedDataService : IDataService
     {
-        private readonly IDataSerializer _responseSerializer;
-        private readonly WebClient _webClient;
+        private readonly JsonServiceClient _webClient;
 
-        public MessagedDataService(IDataSerializer responseSerializer)
+        public MessagedDataService()
         {
-            _responseSerializer = responseSerializer;
-            _webClient = new WebClient {BaseAddress = ConfigurationManager.ConnectionStrings["host"].ConnectionString};
-            _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+            _webClient = new JsonServiceClient(ConfigurationManager.ConnectionStrings["host"].ConnectionString);
         }
 
         public IEnumerable<ArticleHeaderDto> GetArticleHeaders()
         {
             try
             {
-                string url = "/api/get?" + BuildQueryParams(new {Request = "Article.GetArticleHeadersRequest"});
-                byte[] response = _webClient.DownloadData(url);
-                var message = _responseSerializer.Deserialize<GetArticleHeadersResponse>(response);
-                return message.Headers;
+                var response = _webClient.Get<GetArticleHeadersResponse>(new GetArticleHeadersRequest());
+                return response.Headers;
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
-                throw new DataServiceException(GetFaultDto(ex));
+                throw new DataServiceException(new FaultDto(ex.Message, ex.ToString()));
             }
         }
 
@@ -39,93 +34,60 @@ namespace Infotecs.Attika.AttikaGui.DataServices
         {
             try
             {
-                string url = "/api/get?" + BuildQueryParams(new {Request = "Article.GetArticleRequest", Id = articleId});
-                byte[] response = _webClient.DownloadData(url);
-                var message = _responseSerializer.Deserialize<GetArticleResponse>(response);
-                return message.Article;
+                var response = _webClient.Get<GetArticleResponse>(new GetArticleRequest {Id = articleId});
+                return response.Article;
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
-                throw new DataServiceException(GetFaultDto(ex));
+                throw new DataServiceException(new FaultDto(ex.Message, ex.ToString()));
             }
         }
 
         public void NewArticle(ArticleDto article)
         {
-            _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
             try
             {
-                string url = "/api/post?" + BuildQueryParams(new {Request = "Article.NewArticleRequest"});
-                _webClient.UploadData(url, "POST", _responseSerializer.Serialize(new {Article = article}));
+                _webClient.Post(new NewArticleRequest {Article = article});
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
-                throw new DataServiceException(GetFaultDto(ex));
+                throw new DataServiceException(new FaultDto(ex.Message, ex.ToString()));
             }
         }
 
         public void NewComment(string articleId, CommentDto comment)
         {
-            _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
             try
             {
-                string url = "/api/post?" + BuildQueryParams(new {Request = "Article.AddArticleCommentRequest"});
-                _webClient.UploadData(url, "POST",
-                                      _responseSerializer.Serialize(new {ArticleId = articleId, Comment = comment}));
+                _webClient.Post(new AddArticleCommentRequest {ArticleId = articleId, Comment = comment});
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
-                throw new DataServiceException(GetFaultDto(ex));
+                throw new DataServiceException(new FaultDto(ex.Message, ex.ToString()));
             }
         }
 
         public void DeleteArticle(string articleId)
         {
-            _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
             try
             {
-                string url = "/api/delete?" + BuildQueryParams(new {Request = "Article.DeleteArticleRequest"});
-                _webClient.UploadData(url, "DELETE",
-                                      _responseSerializer.Serialize(new {ArticleId = articleId}));
+                _webClient.Delete(new DeleteArticleRequest {ArticleId = articleId});
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
-                throw new DataServiceException(GetFaultDto(ex));
+                throw new DataServiceException(new FaultDto(ex.Message, ex.ToString()));
             }
         }
 
         public void DeleteComment(string articleId, string commentId)
         {
-            _webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
             try
             {
-                string url = "/api/delete?" + BuildQueryParams(new {Request = "Article.DeleteArticleCommentRequest"});
-                _webClient.UploadData(url, "DELETE",
-                                      _responseSerializer.Serialize(new {ArticleId = articleId, CommentId = commentId}));
+                _webClient.Delete(new DeleteArticleCommentRequest {ArticleId = articleId, CommentId = commentId});
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
-                throw new DataServiceException(GetFaultDto(ex));
-            }
-        }
-
-        private FaultDto GetFaultDto(WebException exception)
-        {
-            if (exception.Response == null)
-            {
-                return new FaultDto {Message = "Ошибка при обращении к серверу", Detail = exception.Message};
-            }
-            using (var ms = new MemoryStream())
-            {
-                using (Stream responseStream = exception.Response.GetResponseStream())
-                {
-                    if (responseStream != null)
-                    {
-                        responseStream.CopyTo(ms);
-                        return _responseSerializer.Deserialize<FaultDto>(ms.GetBuffer());
-                    }
-                    return null;
-                }
+                throw new DataServiceException(new FaultDto(ex.Message, ex.ToString()));
             }
         }
 

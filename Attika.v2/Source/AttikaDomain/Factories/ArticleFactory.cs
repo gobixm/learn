@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
+using AttikaContracts.DataTransferObjects;
 using Infotecs.Attika.AttikaDomain.Aggregates;
 using Infotecs.Attika.AttikaDomain.Entities;
 using Infotecs.Attika.AttikaDomain.Factories.Contracts;
 using Infotecs.Attika.AttikaDomain.Validators.Contracts;
-using Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects;
 using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 using Infotecs.Attika.AttikaInfrastructure.Data.Repositories;
 using Infotecs.Attika.AttikaInfrastructure.Services.Contracts;

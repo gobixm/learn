@@ -1,13 +1,14 @@
 ﻿using System.Runtime.Serialization;
-using Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects;
+using AttikaContracts.DataTransferObjects;
 
-namespace Infotecs.Attika.AttikaInfrastructure.Messaging.Messages
+namespace AttikaContracts.Messages
 {
     [DataContract]
-    public class AddArticleCommentRequest : BaseMessage
+    public class AddArticleCommentRequest
     {
         [DataMember]
         public string ArticleId { get; set; }
+
         [DataMember]
         public CommentDto Comment { get; set; }
     }

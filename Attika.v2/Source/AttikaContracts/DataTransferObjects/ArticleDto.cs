@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Runtime.Serialization;
-using Infotecs.Attika.AttikaInfrastructure.Data.Mappings;
 
-namespace Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects
+namespace AttikaContracts.DataTransferObjects
 {
     [DataContract]
-    [TypeConverter(typeof (ArticleDtoConverter))]
     public sealed class ArticleDto
     {
+        public ArticleDto()
+        {
+            Comments = new List<CommentDto>();
+            Title = "";
+            Description = "";
+            Text = "";
+        }
+
         [DataMember]
         public Guid Id { get; set; }
 
@@ -27,13 +32,5 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects
 
         [DataMember]
         public List<CommentDto> Comments { get; set; }
-
-        public ArticleDto()
-        {
-            Comments = new List<CommentDto>();
-            Title = "";
-            Description = "";
-            Text = "";
-        }
     }
 }

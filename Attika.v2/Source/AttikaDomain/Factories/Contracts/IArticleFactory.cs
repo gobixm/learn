@@ -1,6 +1,6 @@
 ﻿using System;
+using AttikaContracts.DataTransferObjects;
 using Infotecs.Attika.AttikaDomain.Aggregates;
-using Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects;
 
 namespace Infotecs.Attika.AttikaDomain.Factories.Contracts
 {

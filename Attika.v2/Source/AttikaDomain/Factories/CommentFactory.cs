@@ -1,8 +1,8 @@
 ﻿using System;
+using AttikaContracts.DataTransferObjects;
 using Infotecs.Attika.AttikaDomain.Entities;
 using Infotecs.Attika.AttikaDomain.Factories.Contracts;
 using Infotecs.Attika.AttikaDomain.Validators.Contracts;
-using Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects;
 using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 using Infotecs.Attika.AttikaInfrastructure.Services.Contracts;
 
@@ -17,33 +17,6 @@ namespace Infotecs.Attika.AttikaDomain.Factories
         {
             _validator = validator;
             _mappingService = mappingService;
-        }
-
-        public Comment CreateComment(CommentState commentState)
-        {
-            Comment comment = Comment.Create(commentState);
-            string[] errors;
-            if (!_validator.Validate(comment, out errors))
-            {
-                throw new ArgumentException(string.Join("\n", errors));
-            }
-            return comment;
-        }
-
-        public Comment NewComment(string text)
-        {
-            Comment comment = Comment.Create(new CommentState
-                {
-                    Id = Guid.NewGuid(),
-                    Created = DateTime.Now,
-                    Text = text
-                });
-            string[] errors;
-            if (!_validator.Validate(comment, out errors))
-            {
-                throw new ArgumentException(string.Join("\n", errors));
-            }
-            return comment;
         }
 
         public Comment CreateComment(CommentDto commentDto)

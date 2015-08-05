@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Infotecs.Attika.AttikaInfrastructure.Messaging.Messages;
+using AttikaContracts.Messages;
 
 namespace Infotecs.Attika.AttikaService.Validators
 {
@@ -12,7 +12,7 @@ namespace Infotecs.Attika.AttikaService.Validators
             {
                 return false;
             }
-            var parameters = methodInfo.GetParameters();
+            ParameterInfo[] parameters = methodInfo.GetParameters();
 
 
             if (parameters.Length != 1)
@@ -20,7 +20,7 @@ namespace Infotecs.Attika.AttikaService.Validators
                 return false;
             }
 
-            var param = parameters[0];
+            ParameterInfo param = parameters[0];
 
             if (param.ParameterType == typeof (BaseMessage))
             {

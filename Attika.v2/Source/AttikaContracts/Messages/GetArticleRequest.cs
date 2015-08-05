@@ -1,9 +1,9 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Infotecs.Attika.AttikaInfrastructure.Messaging.Messages
+namespace AttikaContracts.Messages
 {
     [DataContract]
-    public class GetArticleRequest : BaseMessage
+    public class GetArticleRequest
     {
         [DataMember]
         public string Id { get; set; }

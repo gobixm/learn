@@ -1,13 +1,10 @@
-﻿using Infotecs.Attika.AttikaDomain.Entities;
-using Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects;
-using Infotecs.Attika.AttikaInfrastructure.Data.Models;
+﻿using AttikaContracts.DataTransferObjects;
+using Infotecs.Attika.AttikaDomain.Entities;
 
 namespace Infotecs.Attika.AttikaDomain.Factories.Contracts
 {
     public interface ICommentFactory
     {
-        Comment CreateComment(CommentState comment);
-        Comment NewComment(string text);
         Comment CreateComment(CommentDto commentDto);
     }
 }

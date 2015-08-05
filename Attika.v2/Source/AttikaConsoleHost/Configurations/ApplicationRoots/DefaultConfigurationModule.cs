@@ -1,4 +1,6 @@
-﻿using Infotecs.Attika.AttikaDomain.Aggregates;
+﻿using AttikaContracts.DataTransferObjects;
+using AttikaContracts.Messages;
+using Infotecs.Attika.AttikaDomain.Aggregates;
 using Infotecs.Attika.AttikaDomain.Entities;
 using Infotecs.Attika.AttikaDomain.Factories;
 using Infotecs.Attika.AttikaDomain.Factories.Contracts;
@@ -6,12 +8,11 @@ using Infotecs.Attika.AttikaDomain.Services.Queuing;
 using Infotecs.Attika.AttikaDomain.Services.RequestProcessors;
 using Infotecs.Attika.AttikaDomain.Validators;
 using Infotecs.Attika.AttikaDomain.Validators.Contracts;
-using Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects;
 using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 using Infotecs.Attika.AttikaInfrastructure.Data.Repositories;
 using Infotecs.Attika.AttikaInfrastructure.Services;
 using Infotecs.Attika.AttikaInfrastructure.Services.Contracts;
-using Infotecs.Attika.AttikaService.Messages.Processors;
+using Nelibur.ServiceModel.Services;
 using Ninject;
 using Ninject.Modules;
 
@@ -21,12 +22,70 @@ namespace Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots
     {
         public override void Load()
         {
+            BindRepositories();
+            BindFactories();
+            BindValidators();
+            BindMappings();
+
+            Bind<IMessageSerializationService>().To<MessageSerializationService>().InSingletonScope();
+            Bind<IQueueService>().To<QueueService>().InSingletonScope();
+
+            BindHandlers();
+        }
+
+        private void BindHandlers()
+        {
+            Bind<ArticleQueryHandler>().ToSelf();
+            Bind<ArticleCommandHandler>().ToSelf();
+            Bind<ArticleQueueProcessor>().ToSelf();
+
+            NeliburRestService.Configure(configuration =>
+            {
+                configuration.Bind<GetArticleRequest, ArticleQueryHandler>(() => Kernel.Get<ArticleQueryHandler>());
+                configuration.Bind<GetArticleHeadersRequest, ArticleQueryHandler>(
+                    () => Kernel.Get<ArticleQueryHandler>());
+                configuration.Bind<NewArticleRequest, ArticleCommandHandler>(
+                    () => Kernel.Get<ArticleCommandHandler>());
+                configuration.Bind<AddArticleCommentRequest, ArticleCommandHandler>(
+                    () => Kernel.Get<ArticleCommandHandler>());
+                configuration.Bind<DeleteArticleCommentRequest, ArticleCommandHandler>(
+                    () => Kernel.Get<ArticleCommandHandler>());
+                configuration.Bind<DeleteArticleRequest, ArticleCommandHandler>(
+                    () => Kernel.Get<ArticleCommandHandler>());
+            });
+            QueueService.Configure(configuration =>
+            {
+                configuration.Bind<NewArticleRequest, ArticleQueueProcessor>(
+                    () => Kernel.Get<ArticleQueueProcessor>());
+                configuration.Bind<AddArticleCommentRequest, ArticleQueueProcessor>(
+                    () => Kernel.Get<ArticleQueueProcessor>());
+                configuration.Bind<DeleteArticleCommentRequest, ArticleQueueProcessor>(
+                    () => Kernel.Get<ArticleQueueProcessor>());
+                configuration.Bind<DeleteArticleRequest, ArticleQueueProcessor>(
+                    () => Kernel.Get<ArticleQueueProcessor>());
+            });
+        }
+
+        private void BindRepositories()
+        {
             Bind<ICommandRepository>().To<StandardCommandRepository>();
             Bind<IQueryRepository>().To<StandardQueryRepository>();
+        }
+
+        private void BindFactories()
+        {
             Bind<IArticleFactory>().To<ArticleFactory>().InSingletonScope();
             Bind<ICommentFactory>().To<CommentFactory>().InSingletonScope();
+        }
+
+        private void BindValidators()
+        {
             Bind<IValidator<Article>>().To<ArticleValidator>().InSingletonScope();
             Bind<IValidator<Comment>>().To<CommentValidator>().InSingletonScope();
+        }
+
+        private void BindMappings()
+        {
             Bind<IMappingService>().To<StandardTinyMappingService>().InSingletonScope().OnActivation(
                 (ctx, standardTynyMapper) =>
                     {
@@ -34,16 +93,6 @@ namespace Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots
                         standardTynyMapper.Bind<CommentDto, CommentState>();
                         standardTynyMapper.Bind<Article, ArticleDto>();
                     });
-
-            Bind<IMessageSerializationService>().To<MessageSerializationService>().InSingletonScope();
-            Bind<ArticleHandler>().ToSelf();
-            Bind<IQueueService>().To<QueueService>().InSingletonScope();
-            Bind<IMessageProcessorConfiguration>().To<MessageProcessorConfiguration>()
-                                                  .InSingletonScope()
-                                                  .WithConstructorArgument("handlers",
-                                                                           new BaseHandler[]
-                                                                               {Kernel.Get<ArticleHandler>()});
-            Bind<IMessageProcessor>().To<MessageProcessor>().InSingletonScope();
         }
     }
 }

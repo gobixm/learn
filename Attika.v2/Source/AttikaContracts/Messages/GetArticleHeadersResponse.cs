@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
-using Infotecs.Attika.AttikaGui.DataTransferObjects;
+using System.Runtime.Serialization;
+using AttikaContracts.DataTransferObjects;
 
-namespace Infotecs.Attika.AttikaGui.Messages.Wcf
+namespace AttikaContracts.Messages
 {
+    [DataContract]
     public sealed class GetArticleHeadersResponse
     {
+        [DataMember]
         public List<ArticleHeaderDto> Headers { get; set; }
     }
 }

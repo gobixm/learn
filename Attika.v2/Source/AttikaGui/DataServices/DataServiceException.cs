@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
-using Infotecs.Attika.AttikaGui.DataTransferObjects;
 
 namespace Infotecs.Attika.AttikaGui.DataServices
 {
@@ -23,11 +22,8 @@ namespace Infotecs.Attika.AttikaGui.DataServices
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         protected DataServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Fault = new FaultDto
-                {
-                    Message = info.GetString("DataServiceException.FaultMessage"),
-                    Detail = info.GetString("DataServiceException.FaultDetail")
-                };
+            Fault = new FaultDto(info.GetString("DataServiceException.FaultMessage"),
+                                 info.GetString("DataServiceException.FaultDetail"));
         }
 
         public FaultDto Fault { get; private set; }

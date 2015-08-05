@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using Infotecs.Attika.AttikaInfrastructure.Data.Mappings;
 
 namespace Infotecs.Attika.AttikaInfrastructure.Data.Models
 {
+    [TypeConverter(typeof (ArticleStateConverter))]
     public class ArticleState
     {
         private ICollection<CommentState> _comments;

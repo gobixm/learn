@@ -1,11 +1,11 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Infotecs.Attika.AttikaInfrastructure.Messaging.Messages
+namespace Infotecs.Attika.AttikaGui.DataServices
 {
     [DataContract]
-    public class FaultMessage : BaseMessage
+    public class FaultDto
     {
-        public FaultMessage(string message, string detail)
+        public FaultDto(string message, string detail)
         {
             Message = message;
             Detail = detail;

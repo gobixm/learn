@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Text;
+using Infotecs.Attika.AttikaInfrastructure.Services.Contracts;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Framing;
@@ -8,25 +11,37 @@ namespace Infotecs.Attika.AttikaDomain.Services.Queuing
 {
     public sealed class QueueService : IQueueService
     {
-        private IModel _channel;
-        private IConnection _connection;
-        private bool _disposed;
-        private ConnectionFactory _factory;
+        private static readonly Dictionary<string, Type> MessageTypes = new Dictionary<string, Type>();
 
-        public void RegisterConsumer(EventHandler<QueueMessageEventArgs> arrived)
+        private static readonly Dictionary<Type, IQueueProcessor> MessageProcessors =
+            new Dictionary<Type, IQueueProcessor>();
+
+        private static readonly Configuration InternalConfiguration = new Configuration();
+
+        private static IModel _channel;
+        private static IConnection _connection;
+        private static ConnectionFactory _factory;
+        private readonly IMessageSerializationService _messageSerializationService;
+        private bool _disposed;
+
+        public QueueService(IMessageSerializationService messageSerializationService)
         {
-            Arrival += arrived;
+            _messageSerializationService = messageSerializationService;
             EnshureMessageProcessingEnabled();
         }
 
-        public void PushMessage(byte[] message)
+        public void PushMessage(object message)
         {
             using (IConnection connection = _factory.CreateConnection())
             using (IModel channel = connection.CreateModel())
             {
                 channel.ExchangeDeclare("attika_exchange", ExchangeType.Fanout);
-                var properties = new BasicProperties {Persistent = true};
-                channel.BasicPublish("attika_exchange", "", properties, message);
+                var properties = new BasicProperties
+                    {
+                        Headers = new Dictionary<string, object> {{"type", message.GetType().Name}},
+                        Persistent = true
+                    };
+                channel.BasicPublish("attika_exchange", "", properties, _messageSerializationService.Serialize(message));
             }
         }
 
@@ -36,9 +51,10 @@ namespace Infotecs.Attika.AttikaDomain.Services.Queuing
             GC.SuppressFinalize(this);
         }
 
-        public void UnregisterConsumer(EventHandler<QueueMessageEventArgs> arrived)
+        public static IConfiguration Configure(Action<IConfiguration> action)
         {
-            Arrival -= arrived;
+            action(InternalConfiguration);
+            return InternalConfiguration;
         }
 
         private void Dispose(bool disposing)
@@ -85,23 +101,44 @@ namespace Infotecs.Attika.AttikaDomain.Services.Queuing
                 var consumer = new EventingBasicConsumer(_channel);
                 consumer.Received += (model, e) =>
                     {
-                        Arrival(this, new QueueMessageEventArgs(e.Body));
+                        InvokeProcessor(e);
                         _channel.BasicAck(e.DeliveryTag, false);
                     };
                 _channel.BasicConsume("attika_queue", false, consumer);
             }
         }
 
-        public event EventHandler<QueueMessageEventArgs> Arrival = (sender, message) => { };
-    }
-
-    public class QueueMessageEventArgs : EventArgs
-    {
-        public QueueMessageEventArgs(byte[] messageBody)
+        private void InvokeProcessor(BasicDeliverEventArgs e)
         {
-            MessageBody = messageBody;
+            if (e.BasicProperties.Headers.ContainsKey("type"))
+            {
+                string messageTypeName = Encoding.UTF8.GetString((byte[]) e.BasicProperties.Headers["type"]);
+                if (MessageTypes.ContainsKey(messageTypeName))
+                {
+                    Type messageType = MessageTypes[messageTypeName];
+                    if (MessageProcessors.ContainsKey(messageType))
+                    {
+                        IQueueProcessor processor = MessageProcessors[messageType];
+                        object message = _messageSerializationService.Deseriallize(e.Body, messageType);
+                        ((dynamic) processor).Process((dynamic) message);
+                    }
+                }
+            }
         }
 
-        public byte[] MessageBody { get; set; }
+        private sealed class Configuration : IConfiguration
+        {
+            public void Bind<TMessage, TProcessor>(Func<TProcessor> creator)
+                where TMessage : class
+                where TProcessor : IQueueProcessor
+            {
+                if (creator == null)
+                {
+                    throw new ArgumentNullException("creator");
+                }
+                MessageProcessors.Add(typeof (TMessage), creator());
+                MessageTypes.Add(typeof (TMessage).Name, typeof (TMessage));
+            }
+        }
     }
 }

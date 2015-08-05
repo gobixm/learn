@@ -3,11 +3,11 @@ using System.Collections.Specialized;
 using System.Net;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
+using AttikaContracts.DataTransferObjects;
+using AttikaContracts.Messages;
 using Infotecs.Attika.AttikaDomain.Services.Exceptions;
 using Infotecs.Attika.AttikaDomain.Services.Queuing;
 using Infotecs.Attika.AttikaDomain.Services.RequestProcessors;
-using Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects;
-using Infotecs.Attika.AttikaInfrastructure.Messaging.Messages;
 using Infotecs.Attika.AttikaInfrastructure.Services.Contracts;
 using Infotecs.Attika.AttikaService.Messages.Wcf.Serializers;
 

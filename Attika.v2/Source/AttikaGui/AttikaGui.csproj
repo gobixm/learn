@@ -60,6 +60,13 @@
       <HintPath>..\..\packages\Moq.4.2.1507.0118\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Nelibur">
+      <HintPath>..\..\packages\Nelibur.3.1.6\lib\net45\Nelibur.dll</HintPath>
+    </Reference>
+    <Reference Include="Nelibur.Sword, Version=3.0.3.223, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nelibur.Sword.3.1.6\lib\net45\Nelibur.Sword.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -96,12 +103,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataServices\FaultDto.cs" />
     <Compile Include="DataServices\MessagedDataService.cs" />
     <Compile Include="DesignTimes\DesignDataFixture.cs" />
-    <Compile Include="DataTransferObjects\ArticleDto.cs" />
-    <Compile Include="DataTransferObjects\ArticleHeaderDto.cs" />
-    <Compile Include="DataTransferObjects\CommentDto.cs" />
-    <Compile Include="DataTransferObjects\FaultDto.cs" />
     <Compile Include="Messages\Gui\AddArticleMessage.cs" />
     <Compile Include="Messages\Gui\ChangeStateMessage.cs" />
     <Compile Include="Messages\Gui\CommentDeletedMessage.cs" />
@@ -113,8 +117,6 @@
     <Compile Include="DataServices\IDataSerializer.cs" />
     <Compile Include="DataServices\IDataService.cs" />
     <Compile Include="DataServices\WcfJsonSerializer.cs" />
-    <Compile Include="Messages\Wcf\GetArticleHeadersResponse.cs" />
-    <Compile Include="Messages\Wcf\GetArticleResponse.cs" />
     <Compile Include="NinjectModules\DesignTimeModule.cs" />
     <Compile Include="NinjectModules\RunTimeModule.cs" />
     <Compile Include="ViewModels\ArticleHeaderViewModel.cs" />
@@ -200,7 +202,12 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AttikaContracts\AttikaContracts.csproj">
+      <Project>{96124a75-2ac7-4f89-9b21-0dcfb0a1adf3}</Project>
+      <Name>AttikaContracts</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

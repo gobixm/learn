@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using AttikaContracts.DataTransferObjects;
 using Infotecs.Attika.AttikaDomain.Aggregates;
-using Infotecs.Attika.AttikaInfrastructure.Data.DataTransferObjects;
 using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 
 namespace Infotecs.Attika.AttikaDomain.Mappings
@@ -17,28 +17,28 @@ namespace Infotecs.Attika.AttikaDomain.Mappings
 
         //what if dto changes
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
-            Type destinationType)
+                                         Type destinationType)
         {
             var article = (Article) value;
             var dto = new ArticleDto
-            {
-                Created = article.Created,
-                Description = article.Description,
-                Text = article.Text,
-                Title = article.Title,
-                Id = article.Id
-            };
+                {
+                    Created = article.Created,
+                    Description = article.Description,
+                    Text = article.Text,
+                    Title = article.Title,
+                    Id = article.Id
+                };
             if (article.Comments != null)
             {
                 dto.Comments = (from c in article.Comments
-                    select
-                        new CommentDto()
-                        {
-                            ArticleId = article.Id,
-                            Id = c.Id,
-                            Text = c.Text,
-                            Created = c.Created
-                        }).ToList();
+                                select
+                                    new CommentDto
+                                        {
+                                            ArticleId = article.Id,
+                                            Id = c.Id,
+                                            Text = c.Text,
+                                            Created = c.Created
+                                        }).ToList();
             }
             return article;
         }
@@ -54,19 +54,19 @@ namespace Infotecs.Attika.AttikaDomain.Mappings
             if (article != null)
             {
                 var dto = new ArticleDto
-                {
-                    Id = article.Id,
-                    Created = article.Created,
-                    Text = article.Text,
-                    Description = article.Description,
-                    Title = article.Title
-                };
+                    {
+                        Id = article.Id,
+                        Created = article.Created,
+                        Text = article.Text,
+                        Description = article.Description,
+                        Title = article.Title
+                    };
                 if (article.Comments != null)
                 {
                     dto.Comments =
                         (from c in article.Comments
-                            select
-                                new CommentDto {Created = c.Created, Id = c.Id, Text = c.Text, ArticleId = c.ArticleId})
+                         select
+                             new CommentDto {Created = c.Created, Id = c.Id, Text = c.Text, ArticleId = c.ArticleId})
                             .ToList();
                 }
                 return dto;

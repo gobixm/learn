@@ -1,5 +1,4 @@
-﻿using System;
-using Infotecs.Attika.AttikaInfrastructure.Services.Contracts;
+﻿using Infotecs.Attika.AttikaInfrastructure.Services.Contracts;
 using Nelibur.ObjectMapper;
 
 namespace Infotecs.Attika.AttikaInfrastructure.Services

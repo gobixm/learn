@@ -1,8 +1,9 @@
 ﻿using System;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots;
 using Infotecs.Attika.AttikaInfrastructure.Data;
-using Infotecs.Attika.AttikaService;
+using Nelibur.ServiceModel.Services.Default;
 
 namespace Infotecs.Attika.AttikaConsoleHost
 {
@@ -15,7 +16,7 @@ namespace Infotecs.Attika.AttikaConsoleHost
                 SessionHelper.PrepareDatabase();
 
                 Console.WriteLine("Message based service");
-                var service = new ServiceHost(typeof (ArticleApiService));
+                var service = new WebServiceHost(typeof (JsonServicePerCall));
                 try
                 {
                     service.Open();

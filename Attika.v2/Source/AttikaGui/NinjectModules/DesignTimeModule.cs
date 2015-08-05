@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AttikaContracts.DataTransferObjects;
 using Infotecs.Attika.AttikaGui.DataServices;
-using Infotecs.Attika.AttikaGui.DataTransferObjects;
 using Infotecs.Attika.AttikaGui.DesignTimes;
 using Infotecs.Attika.AttikaGui.ViewModels;
 using Moq;
@@ -37,7 +37,6 @@ namespace Infotecs.Attika.AttikaGui.NinjectModules
             Bind<MainViewModel>().ToSelf();
             Bind<NavigationViewModel>().ToSelf();
             Bind<ArticleViewModel>().ToSelf();
-            Bind<IDataSerializer>().To<WcfJsonSerializer>();
         }
     }
 }

@@ -38,6 +38,9 @@
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.4.2.1507.0118\lib\net40\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="Nelibur">
+      <HintPath>..\..\packages\Nelibur.3.1.6\lib\net45\Nelibur.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -58,12 +61,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArticleHandlerTest.cs" />
+    <Compile Include="ArticleCommandHandlerTest.cs" />
+    <Compile Include="ArticleQueryHandlerTest.cs" />
     <Compile Include="ArticleValidatorTest.cs" />
     <Compile Include="CommentValidatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AttikaContracts\AttikaContracts.csproj">
+      <Project>{96124A75-2AC7-4F89-9B21-0DCFB0A1ADF3}</Project>
+      <Name>AttikaContracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AttikaDomain\AttikaDomain.csproj">
       <Project>{E6E5D1B0-19A0-49CF-93C7-B9A88D05A4E9}</Project>
       <Name>AttikaDomain</Name>

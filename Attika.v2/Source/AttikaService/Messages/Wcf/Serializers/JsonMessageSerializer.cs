@@ -4,8 +4,9 @@ using System.IO;
 using System.Runtime.Serialization.Json;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
+using System.Xml;
+using AttikaContracts.Messages;
 using FastMember;
-using Infotecs.Attika.AttikaInfrastructure.Messaging.Messages;
 
 namespace Infotecs.Attika.AttikaService.Messages.Wcf.Serializers
 {
@@ -25,7 +26,7 @@ namespace Infotecs.Attika.AttikaService.Messages.Wcf.Serializers
         {
             using (var memoryStream = new MemoryStream())
             {
-                var writer = JsonReaderWriterFactory.CreateJsonWriter(memoryStream);
+                XmlDictionaryWriter writer = JsonReaderWriterFactory.CreateJsonWriter(memoryStream);
                 message.WriteMessage(writer);
                 writer.Flush();
                 var serializer = new DataContractJsonSerializer(messageType);
@@ -36,8 +37,8 @@ namespace Infotecs.Attika.AttikaService.Messages.Wcf.Serializers
 
         public static object DeserializeNameValueCollection(Type messageType, NameValueCollection collection)
         {
-            var message = ObjectAccessor.Create(Activator.CreateInstance(messageType));
-            foreach (var key in collection.AllKeys)
+            ObjectAccessor message = ObjectAccessor.Create(Activator.CreateInstance(messageType));
+            foreach (string key in collection.AllKeys)
             {
                 try
                 {

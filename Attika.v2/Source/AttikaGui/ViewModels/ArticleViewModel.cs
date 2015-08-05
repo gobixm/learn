@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using AttikaContracts.DataTransferObjects;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Infotecs.Attika.AttikaGui.DataServices;
-using Infotecs.Attika.AttikaGui.DataTransferObjects;
 using Infotecs.Attika.AttikaGui.Messages.Gui;
 using NLog;
 
@@ -200,6 +200,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
         private void Save()
         {
             ArticleDto.Id = Guid.NewGuid();
+            ArticleDto.Created = DateTime.Today;
             try
             {
                 _dataService.NewArticle(ArticleDto);

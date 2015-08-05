@@ -32,6 +32,14 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Nelibur, Version=3.0.3.223, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nelibur.3.1.6\lib\net45\Nelibur.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nelibur.Sword, Version=3.0.3.223, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nelibur.Sword.3.1.6\lib\net45\Nelibur.Sword.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -47,6 +55,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -64,10 +74,13 @@
     <Compile Include="Mappings\ArticleConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Metadata\ServiceMetadata.cs" />
+    <Compile Include="Services\Queuing\IConfiguration.cs" />
+    <Compile Include="Services\Queuing\IQueueProcessor.cs" />
     <Compile Include="Services\Queuing\IQueueService.cs" />
+    <Compile Include="Services\RequestProcessors\ArticleQueueProcessor.cs" />
     <Compile Include="Services\Queuing\QueueService.cs" />
-    <Compile Include="Services\RequestProcessors\ArticleHandler.cs" />
-    <Compile Include="Services\RequestProcessors\BaseHandler.cs" />
+    <Compile Include="Services\RequestProcessors\ArticleCommandHandler.cs" />
+    <Compile Include="Services\RequestProcessors\ArticleQueryHandler.cs" />
     <Compile Include="Services\RequestProcessors\InOutMessageType.cs" />
     <Compile Include="Services\Exceptions\ServiceException.cs" />
     <Compile Include="Validators\CommentValidator.cs" />
@@ -85,6 +98,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AttikaContracts\AttikaContracts.csproj">
+      <Project>{96124A75-2AC7-4F89-9B21-0DCFB0A1ADF3}</Project>
+      <Name>AttikaContracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AttikaInfrastructure\AttikaInfrastructure.csproj">
       <Project>{C3B8CCFA-086D-4245-840C-863D269E4DBD}</Project>
       <Name>AttikaInfrastructure</Name>

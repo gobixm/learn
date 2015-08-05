@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Infotecs.Attika.AttikaGui.DataTransferObjects;
+using AttikaContracts.DataTransferObjects;
 
 namespace Infotecs.Attika.AttikaGui.DataServices
 {
