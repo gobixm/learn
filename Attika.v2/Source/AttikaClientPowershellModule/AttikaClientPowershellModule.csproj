@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddArticleComment.cs" />
+    <Compile Include="DeleteArticleCommand.cs" />
+    <Compile Include="DeleteArticleCommentCommand.cs" />
     <Compile Include="NewArticleModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
