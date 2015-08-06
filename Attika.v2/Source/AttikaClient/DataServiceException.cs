@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System.Security.Permissions;
 using AttikaContracts.DataTransferObjects;
 
-namespace Infotecs.Attika.AttikaGui.DataServices
+namespace Infotecs.Attika.AttikaClient
 {
     [Serializable]
     public class DataServiceException : ApplicationException

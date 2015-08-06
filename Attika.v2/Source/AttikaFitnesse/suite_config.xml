@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<suiteConfig>
+  <Settings>
+    <Runner>fitnesse.fitserver.FitServer</Runner>
+  </Settings>
+
+  <ApplicationUnderTest>
+    <addNamespace>Infotecs.Attika.AttikaFitnesse</addNamespace>
+    <addAssembly>d:\dev\learn\Attika.v2\Out\Debug\Attika.Fitnesse\Infotecs.Attika.AttikaFitnesse.dll</addAssembly>
+  </ApplicationUnderTest>
+</suiteConfig>

@@ -22,6 +22,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E8B702
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaFitnesse", "Source\AttikaFitnesse\AttikaFitnesse.csproj", "{D2F2A31F-F936-46F8-B083-7B087E746017}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaClient", "Source\AttikaClient\AttikaClient.csproj", "{B6C6C8CE-1F68-4EF8-92D2-B72FCEAEC816}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +60,14 @@ Global
 		{96124A75-2AC7-4F89-9B21-0DCFB0A1ADF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96124A75-2AC7-4F89-9B21-0DCFB0A1ADF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96124A75-2AC7-4F89-9B21-0DCFB0A1ADF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2F2A31F-F936-46F8-B083-7B087E746017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2F2A31F-F936-46F8-B083-7B087E746017}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2F2A31F-F936-46F8-B083-7B087E746017}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2F2A31F-F936-46F8-B083-7B087E746017}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6C6C8CE-1F68-4EF8-92D2-B72FCEAEC816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6C6C8CE-1F68-4EF8-92D2-B72FCEAEC816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6C6C8CE-1F68-4EF8-92D2-B72FCEAEC816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6C6C8CE-1F68-4EF8-92D2-B72FCEAEC816}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,5 +75,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F66C78EA-D222-453C-B8E2-7C9D5E0009B4} = {A6790EF5-2688-4E54-9F2A-A3819F084C65}
 		{3D902CE8-F5B8-4687-A041-FCC91BB0C856} = {A6790EF5-2688-4E54-9F2A-A3819F084C65}
+		{D2F2A31F-F936-46F8-B083-7B087E746017} = {A6790EF5-2688-4E54-9F2A-A3819F084C65}
 	EndGlobalSection
 EndGlobal

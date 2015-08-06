@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{96124A75-2AC7-4F89-9B21-0DCFB0A1ADF3}</ProjectGuid>
+    <ProjectGuid>{B6C6C8CE-1F68-4EF8-92D2-B72FCEAEC816}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AttikaContracts</RootNamespace>
-    <AssemblyName>AttikaContracts</AssemblyName>
+    <RootNamespace>Infotecs.Attika.AttikaClient</RootNamespace>
+    <AssemblyName>Infotecs.Attika.AttikaClient</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -16,23 +16,29 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\Out\Debug\Attika.Client\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\Out\Release\Attika.Client\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Nelibur, Version=3.0.3.223, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Out\Debug\Attika.Host\Nelibur.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,19 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataTransferObjects\ArticleDto.cs" />
-    <Compile Include="DataTransferObjects\ArticleHeaderDto.cs" />
-    <Compile Include="DataTransferObjects\CommentDto.cs" />
-    <Compile Include="DataTransferObjects\FaultDto.cs" />
-    <Compile Include="Messages\AddArticleCommentRequest.cs" />
-    <Compile Include="Messages\DeleteArticleCommentRequest.cs" />
-    <Compile Include="Messages\DeleteArticleRequest.cs" />
-    <Compile Include="Messages\GetArticleHeadersRequest.cs" />
-    <Compile Include="Messages\GetArticleHeadersResponse.cs" />
-    <Compile Include="Messages\GetArticleRequest.cs" />
-    <Compile Include="Messages\GetArticleResponse.cs" />
-    <Compile Include="Messages\NewArticleRequest.cs" />
+    <Compile Include="DataServiceException.cs" />
+    <Compile Include="IClientService.cs" />
+    <Compile Include="MessagedClientService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AttikaContracts\AttikaContracts.csproj">
+      <Project>{96124A75-2AC7-4F89-9B21-0DCFB0A1ADF3}</Project>
+      <Name>AttikaContracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

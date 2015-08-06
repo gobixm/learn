@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AttikaContracts.DataTransferObjects;
-using Infotecs.Attika.AttikaGui.DataServices;
+using Infotecs.Attika.AttikaClient;
 using Infotecs.Attika.AttikaGui.DesignTimes;
 using Infotecs.Attika.AttikaGui.ViewModels;
 using Moq;
@@ -14,7 +14,7 @@ namespace Infotecs.Attika.AttikaGui.NinjectModules
     {
         public override void Load()
         {
-            var dataService = new Mock<IDataService>();
+            var dataService = new Mock<IClientService>();
             List<ArticleDto> articles = DesignDataFixture.GetFakeArticles();
             List<ArticleHeaderDto> headers = DesignDataFixture.BuildHeaders(articles);
             dataService
@@ -34,7 +34,7 @@ namespace Infotecs.Attika.AttikaGui.NinjectModules
                 });
             });
 
-            Bind<IDataService>().ToMethod(ctx => dataService.Object);
+            Bind<IClientService>().ToMethod(ctx => dataService.Object);
             Bind<MainViewModel>().ToSelf();
             Bind<NavigationViewModel>().ToSelf();
             Bind<ArticleViewModel>().ToSelf();

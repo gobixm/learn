@@ -7,16 +7,17 @@ using AttikaContracts.DataTransferObjects;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using Infotecs.Attika.AttikaGui.DataServices;
+using Infotecs.Attika.AttikaClient;
 using Infotecs.Attika.AttikaGui.Messages.Gui;
 using NLog;
+using DataServiceException = Infotecs.Attika.AttikaGui.DataServices.DataServiceException;
 
 namespace Infotecs.Attika.AttikaGui.ViewModels
 {
     public sealed class ArticleViewModel : ViewModelBase
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        private readonly IDataService _dataService;
+        private readonly IClientService _clientService;
         private RelayCommand _addCommentCommand;
         private ArticleDto _articleDto;
         private RelayCommand _badCommand;
@@ -24,14 +25,14 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
         private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
 
-        public ArticleViewModel(ArticleDto articleDto, IDataService dataService) : this(dataService)
+        public ArticleViewModel(ArticleDto articleDto, IClientService clientService) : this(clientService)
         {
             ArticleDto = articleDto;
         }
 
-        public ArticleViewModel(IDataService dataService)
+        public ArticleViewModel(IClientService clientService)
         {
-            _dataService = dataService;
+            _clientService = clientService;
             ArticleDto = new ArticleDto
             {
                 Id = Guid.Empty,
@@ -66,7 +67,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
                 {
                     Comments =
                         new ObservableCollection<CommentViewModel>(from c in ArticleDto.Comments
-                                                                   select new CommentViewModel(c, _dataService));
+                                                                   select new CommentViewModel(c, _clientService));
                 }
                 else
                 {
@@ -140,7 +141,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
         private void AddComment()
         {
             Comments.Insert(0, new CommentViewModel(new CommentDto { ArticleId = ArticleDto.Id, Created = DateTime.Now },
-                _dataService));
+                _clientService));
             RaisePropertyChanged(() => Comments);
         }
 
@@ -149,7 +150,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             string guid = Guid.NewGuid().ToString();
             try
             {
-                ArticleDto = _dataService.GetArticle(guid);
+                ArticleDto = _clientService.GetArticle(guid);
             }
             catch (DataServiceException ex)
             {
@@ -177,7 +178,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
         {
             try
             {
-                _dataService.DeleteArticle(ArticleDto.Id.ToString());
+                _clientService.DeleteArticle(ArticleDto.Id.ToString());
                 Messenger.Default.Send(new ArticleDeletedMessage { ArticleId = ArticleDto.Id });
                 Messenger.Default.Send(new ChangeStateMessage { State = "ok" });
             }
@@ -200,7 +201,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             ArticleDto.Created = DateTime.Today;
             try
             {
-                _dataService.NewArticle(ArticleDto);
+                _clientService.NewArticle(ArticleDto);
             }
             catch (DataServiceException ex)
             {

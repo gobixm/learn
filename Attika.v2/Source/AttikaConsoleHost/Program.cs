@@ -13,8 +13,6 @@ namespace Infotecs.Attika.AttikaConsoleHost
         {
             using (NinjectServiceLocator.Kernel)
             {
-                SessionHelper.PrepareDatabase();
-
                 Console.WriteLine("Message based service");
                 var service = new WebServiceHost(typeof(JsonServicePerCall));
                 try

@@ -5,21 +5,22 @@ using AttikaContracts.DataTransferObjects;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using Infotecs.Attika.AttikaGui.DataServices;
+using Infotecs.Attika.AttikaClient;
 using Infotecs.Attika.AttikaGui.Messages.Gui;
+using DataServiceException = Infotecs.Attika.AttikaGui.DataServices.DataServiceException;
 
 namespace Infotecs.Attika.AttikaGui.ViewModels
 {
     public sealed class NavigationViewModel : ViewModelBase
     {
-        private readonly IDataService _dataService;
+        private readonly IClientService _clientService;
 
         private RelayCommand _addArticleCommand;
         private ObservableCollection<ArticleHeaderViewModel> _articleHeaders;
 
-        public NavigationViewModel(IDataService dataService)
+        public NavigationViewModel(IClientService clientService)
         {
-            _dataService = dataService;
+            _clientService = clientService;
             SubscribeToGuiMessages();
             RebuildHeaderList();
         }
@@ -93,7 +94,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             try
             {
                 ArticleHeaders = new ObservableCollection<ArticleHeaderViewModel>(
-                    from a in _dataService.GetArticleHeaders() select new ArticleHeaderViewModel(a));
+                    from a in _clientService.GetArticleHeaders() select new ArticleHeaderViewModel(a));
             }
             catch (DataServiceException ex)
             {

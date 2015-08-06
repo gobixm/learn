@@ -2,32 +2,33 @@
 using AttikaContracts.DataTransferObjects;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
-using Infotecs.Attika.AttikaGui.DataServices;
+using Infotecs.Attika.AttikaClient;
 using Infotecs.Attika.AttikaGui.Messages.Gui;
+using DataServiceException = Infotecs.Attika.AttikaGui.DataServices.DataServiceException;
 
 namespace Infotecs.Attika.AttikaGui.ViewModels
 {
     public sealed class MainViewModel : ViewModelBase
     {
-        private readonly IDataService _dataService;
+        private readonly IClientService _clientService;
         private ArticleViewModel _articleViewModel;
         private NavigationViewModel _navigationViewModel;
         private string _state;
 
-        public MainViewModel(IDataService dataService)
+        public MainViewModel(IClientService clientService)
         {
-            _dataService = dataService;
+            _clientService = clientService;
             SubscribeToGuiMessages();
         }
 
         public ArticleViewModel ArticleViewModel
         {
-            get { return _articleViewModel ?? (_articleViewModel = new ArticleViewModel(_dataService)); }
+            get { return _articleViewModel ?? (_articleViewModel = new ArticleViewModel(_clientService)); }
         }
 
         public NavigationViewModel NavigationViewModel
         {
-            get { return _navigationViewModel ?? (_navigationViewModel = new NavigationViewModel(_dataService)); }
+            get { return _navigationViewModel ?? (_navigationViewModel = new NavigationViewModel(_clientService)); }
         }
 
         public string State
@@ -55,7 +56,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             ArticleDto article;
             try
             {
-                article = _dataService.GetArticle(message.ArticleId);
+                article = _clientService.GetArticle(message.ArticleId);
             }
             catch (DataServiceException ex)
             {

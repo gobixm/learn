@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using AttikaContracts.DataTransferObjects;
 
-namespace Infotecs.Attika.AttikaGui.DataServices
+namespace Infotecs.Attika.AttikaClient
 {
-    public interface IDataService
+    public interface IClientService
     {
         void DeleteArticle(string articleId);
         void DeleteComment(string articleId, string commentId);

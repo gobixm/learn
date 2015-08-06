@@ -6,13 +6,13 @@ using AttikaContracts.DataTransferObjects;
 using AttikaContracts.Messages;
 using Nelibur.ServiceModel.Clients;
 
-namespace Infotecs.Attika.AttikaGui.DataServices
+namespace Infotecs.Attika.AttikaClient
 {
-    public sealed class MessagedDataService : IDataService
+    public sealed class MessagedClientService : IClientService
     {
         private readonly JsonServiceClient _webClient;
 
-        public MessagedDataService()
+        public MessagedClientService()
         {
             _webClient = new JsonServiceClient(ConfigurationManager.ConnectionStrings["host"].ConnectionString);
         }

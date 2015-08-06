@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Infotecs.Attika.AttikaGui.DataServices
+namespace AttikaContracts.DataTransferObjects
 {
     [DataContract]
     public class FaultDto

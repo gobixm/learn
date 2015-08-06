@@ -103,8 +103,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataServices\FaultDto.cs" />
-    <Compile Include="DataServices\MessagedDataService.cs" />
     <Compile Include="DesignTimes\DesignDataFixture.cs" />
     <Compile Include="Messages\Gui\AddArticleMessage.cs" />
     <Compile Include="Messages\Gui\ChangeStateMessage.cs" />
@@ -115,7 +113,6 @@
     <Compile Include="Messages\Gui\ViewArticleMessage.cs" />
     <Compile Include="DataServices\DataServiceException.cs" />
     <Compile Include="DataServices\IDataSerializer.cs" />
-    <Compile Include="DataServices\IDataService.cs" />
     <Compile Include="DataServices\WcfJsonSerializer.cs" />
     <Compile Include="NinjectModules\DesignTimeModule.cs" />
     <Compile Include="NinjectModules\RunTimeModule.cs" />
@@ -203,6 +200,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AttikaClient\AttikaClient.csproj">
+      <Project>{B6C6C8CE-1F68-4EF8-92D2-B72FCEAEC816}</Project>
+      <Name>AttikaClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AttikaContracts\AttikaContracts.csproj">
       <Project>{96124a75-2ac7-4f89-9b21-0dcfb0a1adf3}</Project>
       <Name>AttikaContracts</Name>

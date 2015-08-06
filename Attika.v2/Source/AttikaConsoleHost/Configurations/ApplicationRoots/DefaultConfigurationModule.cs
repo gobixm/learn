@@ -9,6 +9,7 @@ using Infotecs.Attika.AttikaDomain.Services.Queuing;
 using Infotecs.Attika.AttikaDomain.Services.RequestProcessors;
 using Infotecs.Attika.AttikaDomain.Validators;
 using Infotecs.Attika.AttikaDomain.Validators.Contracts;
+using Infotecs.Attika.AttikaInfrastructure.Data;
 using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 using Infotecs.Attika.AttikaInfrastructure.Data.Repositories;
 using Infotecs.Attika.AttikaInfrastructure.Services;
@@ -23,6 +24,8 @@ namespace Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots
     {
         public override void Load()
         {
+            SessionHelper.PrepareDatabase();
+
             BindRepositories();
             BindFactories();
             BindValidators();

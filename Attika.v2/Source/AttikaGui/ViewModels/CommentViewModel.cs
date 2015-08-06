@@ -4,21 +4,22 @@ using AttikaContracts.DataTransferObjects;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using Infotecs.Attika.AttikaGui.DataServices;
+using Infotecs.Attika.AttikaClient;
 using Infotecs.Attika.AttikaGui.Messages.Gui;
+using DataServiceException = Infotecs.Attika.AttikaGui.DataServices.DataServiceException;
 
 namespace Infotecs.Attika.AttikaGui.ViewModels
 {
     public sealed class CommentViewModel : ViewModelBase
     {
-        private readonly IDataService _dataService;
+        private readonly IClientService _clientService;
         private RelayCommand _deleteCommand;
         private RelayCommand _saveCommand;
 
-        public CommentViewModel(CommentDto comment, IDataService dataService)
+        public CommentViewModel(CommentDto comment, IClientService clientService)
         {
             Comment = comment;
-            _dataService = dataService;
+            _clientService = clientService;
         }
 
         public CommentDto Comment { get; set; }
@@ -62,7 +63,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
         {
             try
             {
-                _dataService.DeleteComment(Comment.ArticleId.ToString(), Comment.Id.ToString());
+                _clientService.DeleteComment(Comment.ArticleId.ToString(), Comment.Id.ToString());
                 Messenger.Default.Send(new CommentDeletedMessage { Comment = Comment });
                 Messenger.Default.Send(new ChangeStateMessage { State = "ok" });
             }
@@ -77,7 +78,7 @@ namespace Infotecs.Attika.AttikaGui.ViewModels
             try
             {
                 Comment.Id = Guid.NewGuid();
-                _dataService.NewComment(Comment.ArticleId.ToString(), Comment);
+                _clientService.NewComment(Comment.ArticleId.ToString(), Comment);
                 SaveCommand.RaiseCanExecuteChanged();
                 DeleteCommand.RaiseCanExecuteChanged();
                 Messenger.Default.Send(new ChangeStateMessage { State = "ok" });
