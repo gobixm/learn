@@ -5,30 +5,50 @@ using Infotecs.Attika.AttikaClient;
 
 namespace Infotecs.Attika.AttikaClientPowershellModule
 {
-    [Cmdlet(VerbsCommon.New, "article")]
+    [Cmdlet(
+        VerbsCommon.New,
+        "article",
+        DefaultParameterSetName = "default")]
     public class NewArticleCommand : Cmdlet
     {
+        private MessagedClientService _client;
         private string connectionString = "http://localhost:7878";
 
-        [Parameter(Position = 3)]
+        public MessagedClientService Client
+        {
+            get { return _client ?? (_client = new MessagedClientService(ConnectionString)); }
+        }
+
+        [Parameter(Position = 2,
+            HelpMessage = "address of your article publishing service",
+            ParameterSetName = "default",
+            ValueFromPipelineByPropertyName = true)]
+        [Alias("h", "connection", "conn", "svc")]
         public string ConnectionString
         {
             get { return connectionString; }
             set { connectionString = value; }
         }
 
-        [Parameter(Position = 2)]
+        [Parameter(Position = 1,
+            HelpMessage = "content of your article",
+            ParameterSetName = "default",
+            ValueFromPipelineByPropertyName = true)]
         [ValidateLength(0, 200)]
+        [Alias("content")]
         public string Text { get; set; }
 
-        [Parameter(Position = 1)]
+        [Parameter(
+            Position = 0,
+            HelpMessage = "title of your article",
+            ParameterSetName = "default",
+            ValueFromPipelineByPropertyName = true)]
         [ValidateLength(0, 100)]
+        [Alias("t")]
         public string Title { get; set; }
 
         protected override void ProcessRecord()
         {
-            var client = new MessagedClientService(ConnectionString);
-
             try
             {
                 var articleDto = new ArticleDto
@@ -37,8 +57,9 @@ namespace Infotecs.Attika.AttikaClientPowershellModule
                     Title = Title,
                     Text = Text
                 };
-                client.NewArticle(articleDto);
+                Client.NewArticle(articleDto);
                 WriteVerbose("Статья c id " + articleDto.Id + " добавлена");
+                WriteObject(new { Article = articleDto.Id });
             }
             catch (DataServiceException ex)
             {
