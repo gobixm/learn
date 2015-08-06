@@ -13,3 +13,13 @@ Scenario: Invalid new article request came
 	Given I got working article service
 	When this service recieved "invalid new article request"
 	Then service fails to handle "invalid new article request"
+
+Scenario: Request with long article title came
+	Given I got working article service
+	When this service recieved "long title request"
+	Then service fails to handle "invalid new article request"
+
+Scenario: Request with long article text came
+	Given I got working article service
+	When this service recieved "long text request"
+	Then service fails to handle "invalid new article request"

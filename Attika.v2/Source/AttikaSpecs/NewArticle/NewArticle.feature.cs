@@ -102,6 +102,40 @@ namespace Infotecs.Attika.AttikaSpecs.NewArticle
 #line hidden
             this.ScenarioCleanup();
         }
+
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Request with long article title came")]
+        public virtual void RequestWithLongArticleTitleCame()
+        {
+            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request with long article title came", ((string[])(null)));
+#line 17
+            this.ScenarioSetup(scenarioInfo);
+#line 18
+            testRunner.Given("I got working article service", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 19
+            testRunner.When("this service recieved \"long title request\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 20
+            testRunner.Then("service fails to handle \"invalid new article request\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Request with long article text came")]
+        public virtual void RequestWithLongArticleTextCame()
+        {
+            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request with long article text came", ((string[])(null)));
+#line 22
+            this.ScenarioSetup(scenarioInfo);
+#line 23
+            testRunner.Given("I got working article service", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 24
+            testRunner.When("this service recieved \"long text request\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 25
+            testRunner.Then("service fails to handle \"invalid new article request\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 

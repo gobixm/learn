@@ -10,7 +10,7 @@ using NUnit.Framework;
 using Ninject;
 using TechTalk.SpecFlow;
 
-namespace Infotecs.Attika.AttikaSpecs
+namespace Infotecs.Attika.AttikaSpecs.DeleteArticleComment
 {
     [Binding]
     public class DeleteArticleCommentSteps

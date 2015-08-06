@@ -11,7 +11,7 @@ using NUnit.Framework;
 using Ninject;
 using TechTalk.SpecFlow;
 
-namespace Infotecs.Attika.AttikaSpecs
+namespace Infotecs.Attika.AttikaSpecs.NewArticle
 {
     [Binding]
     public class NewArticleSteps
@@ -53,6 +53,34 @@ namespace Infotecs.Attika.AttikaSpecs
         public void WhenThisServiceRecievedIvalidNewArticleRequest(string request)
         {
             _newArticleRequest = new NewArticleRequest();
+        }
+
+        [When(@"this service recieved ""(long text request)""")]
+        public void WhenThisServiceRecievedLongTextRequest(string request)
+        {
+            _newArticleRequest = new NewArticleRequest
+            {
+                Article = new ArticleDto
+                {
+                    Created = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Text = new string('x', 201)
+                }
+            };
+        }
+
+        [When(@"this service recieved ""(long title request)""")]
+        public void WhenThisServiceRecievedLongTitleRequest(string request)
+        {
+            _newArticleRequest = new NewArticleRequest
+            {
+                Article = new ArticleDto
+                {
+                    Created = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Title = new string('x', 101)
+                }
+            };
         }
 
         [When(@"this service recieved ""(valid new article request)""")]

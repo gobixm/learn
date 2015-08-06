@@ -84,12 +84,18 @@
     </Compile>
     <Compile Include="DeleteArticleComment\DeleteArticleCommentSteps.cs" />
     <Compile Include="DeleteArticle\DeleteArticleSteps.cs" />
+    <Compile Include="GetAtricleHeaders\GetArticleHeadersSteps.cs" />
     <Compile Include="GetArticle\GetArticleFeature.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GetArticleFeature.feature</DependentUpon>
     </Compile>
     <Compile Include="GetArticle\GetArticleFeatureSteps.cs" />
+    <Compile Include="GetAtricleHeaders\GetArticleHeaders.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetArticleHeaders.feature</DependentUpon>
+    </Compile>
     <Compile Include="Metadata.cs" />
     <Compile Include="NewArticle\NewArticle.feature.cs">
       <AutoGen>True</AutoGen>
@@ -119,6 +125,10 @@
     <None Include="GetArticle\GetArticleFeature.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GetArticleFeature.feature.cs</LastGenOutput>
+    </None>
+    <None Include="GetAtricleHeaders\GetArticleHeaders.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GetArticleHeaders.feature.cs</LastGenOutput>
     </None>
     <None Include="NewArticle\NewArticle.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
