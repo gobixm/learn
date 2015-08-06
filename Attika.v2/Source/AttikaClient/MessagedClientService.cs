@@ -13,8 +13,13 @@ namespace Infotecs.Attika.AttikaClient
         private readonly JsonServiceClient _webClient;
 
         public MessagedClientService()
+            : this(ConfigurationManager.ConnectionStrings["host"].ConnectionString)
         {
-            _webClient = new JsonServiceClient(ConfigurationManager.ConnectionStrings["host"].ConnectionString);
+        }
+
+        public MessagedClientService(string connectionString)
+        {
+            _webClient = new JsonServiceClient(connectionString);
         }
 
         public void DeleteArticle(string articleId)

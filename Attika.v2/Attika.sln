@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaFitnesse", "Source\At
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaClient", "Source\AttikaClient\AttikaClient.csproj", "{B6C6C8CE-1F68-4EF8-92D2-B72FCEAEC816}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttikaClientPowershellModule", "Source\AttikaClientPowershellModule\AttikaClientPowershellModule.csproj", "{2D9A92A0-6296-46D7-B027-5EEFF5A42EE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{B6C6C8CE-1F68-4EF8-92D2-B72FCEAEC816}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6C6C8CE-1F68-4EF8-92D2-B72FCEAEC816}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6C6C8CE-1F68-4EF8-92D2-B72FCEAEC816}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D9A92A0-6296-46D7-B027-5EEFF5A42EE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D9A92A0-6296-46D7-B027-5EEFF5A42EE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D9A92A0-6296-46D7-B027-5EEFF5A42EE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D9A92A0-6296-46D7-B027-5EEFF5A42EE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

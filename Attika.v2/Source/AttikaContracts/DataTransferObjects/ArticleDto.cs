@@ -13,6 +13,7 @@ namespace AttikaContracts.DataTransferObjects
             Title = "";
             Description = "";
             Text = "";
+            Created = DateTime.Now;
         }
 
         [DataMember]

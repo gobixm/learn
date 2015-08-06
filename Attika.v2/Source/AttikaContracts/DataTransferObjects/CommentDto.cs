@@ -9,6 +9,7 @@ namespace AttikaContracts.DataTransferObjects
         public CommentDto()
         {
             Text = "";
+            Created = DateTime.Now;
         }
 
         [DataMember]
