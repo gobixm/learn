@@ -1,0 +1,5 @@
+!define COMMAND_PATTERN {%m -c d:\dev\learn\Attika.v2\Out\Debug\Attika.Fitnesse\suite_config.xml %p}
+!define TEST_RUNNER {d:\programs\fitnesse\fitsharp\Runner.exe}
+!define CONNECTION_STRING {Data Source=MSK-W419;Initial Catalog=AttikaDbFitnesse;Integrated Security=True}
+
+!contents -R2 -g -p -f -h

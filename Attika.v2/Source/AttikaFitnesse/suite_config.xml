@@ -1,8 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <suiteConfig>
   <Settings>
     <Runner>fitnesse.fitserver.FitServer</Runner>
   </Settings>
+  <System.AppDomainSetup>
+    <ApplicationBase>d:\dev\learn\Attika.v2\Out\Debug\Attika.Fitnesse</ApplicationBase>
+    <ConfigurationFile>App.config</ConfigurationFile>
+  </System.AppDomainSetup>
 
   <ApplicationUnderTest>
     <addNamespace>Infotecs.Attika.AttikaFitnesse</addNamespace>

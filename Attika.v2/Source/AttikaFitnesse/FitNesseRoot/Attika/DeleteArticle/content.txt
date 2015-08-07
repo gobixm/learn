@@ -1,0 +1,26 @@
+!define validArticleIdPrefix {C0DDD1D9-4377-45F1-B329-38B08A5F6C8}
+!define validTitle {valid title}
+!define validText {valid text}
+
+!|ServiceFixture|
+|StartService|
+
+!|insert|dbo.Article|
+|Id|Title|Text|Created|
+|${validArticleIdPrefix}1|${validTitle}|${validText}|01.01.2015|
+|${validArticleIdPrefix}2|${validTitle}|${validText}|02.01.2015|
+!|Commit|
+
+!|DeleteArticleFixture|
+|Id|DeleteArticle?|
+|${validArticleIdPrefix}1|true|
+|${validArticleIdPrefix}2|true|
+|${validArticleIdPrefix}3|true|
+
+!|DelayFixture|3000|
+
+!|Query|select count(id) as total from dbo.Article where id like '${validArticleIdPrefix}_'|
+|total|
+|0|
+!|ServiceFixture|
+|StopService|

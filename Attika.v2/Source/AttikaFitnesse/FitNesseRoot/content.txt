@@ -1,0 +1,3 @@
+[!path d:\dev\learn\Attika.v2\Out\Debug\Attika.Fitnesse]
+!define COMMAND_PATTERN {%m -c suite_config.xml %p}
+!define TEST_RUNNER {d:\programs\fitnesse\fitsharp\Runner.exe}
