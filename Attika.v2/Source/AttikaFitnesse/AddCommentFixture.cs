@@ -14,6 +14,10 @@ namespace Infotecs.Attika.AttikaFitnesse
 
         private bool AddArticleComment()
         {
+            if (string.IsNullOrEmpty(ArticleId))
+            {
+                ArticleId = Args[0];
+            }
             using (var service = new MessagedClientService(ConfigurationManager.ConnectionStrings["host"].ConnectionString))
             {
                 try

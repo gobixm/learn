@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Infotecs.Attika.AttikaFitnesse</RootNamespace>
-    <AssemblyName>Infotecs.Attika.AttikaFitnesse</AssemblyName>
+    <AssemblyName>AttikaFitnesse</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -65,13 +65,10 @@
   <ItemGroup>
     <Compile Include="AddCommentFixture.cs" />
     <Compile Include="AttikaFixture.cs" />
-    <Compile Include="AttikaFixture.Service.cs" />
-    <Compile Include="DelayFixture.cs" />
     <Compile Include="DeleteArticleFixture.cs" />
     <Compile Include="DeleteCommentFixture.cs" />
     <Compile Include="NewArticleFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="suite_config.xml">
@@ -101,7 +98,6 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Compile Include="AttikaFixture.Delay.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

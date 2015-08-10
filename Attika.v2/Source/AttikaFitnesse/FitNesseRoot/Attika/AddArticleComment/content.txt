@@ -1,28 +1,30 @@
-!define validCommentIdPrefix {D7629AA0-C9F1-4056-989E-68A94DB0825}
-!define validCommentText {valid text}
-!define invalidCommentText {too long comment!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!}
+!define validArticleId {15990046-D60B-4AFE-86D5-9E17C630BD80}
+!define validArticleTitle {valid title}
+!define validArticleText {valid text}
 
+!define validCommentId1 {D7629AA0-C9F1-4056-989E-68A94DB08251}
+!define validCommentId2 {D7629AA0-C9F1-4056-989E-68A94DB08252}
+!define validCommentText {valid comment text}
+!define invalidCommentText {to long comment   sit amet, consectetur massa nunc.} #more than 50 chars 
 
 !|insert|dbo.Article|
 |id|title|text|created|
 |${validArticleId}|${validArticleTitle}|${validArticleText}|01.01.2015|
 !|Commit|
 
-!|ServiceFixture|
-|StartService|
+!|StartService|
 
-!|AddCommentFixture|
-|Id|ArticleId|Text|AddArticleComment?|
-|${validCommentIdPrefix}1|${validArticleId}|${validCommentText}|true|
-|invalid guid|${validArticleId}|${validCommentText}|false|
-|${validCommentIdPrefix}2|${validArticleId}|${invalidCommentText}|false|
+!|AddCommentFixture|${validArticleId}|
+|Id                |Text                 |AddArticleComment?|
+|${validCommentId1}|${validCommentText}  |true              |
+|invalid guid      |${validCommentText}  |false             |
+|${validCommentId2}|${invalidCommentText}|false             |
 
 
-!|DelayFixture|3000|
+!|Sleep|3000|
 
-!|Query|select id, text, articleId from dbo.Comment where id='${validCommentIdPrefix}1'|
-|text|articleId |
+!|Query             |select id, text, articleId from dbo.Comment where id='${validCommentId1}'|
+|text               |articleId                                                                |
 |${validCommentText}|${validArticleId}|
 
-!|ServiceFixture|
-|StopService|
+!|StopService|

@@ -1,10 +1,13 @@
+#!|import       |
+#|AttikaFitnesse|
+
 !|AttikaFixture|
-!*> Database preparation
+
 !|Connect|${CONNECTION_STRING}|
-!|Clean|
-|Table|
+
+|Clean      |
+|Table      |
 |dbo.Comment|
 |dbo.Article|
 
 !|Commit|
-*!

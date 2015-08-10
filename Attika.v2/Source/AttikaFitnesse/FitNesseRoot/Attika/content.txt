@@ -1,8 +1,5 @@
 !define COMMAND_PATTERN {%m -c d:\dev\learn\Attika.v2\Out\Debug\Attika.Fitnesse\suite_config.xml %p}
 !define TEST_RUNNER {d:\programs\fitnesse\fitsharp\Runner.exe}
 !define CONNECTION_STRING {Data Source=MSK-W419;Initial Catalog=AttikaDbFitnesse;Integrated Security=True}
-!define validArticleId {EC7D3C82-D432-4959-ACEF-96E661C77A40}
-!define validArticleTitle {valid title}
-!define validArticleText {valid text}
 
 !contents -R2 -g -p -f -h

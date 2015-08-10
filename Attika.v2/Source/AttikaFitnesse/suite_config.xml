@@ -11,6 +11,6 @@
 
   <ApplicationUnderTest>
     <addNamespace>Infotecs.Attika.AttikaFitnesse</addNamespace>
-    <addAssembly>d:\dev\learn\Attika.v2\Out\Debug\Attika.Fitnesse\Infotecs.Attika.AttikaFitnesse.dll</addAssembly>
+    <addAssembly>d:\dev\learn\Attika.v2\Out\Debug\Attika.Fitnesse\AttikaFitnesse.dll</addAssembly>
   </ApplicationUnderTest>
 </suiteConfig>

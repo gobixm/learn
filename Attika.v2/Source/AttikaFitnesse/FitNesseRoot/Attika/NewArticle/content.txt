@@ -1,24 +1,26 @@
-!define articleIdPrefix {C0DDD1D9-4377-45F1-B329-38B08A5F6C9}
-!define hugeString {!-
-    very long article text!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
--!}
-!|ServiceFixture|
-|StartService|
+!define validArticleText {valid text}
+!define validArticleTitle {valid title}
 
-!|NewArticleFixture|
-|Id|Title|Text|NewArticle?|
-|${validArticleId}|${validArticleTitle}|${validArticleText}|true|
-|invalid id format|${validArticleTitle}|${validArticleText}|false|
-|${articleIdPrefix}1|${validArticleTitle}|${hugeString}|false|
-|${articleIdPrefix}2|${hugeString}|${validArticleText}|false|
+!define validArticleId1 {C0DDD1D9-4377-45F1-B329-38B08A5F6C91}
+!define validArticleId2 {C0DDD1D9-4377-45F1-B329-38B08A5F6C92}
+!define validArticleId3 {C0DDD1D9-4377-45F1-B329-38B08A5F6C93}
 
-!|DelayFixture|3000|
+!define hugeTitle {too long title    sit amet, consectetur adipiscing elit. Donec gravida, dui in auctor hendrerit amet.} #more than 100 chars
+!define hugeText {too long text lor sit amet, consectetur adipiscing elit. Nulla sed efficitur nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla ac iaculis volutpat.} #more than 200 chars
 
-!|Query|select title, text from dbo.Article where id='${validArticleId}'|
-|title|text|
-|${validArticleTitle}|${validArticleText}|
+!|StartService|
 
-!|ServiceFixture|
-|StopService|
+!|NewArticleFixture                                                     |
+|Id                |Title               |Text               |NewArticle?|
+|${validArticleId1}|${validArticleTitle}|${validArticleText}|true       |
+|invalid id format |${validArticleTitle}|${validArticleText}|false      |
+|${validArticleId2}|${validArticleTitle}|${hugeText}        |false      |
+|${validArticleId3}|${hugeTitle}        |${validArticleText}|false      |
+
+!|Sleep|3000|
+
+!|Query              |select title, text from dbo.Article where id='${validArticleId1}'|
+|title               |text                                                             |
+|${validArticleTitle}|${validArticleText}                                              |
+
+!|StopService|

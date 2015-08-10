@@ -1,33 +1,29 @@
-!define validCommentIdPrefix {EC7D3C82-D432-4959-ACEF-96E661C77A4}
+!define validArticleId {C0DDD1D9-4377-45F1-B329-38B08A5F6C81}
+!define validArticleTitle {valid title}
+!define validArticleText {valid text}
+
+!define validCommentId {EC7D3C82-D432-4959-ACEF-96E661C77A41}
 !define validCommentText {valid text}
 
-!|insert|dbo.Article|
-|id|title|text|created|
+!|insert          |dbo.Article                                        |
+|id               |title               |text               |created   |
 |${validArticleId}|${validArticleTitle}|${validArticleText}|01.01.2015|
 
-!|insert|dbo.Comment|
-|id|articleId|text|created|
-|${validCommentIdPrefix}1|${validArticleId}|${validCommentText}1|01.01.2015|
-|${validCommentIdPrefix}2|${validArticleId}|${validCommentText}2|02.01.2015|
-|${validCommentIdPrefix}3|${validArticleId}|${validCommentText}3|03.01.2015|
-!|Commit|
+!|insert          |dbo.Comment                                     |
+|id               |articleId        |text               |created   |
+|${validCommentId}|${validArticleId}|${validCommentText}|01.01.2015|
+!|Commit                                                           |
 
-!|ServiceFixture|
-|StartService|
+!|StartService|
 
-!|DeleteCommentFixture|
-|ArticleId|id|DeleteArticleComment?|
-|${validArticleId}|${validCommentIdPrefix}1|true|
-|${validArticleId}|${validCommentIdPrefix}2|true|
-|${validArticleId}|${validCommentIdPrefix}3|true|
-|${validArticleId}|${validCommentIdPrefix}4|true|
+!|DeleteCommentFixture                                    |
+|ArticleId        |id               |DeleteArticleComment?|
+|${validArticleId}|${validCommentId}|true                 |
 
+!|Sleep|3000|
 
-!|DelayFixture|3000|
+!|Query|select count(id) as total from dbo.Comment where id = '${validCommentId}'|
+|total                                                                           |
+|0                                                                               |
 
-!|Query|select count(id) as total from dbo.Comment where id like '${validCommentIdPrefix}_'|
-|total|
-|0|
-
-!|ServiceFixture|
-|StopService|
+!|StopService|

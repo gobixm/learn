@@ -1,26 +1,22 @@
-!define validArticleIdPrefix {C0DDD1D9-4377-45F1-B329-38B08A5F6C8}
+!define validArticleId {C0DDD1D9-4377-45F1-B329-38B08A5F6C81}
 !define validTitle {valid title}
 !define validText {valid text}
 
-!|ServiceFixture|
-|StartService|
+!|insert          |dbo.Article                          |
+|Id               |Title        |Text        |Created   |
+|${validArticleId}|${validTitle}|${validText}|01.01.2015|
+!|Commit                                                |
 
-!|insert|dbo.Article|
-|Id|Title|Text|Created|
-|${validArticleIdPrefix}1|${validTitle}|${validText}|01.01.2015|
-|${validArticleIdPrefix}2|${validTitle}|${validText}|02.01.2015|
-!|Commit|
+!|StartService|
 
-!|DeleteArticleFixture|
-|Id|DeleteArticle?|
-|${validArticleIdPrefix}1|true|
-|${validArticleIdPrefix}2|true|
-|${validArticleIdPrefix}3|true|
+!|DeleteArticleFixture           |
+|Id               |DeleteArticle?|
+|${validArticleId}|true          |
 
-!|DelayFixture|3000|
+!|Sleep|3000|
 
-!|Query|select count(id) as total from dbo.Article where id like '${validArticleIdPrefix}_'|
-|total|
-|0|
-!|ServiceFixture|
-|StopService|
+!|Query|select count(id) as total from dbo.Article where id = '${validArticleId}'|
+|total                                                                           |
+|0                                                                               |
+
+!|StopService|
