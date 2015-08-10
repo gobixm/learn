@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using AttikaContracts.DataTransferObjects;
 using AttikaContracts.Messages;
 using Nelibur.ServiceModel.Clients;
@@ -9,6 +10,10 @@ namespace Infotecs.Attika.AttikaClient
     public sealed class MessagedClientService : IClientService, IDisposable
     {
         private readonly JsonServiceClient _webClient;
+
+        public MessagedClientService() : this(ConfigurationManager.ConnectionStrings["host"].ConnectionString)
+        {
+        }
 
         public MessagedClientService(string connectionString)
         {

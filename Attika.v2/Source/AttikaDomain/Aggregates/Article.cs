@@ -63,7 +63,6 @@ namespace Infotecs.Attika.AttikaDomain.Aggregates
         {
             State.Comments.Add(new CommentState
             {
-                ArticleId = Id,
                 ArticleState = State,
                 Created = comment.Created,
                 Id = comment.Id,

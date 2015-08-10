@@ -16,7 +16,7 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Mappings
             ManyToOne(c => c.ArticleState, map =>
             {
                 map.Column("ArticleId");
-                map.Cascade(Cascade.Merge);
+                map.NotNullable(true);
             });
         }
     }

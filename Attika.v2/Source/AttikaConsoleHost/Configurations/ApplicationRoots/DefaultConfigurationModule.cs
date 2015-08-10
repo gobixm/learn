@@ -1,6 +1,7 @@
 ﻿using System;
 using AttikaContracts.DataTransferObjects;
 using AttikaContracts.Messages;
+using HibernatingRhinos.Profiler.Appender.NHibernate;
 using Infotecs.Attika.AttikaDomain.Aggregates;
 using Infotecs.Attika.AttikaDomain.Entities;
 using Infotecs.Attika.AttikaDomain.Factories;
@@ -24,6 +25,9 @@ namespace Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots
     {
         public override void Load()
         {
+#if DEBUG
+            NHibernateProfiler.Initialize();
+#endif
             SessionHelper.PrepareDatabase();
 
             BindRepositories();

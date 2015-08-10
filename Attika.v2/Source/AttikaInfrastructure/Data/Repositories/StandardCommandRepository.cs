@@ -3,6 +3,7 @@ using System.Linq;
 using Infotecs.Attika.AttikaInfrastructure.Data.Models;
 using Infotecs.Attika.AttikaInfrastructure.Data.Repositories.Exceptions;
 using NHibernate;
+using NHibernate.Criterion;
 
 namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories
 {
@@ -16,10 +17,6 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
-                        foreach (CommentState comment in articleState.Comments)
-                        {
-                            session.Save(comment);
-                        }
                         session.Save(articleState);
                         transaction.Commit();
                     }
@@ -39,11 +36,8 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
-                        var article = session.Load<ArticleState>(Guid.Parse(articleId));
-                        foreach (CommentState comment in article.Comments)
-                        {
-                            session.Delete(comment);
-                        }
+                        var article = session.Get<ArticleState>(Guid.Parse(articleId));
+                        article.Comments.Clear();
                         session.Delete(article);
                         transaction.Commit();
                     }
@@ -63,7 +57,9 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Repositories
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
-                        var article = session.Load<ArticleState>(articleState.Id);
+                        var criteria = session.CreateCriteria<ArticleState>().SetFetchMode("Comments", FetchMode.Eager);
+                        criteria.Add(Restrictions.Eq("Id", articleState.Id));
+                        var article = criteria.List<ArticleState>().FirstOrDefault();
                         foreach (CommentState comment in article.Comments)
                         {
                             CommentState existingComment = articleState.Comments.FirstOrDefault(c => c.Id == comment.Id);

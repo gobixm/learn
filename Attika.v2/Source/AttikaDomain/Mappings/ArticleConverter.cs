@@ -38,7 +38,7 @@ namespace Infotecs.Attika.AttikaDomain.Mappings
                     dto.Comments =
                         (from c in article.Comments
                          select
-                             new CommentDto { Created = c.Created, Id = c.Id, Text = c.Text, ArticleId = c.ArticleId })
+                             new CommentDto { Created = c.Created, Id = c.Id, Text = c.Text, ArticleId = article.Id })
                             .ToList();
                 }
                 return dto;

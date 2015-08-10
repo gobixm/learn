@@ -37,7 +37,6 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Mappings
                                         new CommentState
                                         {
                                             ArticleState = article,
-                                            ArticleId = c.ArticleId,
                                             Id = c.Id,
                                             Text = c.Text,
                                             Created = c.Created
@@ -65,7 +64,7 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Mappings
                     dto.Comments =
                         (from c in article.Comments
                          select
-                             new CommentDto { Created = c.Created, Id = c.Id, Text = c.Text, ArticleId = c.ArticleId })
+                             new CommentDto { Created = c.Created, Id = c.Id, Text = c.Text, ArticleId = article.Id })
                             .ToList();
                 }
                 return dto;

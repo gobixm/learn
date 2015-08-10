@@ -34,7 +34,6 @@ namespace Infotecs.Attika.AttikaSpecs.DeleteArticle
             };
             article.Comments.Add(new CommentState
             {
-                ArticleId = _articleId,
                 ArticleState = article,
                 Created = DateTime.Now,
                 Id = Guid.Parse(Metadata.AvailableCommentId),

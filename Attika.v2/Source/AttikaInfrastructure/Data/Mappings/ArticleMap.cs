@@ -15,7 +15,17 @@ namespace Infotecs.Attika.AttikaInfrastructure.Data.Mappings
             Property(p => p.Description);
             Property(p => p.Text, map => map.Length(200));
             Property(p => p.Created);
-            Bag(p => p.Comments, map => map.Key(k => k.Column("ArticleId")), cer => cer.OneToMany());
+            Bag(p => p.Comments,
+                map =>
+                {
+                    map.Key(k =>
+                    {
+                        k.Column("ArticleId");
+                        k.OnDelete(OnDeleteAction.Cascade);
+                    });
+                    map.Cascade(Cascade.All);
+                    map.Inverse(true);
+                }, cer => cer.OneToMany());
         }
     }
 }
