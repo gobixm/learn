@@ -5,17 +5,18 @@ using fit;
 
 namespace Infotecs.Attika.AttikaFitnesse
 {
-    public class DeleteArticleFixture : ColumnFixture
+    public class DeleteCommentFixture : ColumnFixture
     {
+        public string ArticleId { get; set; }
         public string Id { get; set; }
 
-        public bool DeleteArticle()
+        private bool DeleteArticleComment()
         {
             using (var service = new MessagedClientService(ConfigurationManager.ConnectionStrings["host"].ConnectionString))
             {
                 try
                 {
-                    service.DeleteArticle(Id);
+                    service.DeleteComment(ArticleId, Id);
                     return true;
                 }
                 catch

@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Reflection;
 using AttikaContracts.DataTransferObjects;
 using AttikaContracts.Messages;
 using Nelibur.ServiceModel.Clients;
 
 namespace Infotecs.Attika.AttikaClient
 {
-    public sealed class MessagedClientService : IClientService
+    public sealed class MessagedClientService : IClientService, IDisposable
     {
         private readonly JsonServiceClient _webClient;
-
-        public MessagedClientService()
-            : this(ConfigurationManager.ConnectionStrings["host"].ConnectionString)
-        {
-        }
 
         public MessagedClientService(string connectionString)
         {
@@ -96,14 +89,9 @@ namespace Infotecs.Attika.AttikaClient
             }
         }
 
-        private string BuildQueryParams(object message)
+        public void Dispose()
         {
-            var pairs = new List<string>();
-            foreach (PropertyInfo property in message.GetType().GetProperties())
-            {
-                pairs.Add(string.Format("{0}={1}", property.Name, property.GetValue(message)));
-            }
-            return string.Join("&", pairs);
+            _webClient.Dispose();
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.ServiceModel.Web;
 using Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots;
 using Nelibur.ServiceModel.Services.Default;
-using Ninject;
 using dbfit;
 
 namespace Infotecs.Attika.AttikaFitnesse
@@ -12,9 +10,8 @@ namespace Infotecs.Attika.AttikaFitnesse
     {
         public AttikaFixture()
         {
-            IKernel kernel = NinjectServiceLocator.Kernel;
+            NinjectServiceLocator.ForceInit();
             Service = new WebServiceHost(typeof(JsonServicePerCall));
-            Debugger.Log(0, "Info", "AttikaFixture constructed");
         }
 
         public static WebServiceHost Service { get; set; }
@@ -22,7 +19,6 @@ namespace Infotecs.Attika.AttikaFitnesse
         public static void StartService()
         {
             Service.Open();
-            Debugger.Log(0, "info", "service started");
         }
 
         public static void StopService()

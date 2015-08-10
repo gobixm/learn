@@ -1,0 +1,28 @@
+!define validCommentIdPrefix {D7629AA0-C9F1-4056-989E-68A94DB0825}
+!define validCommentText {valid text}
+!define invalidCommentText {too long comment!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!}
+
+
+!|insert|dbo.Article|
+|id|title|text|created|
+|${validArticleId}|${validArticleTitle}|${validArticleText}|01.01.2015|
+!|Commit|
+
+!|ServiceFixture|
+|StartService|
+
+!|AddCommentFixture|
+|Id|ArticleId|Text|AddArticleComment?|
+|${validCommentIdPrefix}1|${validArticleId}|${validCommentText}|true|
+|invalid guid|${validArticleId}|${validCommentText}|false|
+|${validCommentIdPrefix}2|${validArticleId}|${invalidCommentText}|false|
+
+
+!|DelayFixture|3000|
+
+!|Query|select id, text, articleId from dbo.Comment where id='${validCommentIdPrefix}1'|
+|text|articleId |
+|${validCommentText}|${validArticleId}|
+
+!|ServiceFixture|
+|StopService|

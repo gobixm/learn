@@ -18,5 +18,13 @@ namespace Infotecs.Attika.AttikaConsoleHost.Configurations.ApplicationRoots
                 return _kernel;
             }
         }
+
+        public static void ForceInit()
+        {
+            if (_kernel == null)
+            {
+                _kernel = new StandardKernel(new DefaultConfigurationModule());
+            }
+        }
     }
 }

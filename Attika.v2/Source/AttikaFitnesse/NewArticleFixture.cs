@@ -14,20 +14,22 @@ namespace Infotecs.Attika.AttikaFitnesse
 
         public bool NewArticle()
         {
-            var service = new MessagedClientService(ConfigurationManager.ConnectionStrings["host"].ConnectionString);
-            try
+            using (var service = new MessagedClientService(ConfigurationManager.ConnectionStrings["host"].ConnectionString))
             {
-                service.NewArticle(new ArticleDto
+                try
                 {
-                    Id = Guid.Parse(Id),
-                    Title = Title,
-                    Text = Text
-                });
-                return true;
-            }
-            catch
-            {
-                return false;
+                    service.NewArticle(new ArticleDto
+                    {
+                        Id = Guid.Parse(Id),
+                        Title = Title,
+                        Text = Text
+                    });
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
     }

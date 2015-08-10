@@ -1,0 +1,33 @@
+!define validCommentIdPrefix {EC7D3C82-D432-4959-ACEF-96E661C77A4}
+!define validCommentText {valid text}
+
+!|insert|dbo.Article|
+|id|title|text|created|
+|${validArticleId}|${validArticleTitle}|${validArticleText}|01.01.2015|
+
+!|insert|dbo.Comment|
+|id|articleId|text|created|
+|${validCommentIdPrefix}1|${validArticleId}|${validCommentText}1|01.01.2015|
+|${validCommentIdPrefix}2|${validArticleId}|${validCommentText}2|02.01.2015|
+|${validCommentIdPrefix}3|${validArticleId}|${validCommentText}3|03.01.2015|
+!|Commit|
+
+!|ServiceFixture|
+|StartService|
+
+!|DeleteCommentFixture|
+|ArticleId|id|DeleteArticleComment?|
+|${validArticleId}|${validCommentIdPrefix}1|true|
+|${validArticleId}|${validCommentIdPrefix}2|true|
+|${validArticleId}|${validCommentIdPrefix}3|true|
+|${validArticleId}|${validCommentIdPrefix}4|true|
+
+
+!|DelayFixture|3000|
+
+!|Query|select count(id) as total from dbo.Comment where id like '${validCommentIdPrefix}_'|
+|total|
+|0|
+
+!|ServiceFixture|
+|StopService|
