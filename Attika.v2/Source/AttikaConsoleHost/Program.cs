@@ -12,7 +12,7 @@ namespace Infotecs.Attika.AttikaConsoleHost
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        private static void Main(string[] args)
+        private static void DumpEnvironmentInfo()
         {
             IConfiguration dumper = OpusDumper.Configure((x) =>
             {
@@ -22,7 +22,11 @@ namespace Infotecs.Attika.AttikaConsoleHost
             });
 
             Logger.Info(dumper.Dump());
+        }
 
+        private static void Main(string[] args)
+        {
+            DumpEnvironmentInfo();
             using (NinjectServiceLocator.Kernel)
             {
                 Console.WriteLine("Message based service");
