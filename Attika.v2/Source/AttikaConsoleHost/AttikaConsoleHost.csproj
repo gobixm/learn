@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Configurations\ApplicationRoots\DefaultConfigurationModule.cs" />
     <Compile Include="Configurations\ApplicationRoots\NinjectServiceLocator.cs" />
+    <Compile Include="Environment.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
