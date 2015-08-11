@@ -1,0 +1,71 @@
+@startuml
+
+package "Shared" {
+    [Contracts]
+}
+
+package "Server side" {
+    [ConsoleHost] as CH
+        interface "IRequestOperation" as RO
+        [Nelibur] as NS #yellow
+        NS -- RO
+        
+        
+    CH .> NS : use   
+    
+
+    [Domain] as D  
+        [RabbitMq] #yellow
+        
+    CH ..> D : use
+    
+    D ..> QR : use
+    D ..> CR : use
+    D ..> MS : use
+    D ..> MSS : use
+    [RabbitMq] <. D : use
+    D .> [Contracts] : use
+    D .> RO : realize
+    
+    
+    [Infrastructure]
+        [Dapper] #yellow
+        [NHibernate] #yellow
+        Database "MSSQL" as DB
+    
+    interface "IQueryRepository" as QR
+    interface "ICommandRepository" as CR
+    interface "IMappingService" as MS
+    interface "IMessageSerializationService" as MSS        
+    
+    QR - [Infrastructure]
+    [Infrastructure] - CR
+    [Infrastructure] -- MS
+    [Infrastructure] -- MSS
+    [Infrastructure] ..> [Dapper] : use
+    [Infrastructure] ..> [NHibernate] : use
+    [Infrastructure] ..> [Contracts] : use
+    
+    [Dapper] ..> DB : query
+    [NHibernate] ..> DB : command
+}
+
+package "Client side" {
+
+ interface "IDataService" as DS
+
+ [DataService] - DS
+ 
+ [Nelibur] as NC #yellow
+
+ NC <.. [DataService] : call
+ [Contracts] <. [DataService] : use 
+ 
+ DS <.. [UI] : call
+ [UI] ..> [Contracts] : use
+ 
+ NS <.. NC : http
+
+}
+
+@enduml

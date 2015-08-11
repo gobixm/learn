@@ -1,0 +1,34 @@
+Actor Client as C
+participant ArticleCommandHandler as ACH
+participant QueueService as QS
+participant ArticleQueueProcessor as QP
+participant CommandRepository as CR
+
+activate QS
+activate QP
+activate CR
+
+C -> ACH: NewArticle(message)
+activate ACH
+
+ACH -> ACH : validate
+alt validation error
+   ACH->C : fail
+end
+
+ACH -> QS : PushMessage(message)
+ACH -> C : ok
+deactivate ACH
+
+... ...
+
+QS -> QP : Process(message)
+
+QP -> CR : CreateArticle
+    activate CR #yellow
+    CR -> CR : persist
+    deactivate CR
+
+deactivate CR
+deactivate QP
+deactivate QS
