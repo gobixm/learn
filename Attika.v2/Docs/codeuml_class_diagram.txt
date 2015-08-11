@@ -1,0 +1,147 @@
+class ClassMapping<T> #yellow
+class TypeConverter #yellow
+class Exception #yellow
+interface ISessionFactory #yellow
+interface IRequestOperation #yellow
+
+package Contracts {
+    class CommentDto
+    class ArticleDto    
+    class ArticleHeaderDto  
+    
+    class AddArticleCommentRequest
+    class NewArticleRequest 
+    class DeleteArticleCommentRequest
+    class DeleteArticleRequest
+    class GetArticleHeadersRequest
+    class GetArticleHeadersResponse
+    class GetArticleResponse
+    class GetArticleRequest 
+        
+    ArticleDto o-- "*" CommentDto    
+    ArticleDto "1" --o  GetArticleResponse
+    ArticleDto "1" --o NewArticleRequest 
+    
+    CommentDto "1" --o AddArticleCommentRequest    
+    
+    ArticleHeaderDto "*" --o  GetArticleHeadersResponse        
+}
+
+package Infrastructure {
+    namespace Mappings {
+        
+        class ArticleMap --|> ClassMapping
+        class CommentMap --|> ClassMapping
+        class ArticleStateConverter --|> TypeConverter
+    }
+    
+    namespace Models {
+        class ArticleState
+        class CommentState
+        class ArticleHeaderState
+        
+        CommentState "*" --o "1" ArticleState
+    }
+    
+    namespace Repositories {
+        interface ICommandRepository
+        ICommandRepository <|-- StandardCommandRepository
+        
+        interface IQueryRepository
+        IQueryRepository <|-- StandardQueryRepository
+                
+        RepositoryException --|> Exception
+    }
+    
+    namespace Services {
+        interface IMappingService
+        interface IMessageSerializationService
+        
+        IMappingService <|-- class StandardTinyMappingService
+        IMessageSerializationService <|-- class MessageSerializationService
+    }    
+    
+    ISessionFactory --* class SessionHelper
+}
+
+package Domain {
+    namespace Entities {
+        interface IEntity
+        
+        class Comment
+        class Article {
+            +AddComment(Comment)
+        }
+        IEntity <|-- Article
+        IEntity <|-- Comment
+        class Article o-- ArticleState
+        class Article *-- "*" Comment
+    }
+    
+    namespace Validators {
+        interface IValidator
+        class Validator<T>        
+        IValidator <|-- class Validator
+        Validator <|- class ArticleValidator
+        class CommentValidator -|> Validator
+    }
+    
+    namespace Factories {
+        interface IArticleFactory
+        interface ICommentFactory
+        
+        IArticleFactory <|-- ArticleFactory
+        ArticleFactory o-- IQueryRepository
+        ArticleFactory o-- IMappingService
+        ArticleFactory o-- IValidator : CommentValidator
+        ArticleFactory o-- IValidator : ArticleValidator
+        
+        ICommentFactory <|-- CommentFactory
+        CommentFactory o-- IMappingService
+        CommentFactory o-- IValidator : CommentValidator
+    }
+    
+    namespace Services_ {
+        
+        ServiceException --|> Exception
+        
+        namespace Queuing {
+            interface IQueueService
+            interface IQueueProcessor
+            interface IConfiguration
+            
+            IConfiguration <|-- class Configuration
+            QueueService --|> IQueueService
+            QueueService o-- Configuration
+            QueueService o-- IMessageSerializationService
+            QueueService o-- "*" IQueueProcessor
+        }
+        
+        namespace RequestProcessors {
+            class ArticleCommandHandler
+            class ArticleQueryHandler
+            class ArticleQueueProcessor
+            
+            note top of ArticleCommandHandler : "in:\nNewArticleRequest\nAddArticleCommentRequest\nDeleteArticleRequest\nDeleteArticleCommentRequest"
+            note top of ArticleQueryHandler : "in:\nGetArticleHeadersRequest\nGetArticleRequest\nout:\nGetArticleHeadersResponse\nGetArticleResponse"
+            note top of ArticleQueueProcessor "in:\nNewArticleRequest\nAddArticleCommentRequest\nDeleteArticleRequest\nDeleteArticleCommentRequest"
+        
+            IQueueProcessor <|-- ArticleQueueProcessor
+            ArticleQueueProcessor --o IArticleFactory
+            ArticleQueueProcessor --o ICommentFactory
+            ArticleQueueProcessor --o ICommandRepository
+            
+            
+            IRequestOperation <|-- ArticleQueryHandler
+            ArticleQueryHandler o-- IArticleFactory
+            ArticleQueryHandler o-- IMappingService
+            ArticleQueryHandler o-- IQueryRepository            
+            
+            IRequestOperation <|-- ArticleCommandHandler
+            ArticleCommandHandler o-- IQueueService
+            ArticleCommandHandler o-- IArticleFactory
+            ArticleCommandHandler o-- ICommentFactory
+        }
+    }
+
+}
