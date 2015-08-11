@@ -1,0 +1,23 @@
+Actor Client as C
+participant WcfService as S
+participant CommandRepository as CR
+
+C -> S: NewArticle
+activate S
+activate CR
+S -> S : validate
+alt validation error
+    S->C : fail
+end
+S-->CR: CreateArticle
+activate CR #yellow
+alt repository fail
+    CR-->S : fail
+    S->C : fail
+end    
+CR-->S : ok
+deactivate CR
+S->C : ok
+
+deactivate CR
+deactivate S

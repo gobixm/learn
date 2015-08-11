@@ -1,0 +1,45 @@
+@startuml
+
+package "Server side" {
+ interface "IQueryRepository" as QR
+ interface "ICommandRepository" as CR
+
+ QR - [DataModel]
+ CR - [DataModel]
+
+ [Dapper] #yellow
+ [NHibernate] #yellow
+
+ [DataModel] ..> [Dapper] : use
+ [DataModel] ..> [NHibernate] : use
+
+ database "MSSQL"
+
+ Dapper ..> MSSQL : query
+ NHibernate ..> MSSQL : command
+
+ interface "IArticleService" as AS
+ [ArticleService] - AS
+ [ArticleService] ..> QR : use
+ [ArticleService] ..> CR : use
+ [ArticleService] - HTTP
+
+ [ConsoleHost] ..> AS : WcfPerCall
+}
+
+package "Client side" {
+
+ interface "IDataService" as DS
+
+ DS - [DataService]
+
+ [WebClient] #yellow
+
+ [DataService] ..> [WebClient] : use
+ HTTP - [DataService]
+ 
+ [GUI] ..> DS : call
+
+}
+
+@enduml

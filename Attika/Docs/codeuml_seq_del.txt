@@ -1,0 +1,19 @@
+Actor Client as C
+participant WcfService as S
+participant CommandRepository as CR
+
+C -> S: DeleteArticle
+activate S
+activate CR
+S-->CR: DeleteArticle
+activate CR #yellow
+alt repository fail
+    CR-->S : fail
+    S->C : fail
+end    
+CR-->S : ok
+deactivate CR
+S->C : ok
+
+deactivate CR
+deactivate S
