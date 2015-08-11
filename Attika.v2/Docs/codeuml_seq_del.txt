@@ -8,13 +8,8 @@ activate QS
 activate QP
 activate CR
 
-C -> ACH: NewArticle(message)
+C -> ACH: DeleteArticle(message)
 activate ACH
-
-ACH -> ACH : validate
-alt validation error
-   ACH->C : fail
-end
 
 ACH -// QS : PushMessage(message)
 ACH -> C : ok
@@ -24,9 +19,9 @@ deactivate ACH
 
 QS -> QP : Process(message)
 
-QP -> CR : CreateArticle
+QP -> CR : DeleteArticle
     activate CR #yellow
-    CR -> CR : persist
+    CR -> CR : remove
     deactivate CR
 
 deactivate CR
