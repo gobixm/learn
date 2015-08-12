@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using AttikaContracts.DataTransferObjects;
 using Infotecs.Attika.AttikaClient;
-using Infotecs.Attika.AttikaGui.DesignTimes;
 using Infotecs.Attika.AttikaGui.ViewModels;
 using Moq;
 using Ninject.Modules;
+using Infotecs.Attika.AttikaGui.DesignTimes;
 
 namespace Infotecs.Attika.AttikaGui.NinjectModules
 {

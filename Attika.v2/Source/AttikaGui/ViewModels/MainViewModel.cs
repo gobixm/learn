@@ -4,7 +4,6 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using Infotecs.Attika.AttikaClient;
 using Infotecs.Attika.AttikaGui.Messages.Gui;
-using DataServiceException = Infotecs.Attika.AttikaGui.DataServices.DataServiceException;
 
 namespace Infotecs.Attika.AttikaGui.ViewModels
 {

@@ -15,7 +15,6 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
         IQueueProcessor<AddArticleCommentRequest>,
         IQueueProcessor<DeleteArticleRequest>,
         IQueueProcessor<DeleteArticleCommentRequest>
-
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IArticleFactory _articleFactory;

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?define ProductName="Attika" ?>
+<?define ProductVersion="1.0.0.0" ?>
+<?define ProductCode="119E9229-6210-41CB-8746-2799923D99D6"?>
+<?define UpgradeCode="58436e1a-ff05-4049-b22b-e094f8fbbcc3"?>
+<?define Manufacturer="Gobi" ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="$(var.ProductCode)" Name="$(var.ProductName)" Language="1033" Version="$(var.ProductVersion)" Manufacturer="$(var.Manufacturer)" UpgradeCode="58436e1a-ff05-4049-b22b-e094f8fbbcc3">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of 'Attika' is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="AttikaServer" Level="1">
+			<ComponentGroupRef Id="ServerComponents" />
+      <ComponentGroupRef Id="ClientComponents"/>
+		</Feature>
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" ></Property>
+<!--    <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="License.rtf"/>-->
+    <UIRef Id="WixUI_InstallDir"/>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="$(var.ProductName)">
+          <Directory Id="ServerFolder" Name="Server"/>
+          <Directory Id="ClientFolder" Name="Client"/>
+        </Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ServerComponents" Directory="ServerFolder">
+			 <Component Id="ServerFiles"  Guid="0F3C3759-4432-4457-9CEF-5C4D8BEAD9EC">
+         <File Id="ServerFiles.host" Source="../../Out/Release/Attika.Host/Infotecs.Attika.AttikaConsoleHost.exe"/>
+         <File Id="ServerFiles.config" Source="../../Out/Release/Attika.Host/Infotecs.Attika.AttikaConsoleHost.exe.config"/>
+			 </Component> 
+		</ComponentGroup>
+    <ComponentGroup Id="ClientComponents" Directory="ClientFolder">
+
+    </ComponentGroup>
+	</Fragment>
+</Wix>

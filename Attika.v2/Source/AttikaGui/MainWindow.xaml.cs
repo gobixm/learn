@@ -2,7 +2,7 @@
 using System.Windows;
 using Infotecs.Attika.AttikaGui.ViewModels;
 
-namespace AttikaGui
+namespace Infotecs.Attika.AttikaGui
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml

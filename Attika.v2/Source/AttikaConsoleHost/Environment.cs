@@ -10,7 +10,7 @@ namespace Infotecs.Attika.AttikaConsoleHost
 
         public static void DumpInfo()
         {
-            IConfiguration dumper = OpusDumper.Configure((x) =>
+            IConfiguration dumper = OpusDumper.Configure(x =>
             {
                 x.Include(InformationKind.ApplicationInfo);
                 x.Include(InformationKind.NetFrameworkInstalled);
