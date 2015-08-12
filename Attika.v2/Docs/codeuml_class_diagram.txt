@@ -114,10 +114,9 @@ package Domain {
         note top of ArticleQueueProcessor : "in:\nNewArticleRequest\nAddArticleCommentRequest\nDeleteArticleRequest\nDeleteArticleCommentRequest"
 
         IQueueProcessor <|-- ArticleQueueProcessor
-        ArticleQueueProcessor --o IArticleFactory
-
-        ArticleQueueProcessor --o ICommentFactory
-        ArticleQueueProcessor --o ICommandRepository
+        ArticleQueueProcessor o-- IArticleFactory
+        ArticleQueueProcessor o-- ICommentFactory
+        ArticleQueueProcessor o-- ICommandRepository
 
         IRequestOperation <|-- ArticleQueryHandler
         ArticleQueryHandler o-- IArticleFactory
