@@ -1,280 +1,148 @@
-
 @startuml
+
 class ClassMapping<T> #yellow
-
-
 class TypeConverter #yellow
-
 class Exception #yellow
-
 interface ISessionFactory #yellow
-
 interface IRequestOperation #yellow
 
 package Contracts {
-
     class CommentDto
-
     class ArticleDto    
-
     class ArticleHeaderDto  
 
-    
-
     class AddArticleCommentRequest
-
     class NewArticleRequest 
-
     class DeleteArticleCommentRequest
-
     class DeleteArticleRequest
-
     class GetArticleHeadersRequest
-
     class GetArticleHeadersResponse
-
     class GetArticleResponse
-
     class GetArticleRequest 
-
-        
-
-    ArticleDto o-- "*" CommentDto    
-
+    
+    ArticleDto o-- "*" CommentDto
     ArticleDto "1" --o  GetArticleResponse
-
     ArticleDto "1" --o NewArticleRequest 
-
     
-
     CommentDto "1" --o AddArticleCommentRequest    
-
-    
-
     ArticleHeaderDto "*" --o  GetArticleHeadersResponse        
-
 }
 
 package Infrastructure {
-
     package Mappings {
-
-        
-
         ClassMapping <|-- class ArticleMap
-
-        ClassMapping <|-- class CommentMap 
+        ClassMapping <|-- class CommentMap
 
         TypeConverter <|-- class ArticleStateConverter
-
     }
 
-    
-
+    Mappings <-[hidden]- Models
     package Models {
-
         class ArticleState
-
         class CommentState
-
         class ArticleHeaderState
 
-        
-
         CommentState "*" --o "1" ArticleState
-
     }
 
-    
-
-    package Repositories {
-
-        interface ICommandRepository
-
-        ICommandRepository <|-- StandardCommandRepository
-
-        
-
-        interface IQueryRepository
-
-        IQueryRepository <|-- StandardQueryRepository
-
-                
-
-        RepositoryException --|> Exception
-
-    }    
-
+    Models -[hidden]-> Services
     package Services {
-
         interface IMappingService
-
         interface IMessageSerializationService
 
-        
-
         IMappingService <|-- class StandardTinyMappingService
-
         IMessageSerializationService <|-- class MessageSerializationService
-
     }    
-
+    Services -[hidden]-> Repositories
     
+    package Repositories {
+        interface ICommandRepository
+        ICommandRepository <|-- StandardCommandRepository
+
+        interface IQueryRepository
+        IQueryRepository <|-- StandardQueryRepository
+
+        RepositoryException --|> Exception
+    }
 
     ISessionFactory --* class SessionHelper
-
 }
 
-
-
-package Domain {  
-
+package Domain {
     package Validators {
-
         interface IValidator
-
-        class Validator<T>        
+        class Validator<T>  
 
         IValidator <|-- class Validator
-
         Validator <|- class ArticleValidator
-
         class CommentValidator -|> Validator
-
     }
-
     
-
     package Factories {
-
         interface IArticleFactory
-
         interface ICommentFactory
 
-        
-
         IArticleFactory <|-- ArticleFactory
-
         ArticleFactory o-- IQueryRepository
-
         ArticleFactory o-- IMappingService
-
         ArticleFactory o-- IValidator : CommentValidator
-
         ArticleFactory o-- IValidator : ArticleValidator
 
-        
-
         ICommentFactory <|-- CommentFactory
-
         CommentFactory o-- IMappingService
-
         CommentFactory o-- IValidator : CommentValidator
-
     }
 
-    
+    package Services as DomainServices {
+        ServiceException --|> Exception 
+        interface IQueueService
+        interface IQueueProcessor
+        interface IConfiguration
 
-    package Services as DomainServices {        
+        IConfiguration <|-- class Configuration
+        QueueService --|> IQueueService
+        QueueService o-- Configuration
+        QueueService o-- IMessageSerializationService
+        QueueService o-- "*" IQueueProcessor
 
-        ServiceException --|> Exception        
-
+        class ArticleCommandHandler
+        class ArticleQueryHandler
+        class ArticleQueueProcessor
         
+        note top of ArticleCommandHandler : "in:\nNewArticleRequest\nAddArticleCommentRequest\nDeleteArticleRequest\nDeleteArticleCommentRequest"
+        note top of ArticleQueryHandler : "in:\nGetArticleHeadersRequest\nGetArticleRequest\nout:\nGetArticleHeadersResponse\nGetArticleResponse"
+        note top of ArticleQueueProcessor : "in:\nNewArticleRequest\nAddArticleCommentRequest\nDeleteArticleRequest\nDeleteArticleCommentRequest"
 
-            interface IQueueService
+        IQueueProcessor <|-- ArticleQueueProcessor
+        ArticleQueueProcessor --o IArticleFactory
 
-            interface IQueueProcessor
+        ArticleQueueProcessor --o ICommentFactory
+        ArticleQueueProcessor --o ICommandRepository
 
-            interface IConfiguration
+        IRequestOperation <|-- ArticleQueryHandler
+        ArticleQueryHandler o-- IArticleFactory
+        ArticleQueryHandler o-- IMappingService
+        ArticleQueryHandler o-- IQueryRepository            
 
-            
-
-            IConfiguration <|-- class Configuration
-
-            QueueService --|> IQueueService
-
-            QueueService o-- Configuration
-
-            QueueService o-- IMessageSerializationService
-
-            QueueService o-- "*" IQueueProcessor
-
-       
-
-        
-
-        
-
-            class ArticleCommandHandler
-
-            class ArticleQueryHandler
-
-            class ArticleQueueProcessor
-
-            
-
-            note top of ArticleCommandHandler : "in:\nNewArticleRequest\nAddArticleCommentRequest\nDeleteArticleRequest\nDeleteArticleCommentRequest"
-
-            note top of ArticleQueryHandler : "in:\nGetArticleHeadersRequest\nGetArticleRequest\nout:\nGetArticleHeadersResponse\nGetArticleResponse"
-
-            note top of ArticleQueueProcessor : "in:\nNewArticleRequest\nAddArticleCommentRequest\nDeleteArticleRequest\nDeleteArticleCommentRequest"
-
-        
-
-            IQueueProcessor <|-- ArticleQueueProcessor
-
-            ArticleQueueProcessor --o IArticleFactory
-
-            ArticleQueueProcessor --o ICommentFactory
-
-            ArticleQueueProcessor --o ICommandRepository
-
-            
-
-            
-
-            IRequestOperation <|-- ArticleQueryHandler
-
-            ArticleQueryHandler o-- IArticleFactory
-
-            ArticleQueryHandler o-- IMappingService
-
-            ArticleQueryHandler o-- IQueryRepository            
-
-            
-
-            IRequestOperation <|-- ArticleCommandHandler
-
-            ArticleCommandHandler o-- IQueueService
-
-            ArticleCommandHandler o-- IArticleFactory
-
-            ArticleCommandHandler o-- ICommentFactory    
+        IRequestOperation <|-- ArticleCommandHandler
+        ArticleCommandHandler o-- IQueueService
+        ArticleCommandHandler o-- IArticleFactory
+        ArticleCommandHandler o-- ICommentFactory    
     }
 
     package Entities {
-
         interface IEntity
-
-        
-
         class Comment
-
         class Article {
-
             +AddComment(Comment)
-
         }
 
         IEntity <|-- Article
-
         IEntity <|-- Comment
-
         class Article o-- ArticleState
-
         class Article *-- "*" Comment
-
     }
+
 }
 
 Domain -[hidden]-> Infrastructure

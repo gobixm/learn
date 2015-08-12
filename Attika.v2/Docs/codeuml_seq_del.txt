@@ -1,3 +1,4 @@
+@startuml
 Actor Client as C
 participant ArticleCommandHandler as ACH
 participant QueueService as QS
@@ -27,3 +28,4 @@ QP -> CR : DeleteArticle
 deactivate CR
 deactivate QP
 deactivate QS
+@enduml
