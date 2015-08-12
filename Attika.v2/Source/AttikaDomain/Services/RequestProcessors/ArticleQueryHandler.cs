@@ -35,14 +35,6 @@ namespace Infotecs.Attika.AttikaDomain.Services.RequestProcessors
 
         public object Get(GetArticleHeadersRequest request)
         {
-//            GetArticleHeadersResponse result = request.ToOption()
-//                                                      .Map(x => _queryRepository.GetHeaders())
-//                                                      .Map(x => x.Select(_mappingService.Map<ArticleHeaderDto>))
-//                                                      .Map(x => new GetArticleHeadersResponse {Headers = x.ToList()})
-//                                                      .ThrowOnEmpty(
-//                                                          () =>
-//                                                          new WebFaultException(HttpStatusCode.InternalServerError))
-//                                                      .Value;
             if (request == null)
             {
                 throw new WebFaultException(HttpStatusCode.BadRequest);
