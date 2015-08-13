@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include $(var.ProjectDir)\Variables.wxi?>
+	<Fragment>
+    <ComponentGroup Id="ServerComponents" Directory="ServerFolder" Source="$(var.ServerSource)">
+      <Component Id="cmpB98D06E92CB7BE27189B9DF3385AC88B" Guid="{C73B3654-F706-4E12-A0A8-A62EA06CB8D0}">
+        <File Name="AttikaContracts.dll" Id="filB02C9622822B40903148185EB61A5F11" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp00225AB9CC7E2406697109ABE50B5E5E" Guid="{D0F52DEE-D348-4583-8F9B-3D17D31DC6CF}">
+        <File Name="Dapper.dll" Id="fil6F850D8CE316BDDC157279E9EEC109D6" KeyPath="yes" />
+      </Component>
+      <Component Id="cmpDC7249D9AD285BDFF440DF98BE860D14" Guid="{4763E3E6-52DF-4E09-8471-5B493686111E}">
+        <File Name="HibernatingRhinos.Profiler.Appender.dll" Id="fil42BA1C14ED44FA58807AE80A5674EA71" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp3C16D356EC501453A7634DFE8A7C384C" Guid="{F29D5679-4D2A-4D83-A50F-648045C25CC3}">
+        <File Name="Infotecs.Attika.AttikaConsoleHost.exe" Id="Infotecs.Attika.AttikaConsoleHost.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="cmpA59896783E4E913FA40D5E1DCAB8539E" Guid="{CE48C5C3-E3F6-42DF-86BA-37B0A8027B78}">
+        <File Name="Infotecs.Attika.AttikaConsoleHost.exe.config" Id="fil1BB35724E5C8844D9D8390212C902606"
+              KeyPath="yes" />
+      </Component>
+      <Component Id="cmp8F7ED8755E7412CA045C84CEDA783990" Guid="{AC0BD4F8-5CCD-4A0C-A1BD-9BEEA2F5BDB4}">
+        <File Name="Infotecs.Attika.AttikaDomain.dll" Id="fil5B875427A2DA13F6DBD9FE125F522EB8" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp1C41F53B811549665AB3E2808347923B" Guid="{4E3B3A40-69E5-467A-BE1A-8CAB7B3447CA}">
+        <File Name="Infotecs.Attika.AttikaInfrastructure.dll" Id="fil15E88D60E667AD11DC1A05B4AA12C16D" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp65BEDA2140C5D960AE8A4C7B2A8499D2" Guid="{4F2A44AE-AB5E-4334-8AED-4A42FA38E333}">
+        <File Name="Infotecs.Opus.dll" Id="fil001E6745CFF8C24C4A8DC0490295290D" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp5C28B726396998CA6B80DD6F28068384" Guid="{126F5164-537C-4CBB-A845-7BC3D8AE31CA}">
+        <File Name="Nelibur.dll" Id="fil4B80A2527C99E3744C1D1E7B1BC177E6" KeyPath="yes" />
+      </Component>
+      <Component Id="cmpA63518A9D7BE058D9218EEFDFF67E4AD" Guid="{6F309D63-2EAD-4C3D-AF4A-AAFFEC36F21E}">
+        <File Name="Nelibur.Sword.dll" Id="fil59ECE14AAAAC88B2E9FBA6AE0B80F3C6" KeyPath="yes" />
+      </Component>
+      <Component Id="cmpB87655DCB9648B0DD0468389382D2BA9" Guid="{86E05BD2-28BA-4C8C-99D4-3A0888DCC3BA}">
+        <File Name="Newtonsoft.Json.dll" Id="filC38B5FA22D6E4777D12238EA7B565139" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp403122947BB0BACC3ED7AD52244C0845" Guid="{C623D114-AD53-4ED1-83FF-7460547648A5}">
+        <File Name="NHibernate.dll" Id="filDC81D1C1F0C33E1A48CC7C0A888CBE3D" KeyPath="yes" />
+      </Component>
+      <Component Id="cmpDC28720B6B2B122FE6FB46AE40E3A203" Guid="{C440F217-1368-416B-B2C0-63059CC00622}">
+        <File Name="Ninject.dll" Id="filBA95F26552DF196D304AC1DE7A4064D0" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp1A88166AB4227C7CF78F7B94C272577F" Guid="{F8EEBF17-81E8-4005-B329-FE4AF408A18E}">
+        <File Name="NLog.config" Id="fil3959FE73E1BB79F40DBB1D7D0A6443ED" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp2F668A1E9B59D2F902C1AA99D23C94B3" Guid="{E880B309-A00E-4A08-AD29-B638B22C472F}">
+        <File Name="NLog.dll" Id="fil1A2078EFA324E6C28F58FE42F03AFD63" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp9C96B3772CC6017B0DBC1DE9434F78AE" Guid="{C341301A-F03D-4AA9-BFDA-6A47E0D0533A}">
+        <File Name="RabbitMQ.Client.dll" Id="fil82D86A3224C72871D647FFE68F101043" KeyPath="yes" />
+      </Component>
+      <Component Id="cmpC50A4943CD3D2966799BD36679300F41" Guid="{34969EFD-718B-4354-91F3-8801E26805EA}">
+        <File Name="TinyMapper.dll" Id="fil4546BA5E9E92EE4401453D2253CF0153" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

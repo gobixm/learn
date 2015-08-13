@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <?include $(var.ProjectDir)\Variables.wxi?>
+  <Product Id="$(var.ProductCode)" Name="$(var.ProductName)" Language="1033" Version="$(var.ProductVersion)"
+           Manufacturer="$(var.Manufacturer)" UpgradeCode="58436e1a-ff05-4049-b22b-e094f8fbbcc3">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of 'Attika' is already installed." />
+    <MediaTemplate />
+
+    <Feature Id="ProductFeature" Title="$(var.ProductName)" Level="1">
+      <ComponentGroupRef Id="ServerComponents" />
+      <ComponentGroupRef Id="ClientComponents" />
+      <ComponentGroupRef Id="DatabaseComponents" />
+      <ComponentRef Id="cmpClientApplicationMenuShortcut" />
+      <ComponentRef Id="cmpClientDesktopShortcut" />
+      <ComponentRef Id="cmpServerApplicationMenuShortcut" />
+      <ComponentRef Id="cmpServerDesktopShortcut" />
+      <ComponentRef Id="cmpDatabase" />
+    </Feature>
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER"></Property>
+    <UIRef Id="WixUI_InstallDir" />
+    <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="License.rtf"/>
+<!--    Prerequistics-->
+    <PropertyRef Id="WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED" />
+    <Property Id="SQLSERVER">
+      <RegistrySearch Id="SQLServerRegistrySearch"
+                      Key="Software\Microsoft\Microsoft SQL Server\SharedManagementObjects\CurrentVersion"
+                      Name="Version"
+                      Root="HKLM"
+                      Type="raw"
+                      Win64="no">
+      </RegistrySearch>
+    </Property>
+    <Property Id="SQLSERVER64">
+      <RegistrySearch Id="SQLServerRegistrySearch64"
+                      Key="Software\Microsoft\Microsoft SQL Server\SharedManagementObjects\CurrentVersion"
+                      Name="Version"
+                      Root="HKLM"
+                      Type="raw"
+                      Win64="yes">
+      </RegistrySearch>
+    </Property>
+    <Condition Message="This application requires .Net Framework 4.0">
+      <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED]]>
+    </Condition>
+    <Condition Message="This application requires MS SQL Server 2012 (11.0.2100.60)">
+      <![CDATA[Installed OR (SQLSERVER >= "11.0.2100.60") OR (SQLSERVER64>="11.0.2100.60")]]>
+    </Condition>
+  </Product>
+</Wix>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define ProductName="Attika" ?>
+  <?define ProductVersion="1.0.0.0" ?>
+  <?define ProductCode="119E9229-6210-41CB-8746-2799923D99D6"?>
+  <?define UpgradeCode="58436e1a-ff05-4049-b22b-e094f8fbbcc3"?>
+  <?define Manufacturer="Gobi" ?>
+  <?define ServerSource="../../Out/Release/Attika.Host" ?>
+  <?define ClientSource="../../Out/Release/Attika.Client" ?>
+  <?define DatabaseName="AttikaDb" ?>
+  <?define DatabaseServer="localhost" ?>
+</Include>

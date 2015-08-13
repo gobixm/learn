@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include $(var.ProjectDir)\Variables.wxi?>
+	<Fragment>    
+    <ComponentGroup Id="ClientComponents" Directory="ClientFolder" Source="$(var.ClientSource)">
+      <Component Id="cmp79FE6895B5DF469BC8A8218D89F265CA" Guid="{7E96A721-03E3-4A6F-958F-C4CBD6413816}">
+        <File Name="AttikaContracts.dll" Id="filFC4A436B4452EC96A5CAA8CD198AD22E" KeyPath="yes" />
+      </Component>
+      <Component Id="cmpAFAEC558E9A30B154B4E200CF521E291" Guid="{F34C67BF-192A-4907-96BF-77FB5F40CF9F}">
+        <File Name="GalaSoft.MvvmLight.dll" Id="fil0BACFDB5829216DCBE17D172032BD10A" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp5910E50FE32F115E116901E75B373A2F" Guid="{26DEB145-5C14-4D18-B3E6-1D01120B795D}">
+        <File Name="GalaSoft.MvvmLight.Platform.dll" Id="filAC253BCDDA45068FA72D73A71DB51FF8" KeyPath="yes" />
+      </Component>
+      <Component Id="cmpF5A8DC6E8581A7101F59E9675FE87D5C" Guid="{17FB1F59-3D95-40A7-ACEF-FA250CFDFA05}">
+        <File Name="Infotecs.Attika.AttikaClient.dll" Id="fil7E19271B7E7244F867EA0E83E187F8D0" KeyPath="yes" />
+      </Component>
+      <Component Id="cmpF5A8DC6E8581A7101F59E9675FE87D5D" Guid="{CCB6F55C-58EE-4D5A-BCA7-D090785C4375}">
+        <File Name="Infotecs.Attika.AttikaGui.exe" Id="Infotecs.Attika.AttikaGui.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp1EE2E8F15ECB4BCCF1C4EDD31DC97451" Guid="{BEE914BB-7211-4E8C-B4B7-06159C10AACC}">
+        <File Name="Infotecs.Attika.AttikaGui.exe.config" Id="filE4E05CAD054D06EECC9E24B8A8044576" KeyPath="yes" />
+      </Component>
+      <Component Id="cmpF669BAA04FEF5A7F5CC71BFD6C192E28" Guid="{46DB9F24-4919-4FAC-BB3C-31165C037F72}">
+        <File Name="Moq.dll" Id="filEEEA6324C55BA7424724949A1DFC314E" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp946A3AEC19333F8979F99ACE2B24CA8E" Guid="{C6572555-F749-4B09-B67B-DA5474901944}">
+        <File Name="Nelibur.dll" Id="fil1E9FCFD356047D9E99A3FC04075744CD" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp52D0868DAF5B9A12E9BD288E1BA0610B" Guid="{7761DABA-C77D-4D59-BA67-9455228BA28C}">
+        <File Name="Nelibur.Sword.dll" Id="filEBCC09DF1A15CC5AEF06BB1AD8C8E1DA" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp41B869032101FDEA86E545C338C606A7" Guid="{200E6371-BCA2-41D1-A891-68EA068646FA}">
+        <File Name="Newtonsoft.Json.dll" Id="fil14A54DB087A6235B5ABD31F7005116A3" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp6D2D858710055E773D0CFE5F2D507ABD" Guid="{8A86D5ED-FF79-4742-93EC-8F4BAFFCF5DF}">
+        <File Name="Ninject.dll" Id="fil79C8746AF2870013BD484A255E38EB46" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp499EB23274EA961C9D6762AE2BCB5F2E" Guid="{825A6B95-32E1-42C4-91B5-55400C6E1216}">
+        <File Name="NLog.config" Id="filC118CC86782F0A1678764FB0AEC343C6" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp89CAE9A2966261E13A57B5AB26FA34F7" Guid="{EB344493-1327-4EE4-AD52-2B112FDFF51D}">
+        <File Name="NLog.dll" Id="fil2601307C571B2BD3C4A5774DECDFBD3E" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp155A30766E25F90A7100DE4644F34D12" Guid="{FD8A3DCB-EDD5-4C96-8489-F92956F8CBD1}">
+        <File Name="System.Windows.Interactivity.dll" Id="fil481035A30017AC0DC97926D643F2D4E7" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:sql="http://schemas.microsoft.com/wix/SqlExtension">
+  <?include $(var.ProjectDir)\Variables.wxi?>
+	<Fragment>
+    <ComponentGroup Id="DatabaseComponents" Directory="DbFolder">
+      <Component Id="cmpDatabase" Guid="{084EDC3B-CCD6-4312-A5CC-384A4CF7BA9D}">
+        <sql:SqlDatabase Id="AttikaDB"
+                         CreateOnInstall="yes"
+                         Database="$(var.DatabaseName)"
+                         Server="$(var.DatabaseServer)">
+          <sql:SqlScript Id="DbCreateScript"
+                         BinaryKey="DbScript"
+                         ExecuteOnInstall="yes" />
+        </sql:SqlDatabase>
+        <CreateFolder Directory="DbFolder" />
+      </Component>
+    </ComponentGroup>
+    <Binary Id="DbScript" SourceFile="preparedb.sql">
+    </Binary>
+	</Fragment>
+</Wix>
