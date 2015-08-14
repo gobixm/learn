@@ -13,11 +13,12 @@
         <AssemblyInformationalVersion Condition="'$(BUILD_NUMBER)' == ''">Compiled By $(USERNAME)</AssemblyInformationalVersion>
         <BUILD_NUMBER Condition="'$(BUILD_NUMBER)' == ''">0.0.0.0</BUILD_NUMBER>
 		<DefineConstants Condition=" '$(DefineConstants)'==''" ></DefineConstants>
+		<AssemblySearchPaths>d:\programs\fitnesse\fitsharp</AssemblySearchPaths>
     </PropertyGroup>
 
     <Target Name="Rebuild" DependsOnTargets="Version">
         <MSBuild Projects="@(Solution)" 
-                 Properties="Platform=$(Platform);Configuration=$(Configuration)"
+                 Properties="Platform=$(Platform);Configuration=$(Configuration);AssemblySearchPaths=$(AssemblySearchPaths)"
                  Targets="Rebuild" BuildInParallel="true" />
     </Target>
 
