@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectsToBuild Include="Sources\**\*.wixproj" />
+    <ProjectsToBuild Include="Source\**\*.wixproj" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -51,7 +51,7 @@
 
   <Target Name="Rebuild" DependsOnTargets="RestorePackages">
        
-    <Message Text="@(ProjectsToBuild)" ></Message>
+    <Message Text="Projects to build @(ProjectsToBuild)" ></Message>
 
     <MSBuild Projects="@(ProjectsToBuild)"
              Properties="$(ProjectProperties)"

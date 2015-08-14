@@ -41,7 +41,7 @@
         <File Name="Infotecs.Attika.AttikaConsoleHost.exe" Id="Infotecs.Attika.AttikaConsoleHost.exe" KeyPath="yes" Source="$(var.ServerSource)/Infotecs.Attika.AttikaConsoleHost.exe"/>
       </Component>
 
-      <Component Id="cmp17B1943C627B4BF5A5FF1505768A59EE" Guid="{A3E390F8-C0F2-41EE-A122-B2931C9E9D86}" Directory="ServerFolder">
+      <Component Id="cmp17B1943C627B4BF5A5FF1505768A59EE" Guid="{A3E390F8-C0F2-41EE-A122-B2931C9E9D86}" Directory="ClientFolder">
         <File Name="Infotecs.Attika.AttikaGui.exe" Id="Infotecs.Attika.AttikaGui.exe" KeyPath="yes" Source="$(var.ClientSource)/Infotecs.Attika.AttikaGui.exe"/>
       </Component>
     </ComponentGroup>

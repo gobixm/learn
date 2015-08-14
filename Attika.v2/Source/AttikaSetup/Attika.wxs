@@ -20,7 +20,8 @@
     <UIRef Id="WixUI_InstallDir" />
     <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="License.rtf"/>
 <!--    Prerequistics-->
-    <PropertyRef Id="WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED" />
+    <PropertyRef Id="NETFRAMEWORK40FULL" />
+    <PropertyRef Id="NETFRAMEWORK45" />
     <Property Id="SQLSERVER">
       <RegistrySearch Id="SQLServerRegistrySearch"
                       Key="Software\Microsoft\Microsoft SQL Server\SharedManagementObjects\CurrentVersion"
@@ -40,7 +41,7 @@
       </RegistrySearch>
     </Property>
     <Condition Message="This application requires .Net Framework 4.0">
-      <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED]]>
+      <![CDATA[Installed OR NETFRAMEWORK40 OR NETFRAMEWORK45]]>
     </Condition>
     <Condition Message="This application requires at least MS SQL Server 2012 (11.0.2100.60)">
       <![CDATA[Installed OR (SQLSERVER >= "11.0.2100.60") OR (SQLSERVER64>="11.0.2100.60")]]>
