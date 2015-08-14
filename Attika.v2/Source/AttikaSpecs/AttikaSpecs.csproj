@@ -36,6 +36,10 @@
       <HintPath>..\..\packages\Nelibur.3.1.6\lib\net45\Nelibur.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Nelibur.Sword, Version=3.0.3.223, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nelibur.Sword.3.1.6\lib\net45\Nelibur.Sword.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
@@ -103,7 +107,7 @@
     </None>
     <None Include="App.config" />
     <None Include="Default.srprofile">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="DeleteArticle\DeleteArticle.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
