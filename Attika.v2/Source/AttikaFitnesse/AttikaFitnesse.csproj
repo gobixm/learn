@@ -33,16 +33,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="dbfit">
-      <HintPath>..\..\..\..\..\programs\fitnesse\fitsharp\dbfit.dll</HintPath>
+      <HintPath>d:\programs\fitnesse\fitsharp\dbfit.dll</HintPath>
     </Reference>
     <Reference Include="dbfit.SqlServer">
-      <HintPath>..\..\..\..\..\programs\fitnesse\fitsharp\dbfit.SqlServer.dll</HintPath>
+      <HintPath>d:\programs\fitnesse\fitsharp\dbfit.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="fit">
-      <HintPath>..\..\..\..\..\programs\fitnesse\fitsharp\fit.dll</HintPath>
+      <HintPath>d:\programs\fitnesse\fitsharp\fit.dll</HintPath>
     </Reference>
     <Reference Include="fitSharp">
-      <HintPath>..\..\..\..\..\programs\fitnesse\fitsharp\fitSharp.dll</HintPath>
+      <HintPath>d:\programs\fitnesse\fitsharp\fitSharp.dll</HintPath>
     </Reference>
     <Reference Include="Nelibur, Version=3.0.3.223, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
