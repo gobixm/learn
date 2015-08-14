@@ -18,7 +18,7 @@
 
     <Target Name="Rebuild" DependsOnTargets="Version">
         <MSBuild Projects="@(Solution)" 
-                 Properties="Platform=$(Platform);Configuration=$(Configuration);AssemblySearchPaths=$(AssemblySearchPaths)"
+                 Properties="Platform=$(Platform);Configuration=$(Configuration)"
                  Targets="Rebuild" BuildInParallel="true" />
     </Target>
 
