@@ -1,7 +1,4 @@
 @pushd %~dp0
-
-MSBuild.exe "AttikaSpecs.csproj"
-
 @if ERRORLEVEL 1 goto end
 
 @cd ..\..\packages\SpecRun.Runner.*\tools
@@ -10,6 +7,7 @@ MSBuild.exe "AttikaSpecs.csproj"
 @if "%profile%" == "" set profile=Default
 
 SpecRun.exe run %profile%.srprofile /baseFolder:"../../../Out/Release/Attika.Specs" /log:specrun.log %2 %3 %4 %5
+if errorlevel 200 exit /b %errorlevel%
 
 :end
 
