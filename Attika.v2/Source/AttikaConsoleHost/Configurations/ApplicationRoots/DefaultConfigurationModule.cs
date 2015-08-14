@@ -1,7 +1,9 @@
 ﻿using System;
 using AttikaContracts.DataTransferObjects;
 using AttikaContracts.Messages;
+#if DEBUG
 using HibernatingRhinos.Profiler.Appender.NHibernate;
+#endif
 using Infotecs.Attika.AttikaDomain.Aggregates;
 using Infotecs.Attika.AttikaDomain.Entities;
 using Infotecs.Attika.AttikaDomain.Factories;
