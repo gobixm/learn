@@ -50,7 +50,7 @@
   </Target>
 
   <Target Name="Rebuild" DependsOnTargets="RestorePackages">
-       
+
     <Message Text="Projects to build @(ProjectsToBuild)" ></Message>
 
     <MSBuild Projects="@(ProjectsToBuild)"

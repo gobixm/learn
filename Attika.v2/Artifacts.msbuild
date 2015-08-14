@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project DefaultTargets="Rebuild" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+
+  <PropertyGroup>
+    <OutDir Condition="'$(OutDir)'==''">$(MSBuildThisFileDirectory)Out</OutDir>
+    <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
+    <ArtifactsOutDir Condition="'$(ArtifactsOutDir)'==''">$(OutDir)\$(Configuration)</ArtifactsOutDir>
+  </PropertyGroup>
+
+  <Target Name="Build" DependsOnTargets="ArchiveSetup;ArchiveClient;ArchiveServer" />
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+
+  <ItemGroup>
+    <ArchiveSetupTask Include="AttikaSetup">
+      <Path>$(ArtifactsOutDir)\Attika.Setup</Path>
+    </ArchiveSetupTask>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ArchiveClientTask Include="AttikaClient">
+      <Path>$(ArtifactsOutDir)\Attika.Client</Path>
+    </ArchiveClientTask>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ArchiveServerTask Include="AttikaServer">
+      <Path>$(ArtifactsOutDir)\Attika.Host</Path>
+    </ArchiveServerTask>
+  </ItemGroup>
+
+  <Target Name="Clean">
+    <ItemGroup>
+      <ArtifactFiles Include="$(ArtifactsOutDir)\*.zip" />
+    </ItemGroup>
+    <Delete Files="@(ArtifactFiles)" />
+  </Target>
+
+  <Target Name="ArchiveSetup" Outputs="%(ArchiveSetupTask.Identity)">
+    <Message Text="Starting archive distributives %(ArchiveSetupTask.Identity) ..." />
+    <Message Text="Path %(ArchiveSetupTask.Path)" />
+
+    <ItemGroup>
+      <SetupFiles Include="%(ArchiveSetupTask.Path)\**\*.*" />
+    </ItemGroup>
+
+    <Zip Files="@(SetupFiles)"
+         WorkingDirectory="%(ArchiveSetupTask.Path)"
+         Condition="Exists('%(ArchiveSetupTask.Path)')"
+         ZipFileName="$(ArtifactsOutDir)\%(ArchiveSetupTask.Identity).zip" />
+
+    <Message Text="Distributive %(ArchiveSetupTask.Identity) successfully archived"
+             Condition="Exists('%(ArchiveSetupTask.Path)')" />
+
+    <Message Text="Distributive %(ArchiveSetupTask.Identity) skipped. Folder does not exist."
+             Condition="!Exists('%(ArchiveSetupTask.Path)')" />
+  </Target>
+
+  <Target Name="ArchiveClient" Outputs="%(ArchiveClientTask.Identity)">
+    <Message Text="Starting archive distributives %(ArchiveClientTask.Identity) ..." />
+    <Message Text="Path %(ArchiveClientTask.Path)" />
+
+    <ItemGroup>
+      <ClientFiles Include="%(ArchiveClientTask.Path)\**\*.*" />
+    </ItemGroup>
+
+    <Zip Files="@(ClientFiles)"
+         WorkingDirectory="%(ArchiveClientTask.Path)"
+         Condition="Exists('%(ArchiveClientTask.Path)')"
+         ZipFileName="$(ArtifactsOutDir)\%(ArchiveClientTask.Identity).zip" />
+
+    <Message Text="Distributive %(ArchiveClientTask.Identity) successfully archived"
+             Condition="Exists('%(ArchiveClientTask.Path)')" />
+
+    <Message Text="Distributive %(ArchiveClientTask.Identity) skipped. Folder does not exist."
+             Condition="!Exists('%(ArchiveClientTask.Path)')" />
+  </Target>
+
+  <Target Name="ArchiveServer" Outputs="%(ArchiveServerTask.Identity)">
+    <Message Text="Starting archive distributives %(ArchiveServerTask.Identity) ..." />
+    <Message Text="Path %(ArchiveServerTask.Path)" />
+
+    <ItemGroup>
+      <ServerFiles Include="%(ArchiveServerTask.Path)\**\*.*" />
+    </ItemGroup>
+
+    <Zip Files="@(ServerFiles)"
+         WorkingDirectory="%(ArchiveServerTask.Path)"
+         Condition="Exists('%(ArchiveServerTask.Path)')"
+         ZipFileName="$(ArtifactsOutDir)\%(ArchiveServerTask.Identity).zip" />
+
+    <Message Text="Distributive %(ArchiveServerTask.Identity) successfully archived"
+             Condition="Exists('%(ArchiveServerTask.Path)')" />
+
+    <Message Text="Distributive %(ArchiveServerTask.Identity) skipped. Folder does not exist."
+             Condition="!Exists('%(ArchiveServerTask.Path)')" />
+  </Target>
+</Project>
