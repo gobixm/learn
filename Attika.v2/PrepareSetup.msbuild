@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5" DefaultTargets="HeatTarget">
+
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Platform Condition="'$(Platform)' == ''">x86</Platform>
+
+    <SolutionDir Condition="'$(SolutionDir)' == ''">$(MSBuildThisFileDirectory)</SolutionDir>
+    <WixToolPath>c:\Program Files (x86)\WiX Toolset v3.10</WixToolPath>
+	<WixTargetPath>$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetPath>
+	
+	<SourcesDirectory>$(SolutionDir)Source\AttikaSetup\</SourcesDirectory>	
+
+    <OutputName Condition="'$(OutputName)' == ''">Attika</OutputName>
+    <OutputPath Condition="'$(OutputPath)' == ''">Attika</OutputPath>
+	<OutputType>package</OutputType>	
+  </PropertyGroup>
+
+  <Import Project="$(WixTargetPath)" />
+  
+  <ItemGroup>
+	<FolderItem Include="FolderItem">	  	  
+      <TransformsDirectories>$(SourcesDirectory)Transforms\</TransformsDirectories>		    
+	</FolderItem>
+	<ServerFolder Include="ServerFolder"> 
+      <OutputFilePath>$(SourcesDirectory)Server.wxs</OutputFilePath>	      
+      <BinaryDirectory>$(SolutionDir)Out\$(Configuration)\Attika.Host\</BinaryDirectory>      
+	  <ComponentGroupName>ServerComponents</ComponentGroupName>
+	  <VarSourceDirectory>var.ServerSource</VarSourceDirectory>
+	  <TargetDirectory>ServerFolder</TargetDirectory>
+    </ServerFolder>
+	<ClientFolder Include="ClientFolder">
+	    <OutputFilePath>$(SourcesDirectory)Client.wxs</OutputFilePath>		  		
+		<BinaryDirectory>$(SolutionDir)Out\$(Configuration)\Attika.Client\</BinaryDirectory>      
+		<ComponentGroupName>ClientComponents</ComponentGroupName>
+		<VarSourceDirectory>var.ClientSource</VarSourceDirectory>
+		<TargetDirectory>ClientFolder</TargetDirectory>
+    </ClientFolder>
+  </ItemGroup>
+
+  <Target Name="HeatTarget">
+
+    <ItemGroup>
+      <TransformFiles Include="%(FolderItem.TransformsDirectories)**\*"></TransformFiles>
+    </ItemGroup>
+
+    <!--Newline in msbuild message corresponds to "%0a"-->
+	
+	<Message Text="ServerOutputFile: %0a%(ServerFolder.OutputFilePath)%0a" Importance="high"></Message>
+	
+    <Message Text="Transforms: %0a@(TransformFiles)%0a" Importance="high"></Message>
+    <Message Text="ServerOutputFile: %0a%(ServerFolder.OutputFilePath)%0a" Importance="high"></Message>
+	<Message Text="ClientOutputFile: %0a%(ClientFolder.OutputFilePath)%0a" Importance="high"></Message>    
+
+	<!--http://wixtoolset.org/documentation/manual/v3/msbuild/task_reference/heatdirectory.html-->
+
+    <HeatDirectory
+      NoLogo="true"
+      ToolPath="$(WixToolPath)\bin"
+      VerboseOutput="true"
+      AutogenerateGuids="false"
+      GenerateGuidsNow="true"
+      OutputFile="%(ServerFolder.OutputFilePath)"
+      Directory="%(ServerFolder.BinaryDirectory)"
+      ComponentGroupName="%(ServerFolder.ComponentGroupName)"
+      KeepEmptyDirectories="true"
+      PreprocessorVariable="%(ServerFolder.VarSourceDirectory)"
+      Transforms="@(TransformFiles)"
+      SuppressRegistry="true"
+      DirectoryRefId="%(ServerFolder.TargetDirectory)"
+      SuppressRootDirectory="true" />
+	<HeatDirectory
+      NoLogo="true"
+      ToolPath="$(WixToolPath)\bin"
+      VerboseOutput="true"
+      AutogenerateGuids="false"
+      GenerateGuidsNow="true"
+      OutputFile="%(ClientFolder.OutputFilePath)"
+      Directory="%(ClientFolder.BinaryDirectory)"
+      ComponentGroupName="%(ClientFolder.ComponentGroupName)"
+      KeepEmptyDirectories="true"
+      PreprocessorVariable="%(ClientFolder.VarSourceDirectory)"
+      Transforms="@(TransformFiles)"
+      SuppressRegistry="true"
+      DirectoryRefId="%(ClientFolder.TargetDirectory)"
+      SuppressRootDirectory="true" />
+  </Target>
+</Project>

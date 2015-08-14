@@ -3,70 +3,70 @@
     <?include Variables.wxi?>
     <Fragment>
         <ComponentGroup Id="ServerComponents">
-            <Component Id="cmp7DA419833888895E33AB307C0D01693B" Directory="ServerFolder" Guid="{4BDB65DA-CC95-4E9D-A919-A803EC213DFF}">
+            <Component Id="cmp7DA419833888895E33AB307C0D01693B" Directory="ServerFolder" Guid="{D16B9458-41C1-4173-B881-B54020C70BE8}">
                 <File Id="fil6AF8E9AF72F58FB27D4FFDF6120734AC" KeyPath="yes" Source="$(var.ServerSource)\AttikaContracts.dll" />
             </Component>
-            <Component Id="cmp522D8564C9F71AD2F0E2E9BF2C6059B5" Directory="ServerFolder" Guid="{AB02C462-DCDA-4ADA-B7E4-AE0B254F5EC9}">
+            <Component Id="cmp522D8564C9F71AD2F0E2E9BF2C6059B5" Directory="ServerFolder" Guid="{8A5DC2FB-0C34-43C6-AA42-9FC41A638B34}">
                 <File Id="fil425EB3F714807D7E8762AA740BD5AE7D" KeyPath="yes" Source="$(var.ServerSource)\Dapper.dll" />
             </Component>
-            <Component Id="cmpE67477D746B7C9F87291FC2CECCBDEBD" Directory="ServerFolder" Guid="{87DB5231-992A-466E-9A59-D77C9DA31C91}">
+            <Component Id="cmpE67477D746B7C9F87291FC2CECCBDEBD" Directory="ServerFolder" Guid="{E40F1775-F3D3-4D6D-A31C-628BFBC135F3}">
                 <File Id="filAC0D7495580ABDD6B710414D5E8BF45A" KeyPath="yes" Source="$(var.ServerSource)\Dapper.xml" />
             </Component>
-            <Component Id="cmp0B1CA40AC83B77F15DEBB6DB4AF3EDA7" Directory="ServerFolder" Guid="{558A544D-7314-4DCF-B806-2F9729D58CB7}">
+            <Component Id="cmp0B1CA40AC83B77F15DEBB6DB4AF3EDA7" Directory="ServerFolder" Guid="{A9A29A55-16B1-400E-B641-2063ED805EF9}">
                 <File Id="fil6EBEE0F3AA9C4E53738725AF4F84ED53" KeyPath="yes" Source="$(var.ServerSource)\HibernatingRhinos.Profiler.Appender.dll" />
             </Component>
-            <Component Id="cmp608C5CBA8D487B92AD234E4C65D8C64A" Directory="ServerFolder" Guid="{E4767843-22A1-43C2-9F75-6284684279CE}">
+            <Component Id="cmp608C5CBA8D487B92AD234E4C65D8C64A" Directory="ServerFolder" Guid="{623AFDA3-C5E5-48BC-AFE2-2EF8585BAB0D}">
                 <File Id="fil3B9E7DE0F697960654B180848CB47A7B" KeyPath="yes" Source="$(var.ServerSource)\Infotecs.Attika.AttikaConsoleHost.exe.config" />
             </Component>
-            <Component Id="cmp6500A4C96C54E7788B89CE9808C3C879" Directory="ServerFolder" Guid="{5469C657-DB71-4EEE-916D-D7F2EE8EF9CF}">
+            <Component Id="cmp6500A4C96C54E7788B89CE9808C3C879" Directory="ServerFolder" Guid="{DD2E1980-BE73-4E4C-A5CC-57B74D8B68D0}">
                 <File Id="fil669B97984DE409ACBDC4B60F845D827B" KeyPath="yes" Source="$(var.ServerSource)\Infotecs.Attika.AttikaDomain.dll" />
             </Component>
-            <Component Id="cmp8EC8C498E4F5AE3744472B0E608C981C" Directory="ServerFolder" Guid="{53464ED1-8F20-4BAD-A17A-B74CB1F9D78B}">
+            <Component Id="cmp8EC8C498E4F5AE3744472B0E608C981C" Directory="ServerFolder" Guid="{0DCB38A1-EA26-400E-9CAF-37464FF4C5B8}">
                 <File Id="fil7D6E184058C0CC4E1D8F3909542D3BC3" KeyPath="yes" Source="$(var.ServerSource)\Infotecs.Attika.AttikaInfrastructure.dll" />
             </Component>
-            <Component Id="cmpC9D1C1E7F4BA3BFC898057B048C22149" Directory="ServerFolder" Guid="{5DDD81A4-90BF-43CF-920A-059026E963AE}">
+            <Component Id="cmpC9D1C1E7F4BA3BFC898057B048C22149" Directory="ServerFolder" Guid="{D61EB71E-1F3C-448F-ADC5-7248152ECD60}">
                 <File Id="fil8919A078AA8361DE6E6E9555385BA37A" KeyPath="yes" Source="$(var.ServerSource)\Infotecs.Opus.dll" />
             </Component>
-            <Component Id="cmp2684614C5056FA27B52C63614E02C41E" Directory="ServerFolder" Guid="{A434A48C-7BBC-4B48-A99C-62E59A218F6D}">
+            <Component Id="cmp2684614C5056FA27B52C63614E02C41E" Directory="ServerFolder" Guid="{9ACEF6C9-63A8-41E9-AB57-AA02FB6352D8}">
                 <File Id="fil829B56439AB7247823AA0C1FBA4ECAC0" KeyPath="yes" Source="$(var.ServerSource)\Nelibur.dll" />
             </Component>
-            <Component Id="cmp8E18DC10F420D479C32CAB77A634B186" Directory="ServerFolder" Guid="{0EBF982D-643D-4693-858F-B284C214D863}">
+            <Component Id="cmp8E18DC10F420D479C32CAB77A634B186" Directory="ServerFolder" Guid="{835D694C-F9AE-4EB3-82B1-1DA414F1CB74}">
                 <File Id="filA39E4809D711EF6F7221FC39A96BA489" KeyPath="yes" Source="$(var.ServerSource)\Nelibur.Sword.dll" />
             </Component>
-            <Component Id="cmp39C12E3C3CABEC03FAAA698EDD61791C" Directory="ServerFolder" Guid="{A305292D-3005-4433-9C5E-8F6F5DC03B12}">
+            <Component Id="cmp39C12E3C3CABEC03FAAA698EDD61791C" Directory="ServerFolder" Guid="{1034805A-7163-45A2-8B70-AFEB1530A532}">
                 <File Id="fil7D5202874E0DD857863B72556CB22087" KeyPath="yes" Source="$(var.ServerSource)\Newtonsoft.Json.dll" />
             </Component>
-            <Component Id="cmp06DD0ABCDE301167580B3A7D54FAC3F7" Directory="ServerFolder" Guid="{DD422241-2399-4124-96B0-8D7F72E8C231}">
+            <Component Id="cmp06DD0ABCDE301167580B3A7D54FAC3F7" Directory="ServerFolder" Guid="{3D04C5E2-4DC4-4C4B-8FF5-CF4B8550EDD4}">
                 <File Id="fil500FE0B8A8B65552D5599570A050C1CA" KeyPath="yes" Source="$(var.ServerSource)\Newtonsoft.Json.xml" />
             </Component>
-            <Component Id="cmp4FCA1274A47067AAC18B2E576023A6BA" Directory="ServerFolder" Guid="{0FDB054C-107E-4350-919C-ADAD1A29BB02}">
+            <Component Id="cmp4FCA1274A47067AAC18B2E576023A6BA" Directory="ServerFolder" Guid="{2451EF6D-29B1-4FBA-B68C-8DFC86634C51}">
                 <File Id="filD0E4C9FFCF21BD3E9A4B87235A3F0B12" KeyPath="yes" Source="$(var.ServerSource)\NHibernate.dll" />
             </Component>
-            <Component Id="cmp5E597FD696CF46471E8DEB171F880A75" Directory="ServerFolder" Guid="{23049077-DDF5-45DE-B679-3917178F4DEE}">
+            <Component Id="cmp5E597FD696CF46471E8DEB171F880A75" Directory="ServerFolder" Guid="{D5490031-8396-4B88-8174-5EC8B67C68EF}">
                 <File Id="fil267B1A3CEF59AEAEFB9615E40839AC96" KeyPath="yes" Source="$(var.ServerSource)\NHibernate.xml" />
             </Component>
-            <Component Id="cmp594B73E35B50A878F58161ECC53AEEF9" Directory="ServerFolder" Guid="{6A8712D4-D4F0-4FB7-AB63-D1771F8FDB05}">
+            <Component Id="cmp594B73E35B50A878F58161ECC53AEEF9" Directory="ServerFolder" Guid="{09549DA2-0FFF-448C-BE3B-837E4A308D2C}">
                 <File Id="fil22E74274C0A588E10777DE09BF7181CD" KeyPath="yes" Source="$(var.ServerSource)\Ninject.dll" />
             </Component>
-            <Component Id="cmp80BFF713A3BCA79958FE9430BC92E587" Directory="ServerFolder" Guid="{BDB1AB55-64A6-4B66-9830-19EF76C7D9A0}">
+            <Component Id="cmp80BFF713A3BCA79958FE9430BC92E587" Directory="ServerFolder" Guid="{E835C983-9299-43A1-B6BA-3DDFA3FC096B}">
                 <File Id="filBA6CCEF5AF823A0EF3B195EF6F9F2CBB" KeyPath="yes" Source="$(var.ServerSource)\Ninject.xml" />
             </Component>
-            <Component Id="cmp474EAC451D377277317D2256AF88A6D1" Directory="ServerFolder" Guid="{54F0DDD2-CA1B-4DD7-96F1-59234AC5C297}">
+            <Component Id="cmp474EAC451D377277317D2256AF88A6D1" Directory="ServerFolder" Guid="{0F65F444-0D6A-4B71-8052-B5B1F8CCA57E}">
                 <File Id="fil5DEACC9E097D02ACBA66D85A6E31319F" KeyPath="yes" Source="$(var.ServerSource)\NLog.config" />
             </Component>
-            <Component Id="cmp0C6A198E6FFB280479548F9E916033E2" Directory="ServerFolder" Guid="{04C5D6EA-DB00-4779-BCB6-CA1DD8D7CD8C}">
+            <Component Id="cmp0C6A198E6FFB280479548F9E916033E2" Directory="ServerFolder" Guid="{0563CE84-A7F8-4DC5-8F00-D2BAFE952C25}">
                 <File Id="fil0E1FFBA0F80E9C3B6157FE4B28C48693" KeyPath="yes" Source="$(var.ServerSource)\NLog.dll" />
             </Component>
-            <Component Id="cmpD694EADDC29A8CB6DC7D6244654E0357" Directory="ServerFolder" Guid="{EB8FD1C4-6FDB-4A82-9489-C67287EE48A8}">
+            <Component Id="cmpD694EADDC29A8CB6DC7D6244654E0357" Directory="ServerFolder" Guid="{B62951EE-0ACD-4875-84E3-EEA6E25209AD}">
                 <File Id="fil11E679B48E12C735B91B279488A9A75F" KeyPath="yes" Source="$(var.ServerSource)\NLog.xml" />
             </Component>
-            <Component Id="cmp8C3724B2608BF1715A65B8AF4AF40DDC" Directory="ServerFolder" Guid="{5BD739F0-9546-4B71-BD72-2FE745643C14}">
+            <Component Id="cmp8C3724B2608BF1715A65B8AF4AF40DDC" Directory="ServerFolder" Guid="{646D9BE5-C6F2-456F-9318-96971BE05E7E}">
                 <File Id="filDF2F5B0B4F27FAAC7779853AFCEE73AF" KeyPath="yes" Source="$(var.ServerSource)\RabbitMQ.Client.dll" />
             </Component>
-            <Component Id="cmpD66B88E7C813FD6AC1FFC5D7E021218A" Directory="ServerFolder" Guid="{C3A29288-A1D7-4FA1-A713-16B32B277028}">
+            <Component Id="cmpD66B88E7C813FD6AC1FFC5D7E021218A" Directory="ServerFolder" Guid="{EA2EFCB7-19FA-4632-971B-A60AF6B044DD}">
                 <File Id="fil37DB73C78A10281D983D228C7CE950D0" KeyPath="yes" Source="$(var.ServerSource)\RabbitMQ.Client.xml" />
             </Component>
-            <Component Id="cmpB96BCAA2F9FE8E5B6B87B3627A5293DA" Directory="ServerFolder" Guid="{F87B33E4-3D26-4646-9CB8-791F54721799}">
+            <Component Id="cmpB96BCAA2F9FE8E5B6B87B3627A5293DA" Directory="ServerFolder" Guid="{37551441-AFBA-47B7-BED3-D7AD8F9075F6}">
                 <File Id="fil63F5D6A4CF787E162CEC3F71D3221F2F" KeyPath="yes" Source="$(var.ServerSource)\TinyMapper.dll" />
             </Component>
         </ComponentGroup>

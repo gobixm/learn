@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5" DefaultTargets="Rebuild">
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Platform Condition="'$(Platform)' == ''">x86</Platform>
+
+    <RestorePackagesCommand>$(MSBuildThisFileDirectory).nuget\nuget.exe restore</RestorePackagesCommand>
+    <SolutionDir Condition="'$(SolutionDir)' == ''">$(MSBuildThisFileDirectory)</SolutionDir>
+    <DefineSolutionProperties>false</DefineSolutionProperties>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectsToBuild Include="Sources\**\*.wixproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <WixToolPath>$(SolutionDir)packages\WiX.Toolset.3.9.1208.0\tools\wix\</WixToolPath>
+    <WixTargetsPath>$(WixToolPath)wix.targets</WixTargetsPath>
+    <WixTasksPath>$(WixToolPath)WixTasks.dll</WixTasksPath>
+    <WixSdkPath>$(WixToolPath)sdk\</WixSdkPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <WixToolsetProperties>$(WixToolsetProperties);WixToolPath=$(WixToolPath)</WixToolsetProperties>
+    <WixToolsetProperties>$(WixToolsetProperties);WixTasksPath=$(WixTasksPath)</WixToolsetProperties>
+    <WixToolsetProperties>$(WixToolsetProperties);WixTargetsPath=$(WixTargetsPath)</WixToolsetProperties>
+    <WixToolsetProperties>$(WixToolsetProperties);WixSdkPath=$(WixSdkPath)</WixToolsetProperties>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <ProjectProperties>$(ProjectProperties);Platform=$(Platform)</ProjectProperties>
+    <ProjectProperties>$(ProjectProperties);Configuration=$(Configuration)</ProjectProperties>
+    <ProjectProperties>$(ProjectProperties);SolutionDir=$(SolutionDir)</ProjectProperties>
+    <ProjectProperties>$(ProjectProperties);DefineSolutionProperties=$(DefineSolutionProperties)</ProjectProperties>
+
+    <ProjectProperties>$(ProjectProperties);$(WixToolsetProperties)</ProjectProperties>
+    <ProjectProperties>$(ProjectProperties);ReferencePath=$(ReferencePath);WixSdkPath</ProjectProperties>
+  </PropertyGroup>
+
+  <Target Name="BeforeResolveReferences">
+    <PropertyGroup>
+      <AssemblySearchPaths>$(AssemblySearchPaths);$(WixSdkPath)</AssemblySearchPaths>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="RestorePackages">
+    <Exec Command="$(RestorePackagesCommand)" />
+  </Target>
+
+  <Target Name="Rebuild" DependsOnTargets="RestorePackages">
+       
+    <Message Text="@(ProjectsToBuild)" ></Message>
+
+    <MSBuild Projects="@(ProjectsToBuild)"
+             Properties="$(ProjectProperties)"
+             Targets="Build" />
+  </Target>
+</Project>
