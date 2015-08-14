@@ -20,7 +20,7 @@ namespace Infotecs.Attika.AttikaDomainTests
 
         [Theory]
         [InlineData(0)]
-        [InlineData(51)]
+        [InlineData(50)]
         public void Check_CommentTitle_Valid(int textLength)
         {
             string text = GetStringWithDesiredLength(textLength);
