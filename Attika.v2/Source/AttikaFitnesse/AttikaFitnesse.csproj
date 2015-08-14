@@ -45,8 +45,12 @@
       <HintPath>d:\programs\fitnesse\fitsharp\fitSharp.dll</HintPath>
     </Reference>
     <Reference Include="Nelibur, Version=3.0.3.223, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Out\Debug\Attika.Host\Nelibur.dll</HintPath>
+      <HintPath>..\..\packages\Nelibur.3.1.6\lib\net45\Nelibur.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nelibur.Sword, Version=3.0.3.223, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nelibur.Sword.3.1.6\lib\net45\Nelibur.Sword.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -86,6 +90,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
