@@ -51,6 +51,10 @@
       <HintPath>..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="TechTalk.SpecRun, Version=1.2.0.15, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SpecRun.NUnit.1.2.0\lib\net40\TechTalk.SpecRun.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddArticleComment\AddArticleComment.feature.cs">

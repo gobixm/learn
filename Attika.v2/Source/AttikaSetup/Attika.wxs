@@ -14,11 +14,7 @@
       <ComponentGroupRef Id="ServerComponents" />
       <ComponentGroupRef Id="ClientComponents" />
       <ComponentGroupRef Id="DatabaseComponents" />
-      <ComponentRef Id="cmpClientApplicationMenuShortcut" />
-      <ComponentRef Id="cmpClientDesktopShortcut" />
-      <ComponentRef Id="cmpServerApplicationMenuShortcut" />
-      <ComponentRef Id="cmpServerDesktopShortcut" />
-      <ComponentRef Id="cmpDatabase" />
+      <ComponentGroupRef Id="ShortcutComponents"/>
     </Feature>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER"></Property>
     <UIRef Id="WixUI_InstallDir" />
@@ -46,7 +42,7 @@
     <Condition Message="This application requires .Net Framework 4.0">
       <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED]]>
     </Condition>
-    <Condition Message="This application requires MS SQL Server 2012 (11.0.2100.60)">
+    <Condition Message="This application requires at least MS SQL Server 2012 (11.0.2100.60)">
       <![CDATA[Installed OR (SQLSERVER >= "11.0.2100.60") OR (SQLSERVER64>="11.0.2100.60")]]>
     </Condition>
   </Product>

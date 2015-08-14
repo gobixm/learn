@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?include $(var.ProjectDir)\Variables.wxi?>
-	<Fragment>
-    <Component Id="cmpClientApplicationMenuShortcut" Guid="{34FC12C0-76BA-4FC3-9072-CB22DB35D9AE}" Directory="ApplicationProgramsFolder">
-      <Shortcut Name="$(var.ProductName)" Id="ClientApplicationMenuShortcut" Description="$(var.ProductName)"
-                Target="[#Infotecs.Attika.AttikaGui.exe]" />
-      <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed"
-                     Type="integer" Value="1" KeyPath="yes" />
-    </Component>
-    
-    <Component Id="cmpServerApplicationMenuShortcut" Guid="{32620A65-C70B-41F8-A64D-26E767C4373E}" Directory="ApplicationProgramsFolder">
-      <Shortcut Name="AttikaServer" Id="ServerApplicationMenuShortcut" Description="AttikaServer"
-                Target="[#Infotecs.Attika.AttikaConsoleHost.exe]" />
-      <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed"
-                     Type="integer" Value="1" KeyPath="yes" />
-      <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
-    </Component>
-    
-    <Component Id="cmpClientDesktopShortcut" Guid="{6C97F908-D8FC-4829-977B-CB59C172186D}"  Directory="DesktopFolder">
-      <Shortcut Name="$(var.ProductName)" Id="ClientDesktopShortcut" Description="$(var.ProductName)"
-                Target="[#Infotecs.Attika.AttikaGui.exe]" />
+  <Fragment>
+    <ComponentGroup Id="ShortcutComponents">
+      <Component Id="cmpClientApplicationMenuShortcut" Guid="{34FC12C0-76BA-4FC3-9072-CB22DB35D9AE}"
+                 Directory="ApplicationProgramsFolder">
+        <Shortcut Name="$(var.ProductName)" Id="ClientApplicationMenuShortcut" Description="$(var.ProductName)"
+                  Target="[#Infotecs.Attika.AttikaGui.exe]" />
+        <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed"
+                       Type="integer" Value="1" KeyPath="yes" />
+      </Component>
 
-      <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed" 
-                     Type="integer" Value="1" KeyPath="yes" />
-    </Component>
-    
-    <Component Id="cmpServerDesktopShortcut" Guid="{4A59218F-9B36-4719-9258-E66AF15341C8}" Directory="DesktopFolder">
-      <Shortcut Name="AttikaServer" Id="ServerDesktopShortcut" Description="AttikaServer"
-                Target="[#Infotecs.Attika.AttikaConsoleHost.exe]" />
+      <Component Id="cmpServerApplicationMenuShortcut" Guid="{32620A65-C70B-41F8-A64D-26E767C4373E}"
+                 Directory="ApplicationProgramsFolder">
+        <Shortcut Name="AttikaServer" Id="ServerApplicationMenuShortcut" Description="AttikaServer"
+                  Target="[#Infotecs.Attika.AttikaConsoleHost.exe]" />
+        <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed"
+                       Type="integer" Value="1" KeyPath="yes" />
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+      </Component>
 
-      <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed"
-                     Type="integer" Value="1" KeyPath="yes" />
-    </Component>
-	</Fragment>
+      <Component Id="cmpClientDesktopShortcut" Guid="{6C97F908-D8FC-4829-977B-CB59C172186D}" Directory="DesktopFolder">
+        <Shortcut Name="$(var.ProductName)" Id="ClientDesktopShortcut" Description="$(var.ProductName)"
+                  Target="[#Infotecs.Attika.AttikaGui.exe]" />
+
+        <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed"
+                       Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+
+      <Component Id="cmpServerDesktopShortcut" Guid="{4A59218F-9B36-4719-9258-E66AF15341C8}" Directory="DesktopFolder">
+        <Shortcut Name="AttikaServer" Id="ServerDesktopShortcut" Description="AttikaServer"
+                  Target="[#Infotecs.Attika.AttikaConsoleHost.exe]" />
+
+        <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed"
+                       Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
 </Wix>
