@@ -9,13 +9,13 @@
     <ArtifactsOutDir Condition="'$(ArtifactsOutDir)'==''">$(OutDir)\$(Configuration)</ArtifactsOutDir>
   </PropertyGroup>
 
-  <Target Name="Build" DependsOnTargets="ArchiveSetup;ArchiveClient;ArchiveServer" />
+  <Target Name="Build" DependsOnTargets="CopySetup;ArchiveClient;ArchiveServer" />
   <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
 
   <ItemGroup>
-    <ArchiveSetupTask Include="AttikaSetup">
+    <CopySetupTask Include="AttikaSetup">
       <Path>$(ArtifactsOutDir)\Attika.Setup</Path>
-    </ArchiveSetupTask>
+    </CopySetupTask>
   </ItemGroup>
 
   <ItemGroup>
@@ -32,29 +32,27 @@
 
   <Target Name="Clean">
     <ItemGroup>
-      <ArtifactFiles Include="$(ArtifactsOutDir)\*.zip" />
+      <ArtifactFiles Include="$(ArtifactsOutDir)\*.zip;$(ArtifactsOutDir)\*.msi" />
     </ItemGroup>
     <Delete Files="@(ArtifactFiles)" />
   </Target>
 
-  <Target Name="ArchiveSetup" Outputs="%(ArchiveSetupTask.Identity)">
-    <Message Text="Starting archive distributives %(ArchiveSetupTask.Identity) ..." />
-    <Message Text="Path %(ArchiveSetupTask.Path)" />
+  <Target Name="CopySetup" Outputs="%(CopySetupTask.Identity)">
+    <Message Text="Starting copying distributives %(CopySetupTask.Identity) ..." />
+    <Message Text="Path %(CopySetupTask.Path)" />
 
     <ItemGroup>
-      <SetupFiles Include="%(ArchiveSetupTask.Path)\**\*.*" />
+      <SetupFiles Include="%(CopySetupTask.Path)\**\*.msi" />
     </ItemGroup>
 
-    <Zip Files="@(SetupFiles)"
-         WorkingDirectory="%(ArchiveSetupTask.Path)"
-         Condition="Exists('%(ArchiveSetupTask.Path)')"
-         ZipFileName="$(ArtifactsOutDir)\%(ArchiveSetupTask.Identity).zip" />
+    <Copy SourceFiles="@(SetupFiles)"
+          DestinationFolder="$(ArtifactsOutDir)"/>
 
-    <Message Text="Distributive %(ArchiveSetupTask.Identity) successfully archived"
-             Condition="Exists('%(ArchiveSetupTask.Path)')" />
+    <Message Text="Distributive %(CopySetupTask.Identity) successfully copied"
+             Condition="Exists('%(CopySetupTask.Path)')" />
 
-    <Message Text="Distributive %(ArchiveSetupTask.Identity) skipped. Folder does not exist."
-             Condition="!Exists('%(ArchiveSetupTask.Path)')" />
+    <Message Text="Distributive %(CopySetupTask.Identity) skipped. Folder does not exist."
+             Condition="!Exists('%(CopySetupTask.Path)')" />
   </Target>
 
   <Target Name="ArchiveClient" Outputs="%(ArchiveClientTask.Identity)">
