@@ -1,0 +1,11 @@
+﻿@model FancyDeliveryApp.Areas.Admin.Models.PrepareDatabaseResultModel
+@{
+    if (Model.Success)
+    {
+        <p class="text-success">Успех</p>
+    }
+    else
+    {
+        <p class="text-danger">Неудача</p>
+    }
+}
