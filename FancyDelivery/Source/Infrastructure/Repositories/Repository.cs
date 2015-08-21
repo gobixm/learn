@@ -1,41 +1,68 @@
+using NHibernate;
 using System;
 using System.Collections.Generic;
 
 namespace Infrastructure.Repositories
 {
-    class Repository : IRepository
+    public class Repository : IRepository
     {
         public ICollection<Category> GetCategories()
         {
-            using (var session = SessionHelper.OpenSession())
-            {
-                return session.CreateCriteria<Category>().List<Category>();
-            }
+            return UnitOfWork <ICollection<Category>>((s) => s.CreateCriteria<Category>().List<Category>());
         }
 
         public Category GetCategory(int id)
         {
-            throw new NotImplementedException();
+            return UnitOfWork<Category>((s)=>s.Get<Category>(id));
         }
 
         public void DeleteCategory(int id)
         {
-            throw new NotImplementedException();
+            UnitOfWork((s)=>
+                {
+                    var cat = s.Load<Category>(id);
+                    s.Delete(cat);
+                });
         }
 
-        public Category NewCategory(Category category)
+        public void NewCategory(Category category)
         {
-            using (var session = SessionHelper.OpenSession())
-            {
-                return (Category)session.Save(category);
-            }
+            UnitOfWork((s)=>
+                {
+                    s.Save(category);
+                });
         }
 
         public void UpdateCategory(Category category)
         {
+            UnitOfWork((s)=>
+                {
+                    var merged = s.Merge<Category>(category);
+                    s.Update(merged);
+                });
+        }
+
+        private void UnitOfWork(Action<ISession> unitOfWork)
+        {
             using (var session = SessionHelper.OpenSession())
             {
-                session.Update(category);
+                using (var transaction = session.BeginTransaction())
+                {
+                    unitOfWork(session);
+                    transaction.Commit();
+                }
+            }
+        }
+        private T UnitOfWork<T>(Func<ISession, T> unitOfWork)
+        {
+            using (var session = SessionHelper.OpenSession())
+            {
+                using (var transaction = session.BeginTransaction())
+                {
+                    var result = unitOfWork(session);
+                    transaction.Commit();
+                    return result;
+                }
             }
         }
     }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Web.Mvc;
 using Infrastructure.Repositories;
+using Infrastructure;
 
 namespace FancyDeliveryApp.Areas.Admin.Controllers
 {
-    public class CategoryController : BaseController
+    public class CategoryController : BaseAdminController
     {
         //
         // GET: /Admin/Category/
@@ -23,12 +24,11 @@ namespace FancyDeliveryApp.Areas.Admin.Controllers
         //
         // POST: /Admin/Category/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Category category)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                Repository.NewCategory(category);
                 return RedirectToAction("Index");
             }
             catch
@@ -36,26 +36,22 @@ namespace FancyDeliveryApp.Areas.Admin.Controllers
                 return View();
             }
         }
-
-        //
-        // GET: /Admin/Category/Edit/5
-
+        
         //
         // GET: /Admin/Category/Delete/5
         public ActionResult Delete(int id)
-        {
+        {            
             return View();
         }
 
         //
         // POST: /Admin/Category/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Category category)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                Repository.DeleteCategory(id);
                 return RedirectToAction("Index");
             }
             catch
@@ -66,23 +62,23 @@ namespace FancyDeliveryApp.Areas.Admin.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            return View(Repository.GetCategory(id));
         }
 
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(Repository.GetCategory(id));
         }
 
         //
         // POST: /Admin/Category/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Category category)
         {
             try
             {
-                // TODO: Add update logic here
-
+                category.Id = id;
+                Repository.UpdateCategory(category);
                 return RedirectToAction("Index");
             }
             catch
@@ -93,7 +89,7 @@ namespace FancyDeliveryApp.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return View(Repository.GetCategories());
         }
     }
 }

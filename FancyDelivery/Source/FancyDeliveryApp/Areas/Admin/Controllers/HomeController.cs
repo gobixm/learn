@@ -4,7 +4,7 @@ using Infrastructure.Repositories;
 
 namespace FancyDeliveryApp.Areas.Admin.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : BaseAdminController
     {
         public HomeController(IRepository repository) : base(repository)
         {

@@ -16,9 +16,7 @@ namespace Infrastructure
                 if (_sessionFactory == null)
                 {
                     var configuration = new Configuration();
-                    configuration.Configure();
-                    configuration.Configure();
-                    configuration.AddAssembly(typeof(Product).Assembly);
+                    configuration.Configure();                    
                     _sessionFactory = configuration.BuildSessionFactory();
                     return _sessionFactory;
                 }

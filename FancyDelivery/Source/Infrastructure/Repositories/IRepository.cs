@@ -8,7 +8,7 @@ namespace Infrastructure.Repositories
         ICollection<Category> GetCategories();
         Category GetCategory(int id);
         void DeleteCategory(int id);
-        Category NewCategory(Category category);
+        void NewCategory(Category category);
         void UpdateCategory(Category category);
     }
 }
