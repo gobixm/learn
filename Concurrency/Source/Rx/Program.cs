@@ -35,7 +35,7 @@ namespace Rx
                 },
                 new IPEndPoint(IPAddress.Loopback, lvlOnePort),
                 string.Format("First Level Zombie-{0}", i));
-                
+
                 //second level bots                
                 for(int j=1; j<10; j++)
                 {
@@ -59,15 +59,21 @@ namespace Rx
                 }                
             }
 
-            Task.WaitAll(listenTasks.ToArray(), 30000);
-            Task.WaitAll(connectionTasks.ToArray(), 30000);
+            Parallel.ForEach(nodes, x => x.CreateListener());
+            Parallel.ForEach(nodes, async x => await x.Listen());
+            Parallel.ForEach(nodes, async x => await x.ConnectToLeaders());
+            Parallel.ForEach(nodes, async x => await x.RecieveCommandsFromLeader());
             
             Task.WaitAll(
                 leader.StartAttack("www.google.com"),
                 leader.StartAttack("www.yandex.com"),
                 leader.StartAttack("www.yahoo.com")
-                );
+                );                        
             Console.ReadKey();
+            Console.WriteLine("Stopping...");
+            Parallel.ForEach<Bot>(nodes, x => x.Dispose());            
+            Console.WriteLine("Stopped");
+
             
         }
 
@@ -79,10 +85,9 @@ namespace Rx
                     iterator.MoveNext();
                     return iterator.Current;
                 },
-                name);
-            nodes.Add(bot);
-            listenTasks.Add(bot.Listen(selfEndpoint));
-            connectionTasks.Add(bot.StartRecievingCommands());
+                name,
+                selfEndpoint);
+            nodes.Add(bot);                   
             return bot;
         }
     }

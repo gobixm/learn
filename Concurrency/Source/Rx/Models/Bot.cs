@@ -18,105 +18,101 @@ namespace Rx.Models
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private Func<IPEndPoint> _endPoint;
+        IPEndPoint _listenEndpoint;
         private Socket _listenSocket;
         private CancellationTokenSource _cancellationSource;
         private ConcurrentBag<IObserver<string>> _dependentBots = new ConcurrentBag<IObserver<string>>();
+        private List<Socket> _leaders = new List<Socket>();
         private string _name;
-        public Bot(Func<IPEndPoint> endPoint, string name)
+        public Bot(Func<IPEndPoint> endPoint, string name, IPEndPoint listenEndpoint)
         {
             _endPoint = endPoint;
+            _listenEndpoint = listenEndpoint;
             _name = name;
             _cancellationSource = new CancellationTokenSource();
         }
-        public async Task StartRecievingCommands()
-        {
-            List<Task> connections = new List<Task>();
-            var endpoint = _endPoint();
-            while (endpoint != null)
-            {
-                var endpointCopy = endpoint;
-                connections.Add(
-                    Task.Factory.StartNew(async () =>
-                        {                            
-                            await RecieveCommandsFromLeader(endpointCopy);
-                        },
-                        _cancellationSource.Token,
-                        TaskCreationOptions.LongRunning,
-                        TaskScheduler.Current)
-                    );
-                endpoint = _endPoint();
-            }
-            await Task.WhenAll(connections);
-        }
 
-        public Task StartAttack(string address)
+        public async Task StartAttack(string address)
         {
-            return Task.Factory.StartNew(() =>
+            await Task.Factory.StartNew(() =>
                 {
                     logger.Info("{0} attacks {1}",
                                         _name,
                                         address);
-                    Parallel.ForEach<IObserver<string>>(_dependentBots, (x) => x.OnNext(address));
-                });
+                    Parallel.ForEach<IObserver<string>>(_dependentBots, x =>
+                        {
+                            x.OnNext(address);
+                        });
+                },
+                _cancellationSource.Token);
         }
 
-        private async Task RecieveCommandsFromLeader(IPEndPoint endpoint)
+        public async Task ConnectToLeaders()
         {
-            Socket leader = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            while (true)
+            var endpoint = _endPoint();
+            var tasks = new List<Task>();
+            while (endpoint != null)
             {
-                try
+                Socket leader = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _leaders.Add(leader);
+                tasks.Add(leader.ConnectAsyncTask(endpoint, _cancellationSource));
+                endpoint = _endPoint();
+            }
+            await Task.WhenAll(tasks.ToArray());
+        }
+
+        public async Task RecieveCommandsFromLeader()
+        {
+            await Task.Run(() =>
+                Parallel.ForEach(_leaders, async socket =>
                 {
-                    await leader.ConnectAsyncTask(endpoint, _cancellationSource);
-                    
-                    _cancellationSource.Token.ThrowIfCancellationRequested();
                     while (true)
                     {
-                        if (!leader.Connected)
-                        {
-                            await Task.Delay(10000);
-                            break;
-                        }
                         try
                         {
-                            string address = Encoding.UTF8.GetString(await leader.RecieveAsyncTask(_cancellationSource));
-                            await StartAttack(address);
+                            _cancellationSource.Token.ThrowIfCancellationRequested();
+                            if (!socket.Connected)
+                            {
+                                await Task.Delay(1000);
+                                continue;
+                            }
+                            if (socket.Connected)
+                            {
+                                string address = Encoding.UTF8.GetString(await socket.RecieveAsyncTask(_cancellationSource));
+                                await StartAttack(address);
+                            }
                         }
                         catch (OperationCanceledException)
                         {
-                            throw;
+                            break;
                         }
                         catch
                         {
                             break;
                         }
                     }
-                }
-                catch (OperationCanceledException)
-                {
-                    throw;
-                }
-            }
+                }));
         }
 
-        public async Task Listen(IPEndPoint hostEndpoint)
+        public void CreateListener()
         {
             _listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            _listenSocket.Bind(hostEndpoint);
+            _listenSocket.Bind(_listenEndpoint);
             _listenSocket.Listen(int.MaxValue);
+        }
 
-            try
-            {
-                await Task.Factory.StartNew(async () =>
+        public async Task Listen()
+        {
+            await Task.Run(async () =>
                 {
-                    try
+                    while (true)
                     {
-                        while (true)
+                        try
                         {
                             var socket = await _listenSocket.AcceptAsyncTask(_cancellationSource);
+                            var disposed = false;
                             _cancellationSource.Token.ThrowIfCancellationRequested();
-                            Subscribe(
-                                Observer.Create<string>(
+                            var observer = Observer.Create<string>(
                                 onNext: x =>
                                     {
                                         var address = Encoding.UTF8.GetBytes(x);
@@ -124,34 +120,38 @@ namespace Rx.Models
                                             _name,
                                             socket.RemoteEndPoint.GetAddress(),
                                             x);
-                                        socket.SendAsyncTask(address, _cancellationSource);
+                                        try
+                                        {
+                                            if (!disposed)
+                                            {
+                                                socket.SendAsyncTask(address, _cancellationSource);
+                                            }
+                                        }
+                                        catch
+                                        {
+
+                                        }
                                     },
                                 onCompleted: () =>
-                                    {                                        
+                                    {
+                                        disposed = true;
                                         socket.Close();
                                     },
                                 onError: e =>
                                     {
+                                        disposed = true;
                                         socket.Close();
                                     }
-                                ));
-
+                                );
+                            Subscribe(observer);
                         }
+                        catch (OperationCanceledException)
+                        {
+                            break;
+                        }
+
                     }
-                    catch (OperationCanceledException)
-                    {
-                        throw;
-                    }
-                },
-                _cancellationSource.Token,
-                TaskCreationOptions.LongRunning,
-                TaskScheduler.Current
-                );
-            }
-            catch (OperationCanceledException)
-            {
-                return;
-            }
+                });
         }
 
         public void Dispose()
