@@ -37,7 +37,7 @@ namespace Rx.Models
                 var endpointCopy = endpoint;
                 connections.Add(
                     Task.Factory.StartNew(async () =>
-                        {
+                        {                            
                             await RecieveCommandsFromLeader(endpointCopy);
                         },
                         _cancellationSource.Token,
@@ -52,7 +52,7 @@ namespace Rx.Models
         public Task StartAttack(string address)
         {
             return Task.Factory.StartNew(() =>
-                {                    
+                {
                     logger.Info("{0} attacks {1}",
                                         _name,
                                         address);
@@ -62,17 +62,24 @@ namespace Rx.Models
 
         private async Task RecieveCommandsFromLeader(IPEndPoint endpoint)
         {
-            Socket leader = new Socket(SocketType.Stream, ProtocolType.Tcp);
+            Socket leader = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             while (true)
             {
                 try
                 {
-                    await leader.ConnectAsyncTask(endpoint);
+                    await leader.ConnectAsyncTask(endpoint, _cancellationSource);
+                    
+                    _cancellationSource.Token.ThrowIfCancellationRequested();
                     while (true)
                     {
+                        if (!leader.Connected)
+                        {
+                            await Task.Delay(10000);
+                            break;
+                        }
                         try
                         {
-                            string address = Encoding.UTF8.GetString(await leader.RecieveAsyncTask());
+                            string address = Encoding.UTF8.GetString(await leader.RecieveAsyncTask(_cancellationSource));
                             await StartAttack(address);
                         }
                         catch (OperationCanceledException)
@@ -87,62 +94,74 @@ namespace Rx.Models
                 }
                 catch (OperationCanceledException)
                 {
-                    break;
+                    throw;
                 }
             }
         }
 
         public async Task Listen(IPEndPoint hostEndpoint)
         {
-            _listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+            _listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _listenSocket.Bind(hostEndpoint);
             _listenSocket.Listen(int.MaxValue);
 
-            await Task.Factory.StartNew(async () =>
+            try
             {
-                while (true)
+                await Task.Factory.StartNew(async () =>
                 {
                     try
                     {
-                        var socket = await _listenSocket.AcceptAsyncTask();
-                        Subscribe(
-                            Observer.Create<string>(
-                            onNext: x =>
-                                {
-                                    var address = Encoding.UTF8.GetBytes(x);
-                                    logger.Info("{0} commands {1} to attack {2}",
-                                        _name,
-                                        socket.RemoteEndPoint.GetAddress(),
-                                        x);
-                                    socket.SendAsyncTask(address);
-                                },
-                            onCompleted: () =>
-                                {
-                                    socket.Close();
-                                },
-                            onError: e =>
-                                {
-                                    socket.Close();
-                                }
-                            ));
+                        while (true)
+                        {
+                            var socket = await _listenSocket.AcceptAsyncTask(_cancellationSource);
+                            _cancellationSource.Token.ThrowIfCancellationRequested();
+                            Subscribe(
+                                Observer.Create<string>(
+                                onNext: x =>
+                                    {
+                                        var address = Encoding.UTF8.GetBytes(x);
+                                        logger.Info("{0} commands {1} to attack {2}",
+                                            _name,
+                                            socket.RemoteEndPoint.GetAddress(),
+                                            x);
+                                        socket.SendAsyncTask(address, _cancellationSource);
+                                    },
+                                onCompleted: () =>
+                                    {                                        
+                                        socket.Close();
+                                    },
+                                onError: e =>
+                                    {
+                                        socket.Close();
+                                    }
+                                ));
+
+                        }
                     }
                     catch (OperationCanceledException)
                     {
-                        break;
+                        throw;
                     }
-                }
-
-            },
-            _cancellationSource.Token,
-            TaskCreationOptions.LongRunning,
-            TaskScheduler.Current
-            );
+                },
+                _cancellationSource.Token,
+                TaskCreationOptions.LongRunning,
+                TaskScheduler.Current
+                );
+            }
+            catch (OperationCanceledException)
+            {
+                return;
+            }
         }
 
         public void Dispose()
         {
-            Parallel.ForEach<IObserver<string>>(_dependentBots, (x) => x.OnCompleted());
             _cancellationSource.Cancel();
+            if (_listenSocket != null)
+            {
+                _listenSocket.Close();
+            }
+            Parallel.ForEach<IObserver<string>>(_dependentBots, (x) => x.OnCompleted());
         }
 
         public IDisposable Subscribe(IObserver<string> observer)

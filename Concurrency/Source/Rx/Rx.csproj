@@ -63,7 +63,6 @@
   <ItemGroup>
     <Compile Include="Extensions\SocketExtensions.cs" />
     <Compile Include="Models\Bot.cs" />
-    <Compile Include="Models\DependentNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
