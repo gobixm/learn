@@ -68,5 +68,20 @@ namespace RxTests
             scheduler.Start();
             Assert.True(fired);
         }
+
+        [Fact]
+        public void ShouldCreateRange()
+        {
+            var urls = new List<string>();
+            var range = Observable.Range(10, 10).Subscribe(
+                (page) =>
+                {
+                    urls.Add(string.Format("www.google.ru?page={0}", page));
+                },
+                ()=>Assert.Equal(10, urls.Count) 
+                );            
+            Assert.Equal("www.google.ru?page=10", urls[0]);
+            Assert.Equal("www.google.ru?page=19", urls[9]);
+        }
     }
 }
