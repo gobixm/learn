@@ -17,16 +17,20 @@ namespace Rx.Models
     public class Bot : IDisposable, IObservable<string>
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        private Func<IPEndPoint> _endPoint;
+
+        private Func<IPEndPoint> _endPointGetter;
         IPEndPoint _listenEndpoint;
         private Socket _listenSocket;
-        private CancellationTokenSource _cancellationSource;
-        private ConcurrentBag<IObserver<string>> _dependentBots = new ConcurrentBag<IObserver<string>>();
         private List<Socket> _leaders = new List<Socket>();
+
+        private CancellationTokenSource _cancellationSource;
+
+        private ConcurrentBag<IObserver<string>> _dependentBots = new ConcurrentBag<IObserver<string>>();        
         private string _name;
-        public Bot(Func<IPEndPoint> endPoint, string name, IPEndPoint listenEndpoint)
+        
+        public Bot(Func<IPEndPoint> endPointGetter, string name, IPEndPoint listenEndpoint)
         {
-            _endPoint = endPoint;
+            _endPointGetter = endPointGetter;
             _listenEndpoint = listenEndpoint;
             _name = name;
             _cancellationSource = new CancellationTokenSource();
@@ -49,14 +53,14 @@ namespace Rx.Models
 
         public async Task ConnectToLeaders()
         {
-            var endpoint = _endPoint();
+            var endpoint = _endPointGetter();
             var tasks = new List<Task>();
             while (endpoint != null)
             {
                 Socket leader = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 _leaders.Add(leader);
                 tasks.Add(leader.ConnectAsyncTask(endpoint, _cancellationSource));
-                endpoint = _endPoint();
+                endpoint = _endPointGetter();
             }
             await Task.WhenAll(tasks.ToArray());
         }
