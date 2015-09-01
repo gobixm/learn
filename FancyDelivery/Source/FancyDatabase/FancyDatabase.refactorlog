@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="60a105a3-8320-458a-8abd-d420aaa73a5b" ChangeDateTime="09/01/2015 17:38:12">
+    <Property Name="ElementName" Value="[dbo].[GetProductCountGroupedByCategory]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="GetProductCountGroupedByCat" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6860f4d5-fe25-4701-8544-49f6707337c1" ChangeDateTime="09/01/2015 17:42:15">
+    <Property Name="ElementName" Value="[dbo].[GetProductGroupedByCategory]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[GetProductGroupedByCat]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e598eedd-06fb-4766-a7b0-3d7e40327673" ChangeDateTime="09/01/2015 17:44:48">
+    <Property Name="ElementName" Value="[dbo].[GetProductGroupedByCat]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[GetProductGroupedByCategory]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4dae9dc2-fca7-4a53-894c-f227fa89c215" ChangeDateTime="09/01/2015 17:46:20">
+    <Property Name="ElementName" Value="[dbo].[GetProductGroupedByCategory]" />
+    <Property Name="ElementType" Value="SqlProcedure" />
+    <Property Name="ParentElementName" Value="[dbo]" />
+    <Property Name="ParentElementType" Value="SqlSchema" />
+    <Property Name="NewName" Value="[GetProductCountGroupedByCategory]" />
+  </Operation>
+</Operations>
