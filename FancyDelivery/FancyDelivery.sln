@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FancyDeliveryApp", "Source\FancyDeliveryApp\FancyDeliveryApp.csproj", "{F19D070C-7A8D-454E-9515-2C4B965FF684}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Source\Infrastructure\Infrastructure.csproj", "{ED541413-BF74-424C-AA2F-E3730F38B61B}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "FancyDatabase", "Source\FancyDatabase\FancyDatabase.sqlproj", "{4297D8D0-1867-406F-827D-B0AFE421D086}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +23,12 @@ Global
 		{ED541413-BF74-424C-AA2F-E3730F38B61B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED541413-BF74-424C-AA2F-E3730F38B61B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED541413-BF74-424C-AA2F-E3730F38B61B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4297D8D0-1867-406F-827D-B0AFE421D086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4297D8D0-1867-406F-827D-B0AFE421D086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4297D8D0-1867-406F-827D-B0AFE421D086}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4297D8D0-1867-406F-827D-B0AFE421D086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4297D8D0-1867-406F-827D-B0AFE421D086}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4297D8D0-1867-406F-827D-B0AFE421D086}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
