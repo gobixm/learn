@@ -62,19 +62,38 @@
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\StoredProcedures" />
+    <Folder Include="Scripts" />
+    <Folder Include="dbo\Functions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Category.sql" />
     <Build Include="dbo\Tables\Product.sql" />
     <Build Include="dbo\StoredProcedures\GetProductCountGroupedByCategory.sql" />
+    <Build Include="dbo\StoredProcedures\CreateDummyProductsForCategory.sql" />
+    <Build Include="dbo\StoredProcedures\ValidateProducts.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FancyDatabase.publish.xml" />
+    <None Include="Scripts\FillTestData.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="Script.PostDeployment.sql" />
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="FancyDatabase.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="DeployTestData">
+      <DefaultValue>True</DefaultValue>
+      <Value>$(SqlCmdVar__1)</Value>
+    </SqlCmdVariable>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="dbo\Functions\ValidateProductName.cs" />
   </ItemGroup>
 </Project>
