@@ -71,6 +71,14 @@
     <Build Include="dbo\StoredProcedures\GetProductCountGroupedByCategory.sql" />
     <Build Include="dbo\StoredProcedures\CreateDummyProductsForCategory.sql" />
     <Build Include="dbo\StoredProcedures\ValidateProducts.sql" />
+    <Build Include="dbo\Tables\LineItem.sql" />
+    <Build Include="dbo\Tables\Cart.sql" />
+    <Build Include="dbo\Tables\Order.sql" />
+    <Build Include="dbo\Tables\OrderState.sql" />
+    <Build Include="dbo\Tables\OrderLineItem.sql" />
+    <Build Include="dbo\Tables\CartLineItem.sql" />
+    <Build Include="dbo\Functions\GetHotProducts.sql" />
+    <Build Include="dbo\StoredProcedures\AddProductToOrder.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FancyDatabase.publish.xml" />

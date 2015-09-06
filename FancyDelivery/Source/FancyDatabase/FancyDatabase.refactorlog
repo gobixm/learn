@@ -28,4 +28,11 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[GetProductCountGroupedByCategory]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="13be023d-0d60-4008-9bfb-1cc5121b9e0f" ChangeDateTime="09/06/2015 11:37:28">
+    <Property Name="ElementName" Value="[dbo].[OrderState].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[OrderState]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Code" />
+  </Operation>
 </Operations>
