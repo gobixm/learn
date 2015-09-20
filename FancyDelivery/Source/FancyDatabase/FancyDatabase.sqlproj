@@ -79,6 +79,7 @@
     <Build Include="dbo\Tables\CartLineItem.sql" />
     <Build Include="dbo\Functions\GetHotProducts.sql" />
     <Build Include="dbo\StoredProcedures\AddProductToOrder.sql" />
+    <Build Include="dbo\StoredProcedures\GetDailyBalance.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FancyDatabase.publish.xml" />
