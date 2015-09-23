@@ -65,5 +65,14 @@ namespace Tests
             var item5 = itemGroups.First(x => x.Item == "Item5");
             Assert.AreEqual("<none>", item5.Group);
         }
+
+        [Test]
+        public void ShoudSelectIn()
+        {
+            var list = new[] {1, 2, 3, 4, 5};
+            var inClause = new[] {1, 5};
+            var resultList = list.Join(inClause, x => x, y => y, (x, y) => x);
+            Assert.IsTrue(inClause.SequenceEqual(resultList));
+        }
     }
 }
