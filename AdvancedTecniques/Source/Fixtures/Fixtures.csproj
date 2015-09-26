@@ -45,6 +45,8 @@
     <Compile Include="Attributes\Dispatcher.cs" />
     <Compile Include="Attributes\DispatcherPool.cs" />
     <Compile Include="Attributes\FirstDispatcher.cs" />
+    <Compile Include="Maybe\Maybe.cs" />
+    <Compile Include="Maybe\MaybeFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

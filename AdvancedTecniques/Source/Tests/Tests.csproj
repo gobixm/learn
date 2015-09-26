@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="AttributeTest.cs" />
     <Compile Include="LinqTest.cs" />
+    <Compile Include="MaybeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
