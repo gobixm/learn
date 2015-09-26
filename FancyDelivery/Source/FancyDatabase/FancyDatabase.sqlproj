@@ -82,8 +82,8 @@
     <Build Include="dbo\StoredProcedures\GetDailyBalance.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FancyDatabase.publish.xml" />
     <None Include="Scripts\FillTestData.sql" />
+    <None Include="FancyDatabase.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
@@ -104,5 +104,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="dbo\Functions\ValidateProductName.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts\Script.PreDeployment.sql" />
   </ItemGroup>
 </Project>
