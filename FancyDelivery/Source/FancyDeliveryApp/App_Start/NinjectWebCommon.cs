@@ -1,31 +1,34 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(FancyDeliveryApp.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(FancyDeliveryApp.App_Start.NinjectWebCommon), "Stop")]
+using System;
+using System.Web;
+using AutoMapper;
+using FancyDeliveryApp;
+using FancyDeliveryApp.Api.Models;
+using Infrastructure;
+using Infrastructure.Repositories;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using Ninject;
+using Ninject.Web.Common;
+using WebActivatorEx;
 
-namespace FancyDeliveryApp.App_Start
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
+
+namespace FancyDeliveryApp
 {
-    using System;
-    using System.Web;
-
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
-    using Ninject;
-    using Ninject.Web.Common;
-    using Infrastructure.Repositories;
-
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -33,7 +36,7 @@ namespace FancyDeliveryApp.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -47,6 +50,7 @@ namespace FancyDeliveryApp.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
                 kernel.Bind<IRepository>().To<Repository>().InSingletonScope();
 
+                Mapper.CreateMap<Category, CategoryDto>();
                 RegisterServices(kernel);
                 return kernel;
             }
@@ -63,6 +67,6 @@ namespace FancyDeliveryApp.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-        }        
+        }
     }
 }
