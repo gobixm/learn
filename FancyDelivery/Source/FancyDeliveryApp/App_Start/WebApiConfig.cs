@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 
 namespace FancyDeliveryApp
@@ -13,9 +11,9 @@ namespace FancyDeliveryApp
 
             config.Routes.MapHttpRoute(
                 name: "Api",
-                routeTemplate: "default/api/{controller}/{id}",
+                routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
+                );
         }
     }
 }

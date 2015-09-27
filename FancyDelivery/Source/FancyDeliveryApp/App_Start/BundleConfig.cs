@@ -18,7 +18,7 @@ namespace FancyDeliveryApp
                 "~/Scripts/jquery.unobtrusive*"));
 
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
-                "~/Scripts/knockout-*"));
+                "~/Scripts/knockout*"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").IncludeDirectory(
                 "~/Scripts/app","*.js"));

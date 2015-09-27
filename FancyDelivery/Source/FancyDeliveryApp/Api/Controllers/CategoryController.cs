@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FancyDeliveryApp.Areas.Default.Controllers;
+using System.Web.Http;
 using Infrastructure;
 using Infrastructure.Repositories;
 
-namespace FancyDeliveryApp.Areas.Default.Api
+namespace FancyDeliveryApp.Api.Controllers
 {
     public class CategoryController : BaseController
     {
@@ -13,10 +13,11 @@ namespace FancyDeliveryApp.Areas.Default.Api
         {
         }
 
-        public List<Category> GetAllCategories()
+        [HttpGet]
+        public List<Category> All()
         {
             var categories = Repository.GetCategories().ToList();
-            categories.ForEach(x=>x.Products = null);
+            categories.ForEach(x => x.Products = null);
             return categories;
         }
     }

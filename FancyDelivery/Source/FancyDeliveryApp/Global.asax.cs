@@ -13,6 +13,8 @@ namespace FancyDeliveryApp
     {
         protected void Application_Start()
         {
+            GlobalConfiguration.Configure(config => WebApiConfig.Register(config));
+
             var adminArea = new AdminAreaRegistration();
             var adminAreaContext = new AreaRegistrationContext(adminArea.AreaName, RouteTable.Routes);
             adminArea.RegisterArea(adminAreaContext);
@@ -21,7 +23,7 @@ namespace FancyDeliveryApp
             var defaultAreaContext = new AreaRegistrationContext(defaultArea.AreaName, RouteTable.Routes);
             defaultArea.RegisterArea(defaultAreaContext);
 
-            GlobalConfiguration.Configure(config => WebApiConfig.Register(config));
+            
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

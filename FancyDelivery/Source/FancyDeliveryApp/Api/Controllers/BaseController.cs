@@ -1,9 +1,8 @@
 using System;
 using System.Web.Http;
-using System.Web.Mvc;
 using Infrastructure.Repositories;
 
-namespace FancyDeliveryApp.Areas.Default.Controllers
+namespace FancyDeliveryApp.Api.Controllers
 {
     public class BaseController : ApiController
     {
