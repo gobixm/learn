@@ -51,6 +51,7 @@ namespace FancyDeliveryApp
                 kernel.Bind<IRepository>().To<Repository>().InSingletonScope();
 
                 Mapper.CreateMap<Category, CategoryDto>();
+                Mapper.CreateMap<Product, ProductDto>();
                 RegisterServices(kernel);
                 return kernel;
             }

@@ -182,7 +182,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Controllers\ProductController.cs" />
+    <Compile Include="Api\Extensions\PageableExtensions.cs" />
     <Compile Include="Api\Models\CategoryDto.cs" />
+    <Compile Include="Api\Models\ProductDto.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />

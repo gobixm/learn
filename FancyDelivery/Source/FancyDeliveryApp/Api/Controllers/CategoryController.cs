@@ -20,7 +20,6 @@ namespace FancyDeliveryApp.Api.Controllers
         {
             var categories = Repository.GetCategories().ToList();
             return Mapper.Map<ICollection<Category>, List<CategoryDto>>(categories);
-            ;
         }
     }
 }

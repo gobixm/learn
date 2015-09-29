@@ -10,5 +10,6 @@ namespace Infrastructure.Repositories
         void DeleteCategory(int id);
         void NewCategory(Category category);
         void UpdateCategory(Category category);
+        Pageable<Product> GetCategoryProducts(int categoryId, int pageNumber, int pageSize);
     }
 }

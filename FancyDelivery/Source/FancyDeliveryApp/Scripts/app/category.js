@@ -1,5 +1,7 @@
 ﻿var CategoryViewModel = new function() {
-    this.select = function() {
-        alert(this.Name() + ' selected');
+    this.select = function () {
+        $.getJSON('/api/product/bycategory?categoryId='+this.Id(), function(data) {
+            alert(JSON.stringify(data));
+        })
     }
 };
