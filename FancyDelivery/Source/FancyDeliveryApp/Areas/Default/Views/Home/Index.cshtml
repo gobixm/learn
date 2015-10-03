@@ -1,0 +1,14 @@
+﻿@using System
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-2">
+        @Html.Partial("_CategoryList")
+    </div>
+    <div class="col-md-10">
+        @Html.Partial("_ProductList")
+    </div>
+</div>
