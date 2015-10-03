@@ -1,0 +1,14 @@
+﻿[
+  {
+    "outputFile": "Content/block-grid.css",
+    "inputFile": "Content/block-grid.less"
+  },
+  {
+    "outputFile": "Content/bootstrap/bootstrap.css",
+    "inputFile": "Content/bootstrap/bootstrap.less"
+  },
+  {
+    "outputFile": "Content/bootstrap/alerts.css",
+    "inputFile": "Content/bootstrap/alerts.less"
+  }
+]

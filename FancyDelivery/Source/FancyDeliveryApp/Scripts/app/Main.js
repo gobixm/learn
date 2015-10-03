@@ -1,6 +1,8 @@
 ﻿function MainViewModel() {
     var self = this;
     self.Categories = ko.observableArray([]);
+    self.ProductsPageViewModel = ko.observable();
+
     self.LoadCategories = function () {
         $.getJSON('/api/category/all', function (data) {
             $.each(data, function (i, category) {
@@ -10,11 +12,18 @@
             });
         });
     }
+
+    self.LoadProducts = function (category) {
+        $.getJSON('/api/product/bycategory?categoryId=' + category, function (data) {
+            self.ProductsPageViewModel(new ProductsPageViewModel(data, category));
+        });
+    }
 }
 
-var mainViewModel = new MainViewModel();
-ko.applyBindings(mainViewModel);
+var mainViewModel;
 
 $(document).ready(function () {
+    mainViewModel = new MainViewModel();
+    ko.applyBindings(mainViewModel);
     mainViewModel.LoadCategories();
 });

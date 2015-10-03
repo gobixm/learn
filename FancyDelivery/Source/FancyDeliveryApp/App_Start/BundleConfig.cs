@@ -32,9 +32,10 @@ namespace FancyDeliveryApp
                 "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/bootstrap.css",
+                "~/Content/bootstrap/bootstrap.css",
                 "~/Content/site.css",
-                "~/Content/bootstrap-responsive.css"));
+                "~/Content/bootstrap/bootstrap-responsive.css",
+                "~/Content/block-grid.css"));
         }
     }
 }

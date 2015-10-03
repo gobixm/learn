@@ -1,10 +1,13 @@
 ﻿@using System
-<div class="row panel-area">
-    <div class="col-sm-12" data-bind="foreach: Categories">
-        <div class="row">
-            <div class="col-sm-12">
-                <button class="btn btn-primary btn-lg btn-block category-btn" data-bind="click: select" >
-                    <span data-bind="text: Name"></span></button>
+<div class="well">
+    <div class="row panel-area">
+        <div class="col-sm-12" data-bind="foreach: Categories">
+            <div class="row">
+                <div class="col-sm-12">
+                    <button class="btn btn-primary btn-lg btn-block category-btn" data-bind="click: select">
+                        <span data-bind="text: Name"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
