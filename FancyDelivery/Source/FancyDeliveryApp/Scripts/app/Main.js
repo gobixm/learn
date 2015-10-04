@@ -13,8 +13,16 @@
         });
     }
 
-    self.LoadProducts = function (category) {
-        $.getJSON('/api/product/bycategory?categoryId=' + category, function (data) {
+    self.LoadProducts = function (category, page, pagesize) {
+        if (page === undefined) {
+            page = 1;
+        }
+
+        if (pagesize === undefined) {
+            pagesize = 20;
+        }
+            
+        $.getJSON('/api/product/bycategory?categoryId=' + category + '&pageNumber=' + page + '&pageSize='+pagesize, function (data) {
             self.ProductsPageViewModel(new ProductsPageViewModel(data, category));
         });
     }

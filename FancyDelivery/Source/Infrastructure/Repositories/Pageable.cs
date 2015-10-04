@@ -18,5 +18,7 @@ namespace Infrastructure.Repositories
         public int PageNumber { get; private set; }
         public int PageSize { get; private set; }
         public IList<T> Items { get; private set; }
+
+        public int PageCount => (int)Math.Ceiling((double)Total / PageSize);
     }
 }

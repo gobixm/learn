@@ -1,22 +1,8 @@
 ﻿@using System
 <div class="well" data-bind="with: ProductsPageViewModel">
-    <nav>
-        <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
+    <nav data-bind="with: Paginator">
+        <ul class="pagination" data-bind="foreach: Pages">
+            <li><button class="btn-sm" data-bind="click: $parent.select, css: $data.selected ? 'btn-danger' : 'btn-default'"><span data-bind="text: $data.page"></span> </button></li>
         </ul>
     </nav>
     <div class="block-grid-md-5 block-grid-sm-2" data-bind="foreach: Products">

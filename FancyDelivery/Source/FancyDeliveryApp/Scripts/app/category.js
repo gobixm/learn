@@ -1,4 +1,4 @@
-﻿var CategoryViewModel = new function() {
+﻿var CategoryViewModel = new function () {
     this.select = function () {
         mainViewModel.LoadProducts(this.Id());
     }
