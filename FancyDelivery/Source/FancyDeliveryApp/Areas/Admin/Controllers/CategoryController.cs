@@ -12,7 +12,7 @@ namespace FancyDeliveryApp.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Category/Create
-        public CategoryController(IRepository repository) : base(repository)
+        public CategoryController(IUnitOfWork unitOfWork, IRepository repository) : base(unitOfWork, repository)
         {
         }
 

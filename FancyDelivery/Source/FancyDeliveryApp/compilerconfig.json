@@ -10,5 +10,9 @@
   {
     "outputFile": "Content/bootstrap/alerts.css",
     "inputFile": "Content/bootstrap/alerts.less"
+  },
+  {
+    "outputFile": "Content/Site.css",
+    "inputFile": "Content/Site.less"
   }
 ]

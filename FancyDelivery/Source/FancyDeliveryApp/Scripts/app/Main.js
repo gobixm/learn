@@ -26,11 +26,31 @@
             self.ProductsPageViewModel(new ProductsPageViewModel(data, category));
         });
     }
+
+    self.AddProductToCart = function (product) {        
+        $.ajax({
+            url: '/api/cart/addtocart',
+            type:"POST",
+            data: JSON.stringify(product.Id()),
+            contentType: "application/json"                       
+        }).done(function () {
+            self.LoadCart();
+        }).fail(function () {
+            alert('fail');
+        });
+    }
+
+    self.LoadCart = function () {
+        $.getJSON('/api/cart/getcart', function (data) {
+            alert(JSON.stringify(data));
+        });
+    }
 }
 
 var mainViewModel;
 
 $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
     mainViewModel = new MainViewModel();
     ko.applyBindings(mainViewModel);
     mainViewModel.LoadCategories();

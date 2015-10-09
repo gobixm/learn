@@ -6,11 +6,13 @@ namespace FancyDeliveryApp.Api.Controllers
 {
     public class BaseController : ApiController
     {
-        public BaseController(IRepository repository)
+        public BaseController(IUnitOfWork unitOfWork, IRepository repository)
         {
+            UnitOfWork = unitOfWork;
             Repository = repository;
         }
 
+        public IUnitOfWork UnitOfWork { get; }
         public IRepository Repository { get; }
     }
 }

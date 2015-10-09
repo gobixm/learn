@@ -7,7 +7,12 @@
     </nav>
     <div class="block-grid-md-5 block-grid-sm-2" data-bind="foreach: Products">
         <div class="block-grid-item">
-            <div class="well"><span data-bind="text: Name"></span></div>
+            <table class="table product-thumb">
+                <tr><td><strong data-bind="text: Name"></strong></td></tr>
+                <tr><td><img class="img-responsive" alt="Responsive image" data-bind="attr: {src: '/content/img/'+ImageName()}"></td></tr>
+                <tr><td>Price: <span data-bind="text: Price"></span></td></tr>
+                <tr><td><button class="btn-sm btn-danger" data-bind="click: add_to_cart">Buy</button></td></tr>
+            </table>
         </div>
     </div>
 </div>

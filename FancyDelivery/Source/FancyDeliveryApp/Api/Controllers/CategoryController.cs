@@ -11,7 +11,7 @@ namespace FancyDeliveryApp.Api.Controllers
 {
     public class CategoryController : BaseController
     {
-        public CategoryController(IRepository repository) : base(repository)
+        public CategoryController(IUnitOfWork unitOfWork, IRepository repository) : base(unitOfWork, repository)
         {
         }
 

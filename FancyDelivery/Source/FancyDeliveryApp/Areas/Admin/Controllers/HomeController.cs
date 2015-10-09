@@ -6,7 +6,7 @@ namespace FancyDeliveryApp.Areas.Admin.Controllers
 {
     public class HomeController : BaseAdminController
     {
-        public HomeController(IRepository repository) : base(repository)
+        public HomeController(IUnitOfWork unitOfWork, IRepository repository) : base(unitOfWork, repository)
         {
         }
 

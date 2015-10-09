@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Infrastructure" namespace="Infrastructure">
+  <class name="Cart">
+    <id name="Id">
+      
+    </id>    
+    <bag name="LineItems" table="CartLineItem" lazy="true" cascade="all">
+      <key column="CartId" />
+      <many-to-many class="LineItem" column="LineItemId" />
+    </bag>
+  </class>
+</hibernate-mapping>

@@ -7,76 +7,66 @@ namespace Infrastructure.Repositories
 {
     public class Repository : IRepository
     {
+        private UnitOfWork unitOfWork;
+        public Repository(IUnitOfWork unitOfWork)
+        {
+            this.unitOfWork = (UnitOfWork)unitOfWork;
+        }
+
+        protected ISession Session { get { return unitOfWork.Session; } }
+
         public ICollection<Category> GetCategories()
         {
-            return UnitOfWork<ICollection<Category>>((s) => s.CreateCriteria<Category>().List<Category>());
+            return Session.CreateCriteria<Category>().List<Category>();
         }
 
         public Category GetCategory(int id)
         {
-            return UnitOfWork<Category>((s) => s.Get<Category>(id));
+            return Session.Get<Category>(id);
         }
 
         public void DeleteCategory(int id)
         {
-            UnitOfWork((s) =>
-            {
-                var cat = s.Load<Category>(id);
-                s.Delete(cat);
-            });
+            var cat = Session.Load<Category>(id);
+            Session.Delete(cat);
         }
 
         public void NewCategory(Category category)
         {
-            UnitOfWork((s) => { s.Save(category); });
+            Session.Save(category);
         }
 
         public void UpdateCategory(Category category)
         {
-            UnitOfWork((s) =>
-            {
-                var merged = s.Merge<Category>(category);
-                s.Update(merged);
-            });
+            var merged = Session.Merge<Category>(category);
+            Session.Update(merged);
         }
 
         public Pageable<Product> GetCategoryProducts(int categoryId, int pageNumber, int pageSize)
         {
-            return UnitOfWork<Pageable<Product>>((s) =>
-            {
-                var category = s.Load<Category>(categoryId);
-                return new Pageable<Product>(category.Products.Count, pageNumber, pageSize,
-                    category.Products
-                        .OrderBy(x => x.Name)
-                        .Skip((pageNumber - 1) * pageSize)
-                        .Take(pageSize)
-                        .ToList());
-            });
+            var category = Session.Load<Category>(categoryId);
+            return new Pageable<Product>(category.Products.Count, pageNumber, pageSize,
+                category.Products
+                    .OrderBy(x => x.Name)
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList());
         }
 
-        private void UnitOfWork(Action<ISession> unitOfWork)
+        public void SaveCart(Cart cart)
         {
-            using (var session = SessionHelper.OpenSession())
-            {
-                using (var transaction = session.BeginTransaction())
-                {
-                    unitOfWork(session);
-                    transaction.Commit();
-                }
-            }
+            Session.SaveOrUpdate(cart);
+            Session.Flush();
         }
 
-        private T UnitOfWork<T>(Func<ISession, T> unitOfWork)
+        public Cart GetCart(Guid id)
         {
-            using (var session = SessionHelper.OpenSession())
-            {
-                using (var transaction = session.BeginTransaction())
-                {
-                    var result = unitOfWork(session);
-                    transaction.Commit();
-                    return result;
-                }
-            }
+            return Session.Get<Cart>(id);
+        }
+
+        public Product GetProduct(int id)
+        {
+            return Session.Get<Product>(id);
         }
     }
 }

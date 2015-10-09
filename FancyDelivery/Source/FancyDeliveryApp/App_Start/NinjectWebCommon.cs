@@ -47,11 +47,14 @@ namespace FancyDeliveryApp
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-                kernel.Bind<IRepository>().To<Repository>().InSingletonScope();
+                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();                
+                kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
+                kernel.Bind<IRepository>().To<Repository>().InRequestScope();
 
                 Mapper.CreateMap<Category, CategoryDto>();
                 Mapper.CreateMap<Product, ProductDto>();
+                Mapper.CreateMap<Cart, CartDto>();
+                Mapper.CreateMap<LineItem, LineItemDto>();
                 RegisterServices(kernel);
                 return kernel;
             }

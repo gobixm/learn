@@ -154,7 +154,13 @@
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\Site.css" />
+    <None Include="Content\Site.less" />
+    <Content Include="Content\Site.css">
+      <DependentUpon>Site.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.min.css">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Areas\Default\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
@@ -275,9 +281,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Controllers\CartController.cs" />
     <Compile Include="Api\Controllers\ProductController.cs" />
     <Compile Include="Api\Extensions\PageableExtensions.cs" />
+    <Compile Include="Api\Models\CartDto.cs" />
     <Compile Include="Api\Models\CategoryDto.cs" />
+    <Compile Include="Api\Models\LineItemDto.cs" />
     <Compile Include="Api\Models\ProductDto.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -316,6 +325,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Default\Models\" />
+    <Folder Include="Content\img\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>

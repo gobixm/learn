@@ -9,7 +9,7 @@ namespace FancyDeliveryApp.Api.Controllers
 {
     public class ProductController : BaseController
     {
-        public ProductController(IRepository repository) : base(repository)
+        public ProductController(IUnitOfWork unitOfWork, IRepository repository) : base(unitOfWork, repository)
         {
         }
 
@@ -18,6 +18,6 @@ namespace FancyDeliveryApp.Api.Controllers
         {
             return Repository.GetCategoryProducts(categoryId, pageNumber, pageSize)
                 .Map<Product, ProductDto>();
-        }
+        }        
     }
 }
