@@ -13,6 +13,7 @@ namespace Infrastructure.Repositories
         Pageable<Product> GetCategoryProducts(int categoryId, int pageNumber, int pageSize);
         void SaveCart(Cart cart);
         Cart GetCart(Guid id);
-        Product GetProduct(int id);        
+        Product GetProduct(int id);
+        void DeleteCart(Guid id);
     }
 }

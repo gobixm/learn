@@ -18,17 +18,28 @@ namespace FancyDeliveryApp.Api.Controllers
         }
 
         [HttpPost]
+        public void Ship([FromBody]string address)
+        {
+            var cart = GetCartInternal();
+            if (cart != null)
+            {
+                UnitOfWork.BeginTransaction();
+                Repository.DeleteCart(cart.Id);
+                UnitOfWork.Commit();
+            }
+        }
+
+        [HttpPost]
         public HttpResponseMessage AddToCart([FromBody]int productId)
         {
             UnitOfWork.BeginTransaction();
-            HttpResponseMessage response;
             var cart = GetCartInternal();
-            response = Request.CreateResponse();
+            var response = Request.CreateResponse();
             if (cart == null)
             {
                 cart = new Cart();
                 cart.Id = Guid.NewGuid();
-                CookieHeaderValue serverCookie = new CookieHeaderValue("cart_guid", cart.Id.ToString() );                
+                var serverCookie = new CookieHeaderValue("cart_guid", cart.Id.ToString() );                
                 response.Headers.AddCookies(new CookieHeaderValue[] { serverCookie });
             }
             var product = Repository.GetProduct(productId);

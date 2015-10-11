@@ -154,6 +154,8 @@
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Areas\Default\Views\Shared\_Cart.cshtml" />
+    <Content Include="Areas\Default\Views\Shared\_ShipModal.cshtml" />
     <None Include="Content\Site.less" />
     <Content Include="Content\Site.css">
       <DependentUpon>Site.less</DependentUpon>
@@ -257,7 +259,9 @@
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
+    <Content Include="Scripts\app\cart.js" />
     <Content Include="Scripts\app\category.js" />
+    <Content Include="Scripts\app\line-item.js" />
     <Content Include="Scripts\app\main.js" />
     <Content Include="Scripts\app\paginator.js" />
     <Content Include="Scripts\app\products-page.js" />

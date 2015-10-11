@@ -68,5 +68,10 @@ namespace Infrastructure.Repositories
         {
             return Session.Get<Product>(id);
         }
+
+        public void DeleteCart(Guid id)
+        {
+            Session.Delete(Session.Load<Cart>(id));
+        }
     }
 }

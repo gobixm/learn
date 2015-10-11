@@ -2,6 +2,7 @@
     var self = this;
     self.Categories = ko.observableArray([]);
     self.ProductsPageViewModel = ko.observable();
+    self.CartViewModel = ko.observable();
 
     self.LoadCategories = function () {
         $.getJSON('/api/category/all', function (data) {
@@ -42,7 +43,7 @@
 
     self.LoadCart = function () {
         $.getJSON('/api/cart/getcart', function (data) {
-            alert(JSON.stringify(data));
+            self.CartViewModel(new CartViewModel(data));
         });
     }
 }
@@ -54,4 +55,5 @@ $(document).ready(function () {
     mainViewModel = new MainViewModel();
     ko.applyBindings(mainViewModel);
     mainViewModel.LoadCategories();
+    mainViewModel.LoadCart();
 });

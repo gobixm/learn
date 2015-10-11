@@ -1,0 +1,14 @@
+﻿<div class="well">
+    <div class="row panel-area" data-bind="with: CartViewModel">
+        <div class="col-sm-12">
+            <table class="table" data-bind="foreach: LineItems">
+                <tr>
+                    <td><span data-bind="text: Name"></span></td>
+                    <td>x<span data-bind="text: Quantity"></span></td>
+                    <td><span data-bind="text: TotalPrice"></span></td>
+                </tr>
+            </table>
+            <button class="btn btn-danger btn-block" data-bind="visible: LineItems().length>0, click: confirm">Ship</button>
+        </div>
+    </div>
+</div>
