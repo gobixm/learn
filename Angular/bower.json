@@ -1,0 +1,25 @@
+{
+  "name": "learn-angular",
+  "homepage": "https://github.com/gobixm/learn",
+  "authors": [
+    "gobi <gobixm@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "library",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-cookies": "~1.4.7",
+    "angular-ui-router": "ui-router#~0.2.15",
+    "angular": "angularjs#~1.4.7",
+    "bootstrap": "~3.3.5"
+  }
+}

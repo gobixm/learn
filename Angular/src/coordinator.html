@@ -1,3 +1,26 @@
 <div novalidate ng-controller="CoordinatorController">
-	<h3>Coordinator</h3>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h3>Coordinator</h3>
+            <h5>id: {{coordinator.id}}</h5>
+            <h5>name: {{coordinator.name}}</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h4>Roles</h4>
+                </div>
+            </div>
+            <div class="row" ng-repeat="role in coordinator.roles">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <a class="btn btn-block btn-default" ui-sref=".role({role_id:role.id})">{{role.name}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        	<div ui-view></div>
+        </div>
+    </div>
 </div>

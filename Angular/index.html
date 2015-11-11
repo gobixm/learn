@@ -14,14 +14,15 @@
 <body class="container"> 
     <div class="row" novalidate ng-controller="MainController">
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <div <div class="row" ng-repeat="child in children">
-                <a type="button" class="btn btn-block btn-default" ui-sref="coordinator">{{child}}</a> 
+            <div <div class="row" ng-repeat="coordinator in coordinators">
+                <a type="button" class="btn btn-block btn-default" ui-sref="coordinator({id: coordinator.id})">{{coordinator.name}}</a> 
             </div>
         </div>        
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
             <div ui-view />
         </div>        
     </div>
+    <script src="src/app/role.js"></script> 
     <script src="src/app/coordinator.js"></script> 
     <script src="src/app/app.js"></script>           
 </body>
