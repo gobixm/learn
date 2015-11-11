@@ -1,0 +1,29 @@
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <title>Sample</title>
+    <link rel="stylesheet" href="library/bootstrap/dist/css/bootstrap.css">
+    <script src="library/jquery/dist/jquery.min.js"></script>
+    <script src="library/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="library/angular/angular.js"></script>
+    <script src="library/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="library/angular-cookies/angular-cookies.js"></script>
+</head>
+
+<body class="container"> 
+    <div class="row" novalidate ng-controller="MainController">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <div <div class="row" ng-repeat="child in children">
+                <a type="button" class="btn btn-block btn-default" ui-sref="coordinator">{{child}}</a> 
+            </div>
+        </div>        
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+            <div ui-view />
+        </div>        
+    </div>
+    <script src="src/app/coordinator.js"></script> 
+    <script src="src/app/app.js"></script>           
+</body>
+
+</html>
