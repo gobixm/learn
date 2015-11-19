@@ -20,6 +20,9 @@
     "angular-cookies": "~1.4.7",
     "angular-ui-router": "ui-router#~0.2.15",
     "angular": "angularjs#~1.4.7",
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "angular-i18n": "~1.4.7",
+    "angular-moment": "~0.10.3",
+    "angular-translate": "~2.8.1"
   }
 }

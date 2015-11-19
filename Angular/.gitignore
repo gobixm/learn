@@ -17,6 +17,7 @@
 .strong-pm
 coverage
 node_modules
+library
 npm-debug.log
 logs
 

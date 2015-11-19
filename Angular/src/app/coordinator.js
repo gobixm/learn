@@ -1,4 +1,4 @@
-angular.module('coordinator', ['role'])
+angular.module('coordinator', ["pascalprecht.translate", 'role'])
     .controller('CoordinatorController', function($scope, $http, $stateParams) {
         if ($stateParams.id === undefined) {
             return;

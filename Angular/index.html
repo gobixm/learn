@@ -2,29 +2,64 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Sample</title>
+    <title>{{'APPNAME' | translate}}</title>
     <link rel="stylesheet" href="library/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="src/css/main.css">
     <script src="library/jquery/dist/jquery.min.js"></script>
     <script src="library/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="library/angular/angular.js"></script>
     <script src="library/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="library/angular-cookies/angular-cookies.js"></script>
+    <script src="library/angular-i18n/angular-locale_ru-ru.js"></script>
+    <script src="library/angular-i18n/angular-locale_en-us.js"></script>
+    <script src="library/angular-translate/angular-translate.js"></script>
+    <script src="library/moment/moment.js"></script>
+    <script src="library/moment/locale/ru.js"></script>
+    <script src="library/moment/locale/en-gb.js"></script>
+    <script src="library/angular-moment/angular-moment.js"></script>
 </head>
 
-<body class="container"> 
+<body class="container">
+    <h1>{{ 'APPNAME' | translate }}</h1>
     <div class="row" novalidate ng-controller="MainController">
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <div <div class="row" ng-repeat="coordinator in coordinators">
-                <a type="button" class="btn btn-block btn-default" ui-sref="coordinator({id: coordinator.id})">{{coordinator.name}}</a> 
+            <div class="row">
+                {{'CURRENT_DATE' | translate:{date:currentTime()} }}
             </div>
-        </div>        
+            <div class="row">
+            </div>
+            <div class="row">
+                <button class="btn btn-default" ng-click="changeLanguage('ru')" translate="RU_BUTTON_TEXT"></button>
+                <button class="btn btn-default" ng-click="changeLanguage('en')" translate="EN_BUTTON_TEXT"></button>
+            </div>
+            <div class="row" ng-repeat="coordinator in coordinators">
+                <a type="button" class="btn btn-block btn-default" ui-sref="coordinator({id: coordinator.id})">{{coordinator.name}}</a>
+            </div>
+        </div>
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
             <div ui-view />
-        </div>        
+        </div>
     </div>
-    <script src="src/app/role.js"></script> 
-    <script src="src/app/coordinator.js"></script> 
-    <script src="src/app/app.js"></script>           
+    <div class="row">
+        <div class="cssload-dots">
+            <div class="cssload-dot"></div>
+            <div class="cssload-dot"></div>
+            <div class="cssload-dot"></div>
+            <div class="cssload-dot"></div>
+            <div class="cssload-dot"></div>
+        </div>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="12"></feGaussianBlur>
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0    0 1 0 0 0   0 0 1 0 0   0 0 0 18 -7" result="goo"></feColorMatrix>
+                </filter>
+            </defs>
+        </svg>
+    </div>    
+    <script src="src/app/role.js"></script>
+    <script src="src/app/coordinator.js"></script>
+    <script src="src/app/app.js"></script>
 </body>
 
 </html>

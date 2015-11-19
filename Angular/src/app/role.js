@@ -1,4 +1,4 @@
-angular.module('role', [])
+angular.module('role', ["pascalprecht.translate"])
     .controller('RoleController', function($scope, $http, $stateParams) {
         if ($stateParams.role_id === undefined) {
             return;

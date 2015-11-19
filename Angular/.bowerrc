@@ -1,5 +1,7 @@
 {
 	"directory": "library",
 	"registry": "http://bower.herokuapp.com",
-	"strict-ssl": false
+	"strict-ssl": false,
+	"proxy":"http://localhost:3129",
+	"https-proxy":"http://localhost:3129"
 }
