@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>{{'APPNAME' | translate}}</title>
-    <link rel="stylesheet" href="library/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="src/css/main.css">
     <script src="library/jquery/dist/jquery.min.js"></script>
     <script src="library/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -19,21 +18,25 @@
     <script src="library/angular-moment/angular-moment.js"></script>
 </head>
 
-<body class="container">
-    <h1>{{ 'APPNAME' | translate }}</h1>
-    <div class="row" novalidate ng-controller="MainController">
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <div class="row">
+<body class="container" novalidate ng-controller="MainController">
+    <div class="row">
+        <div class="col-md-2 datenowcol">
+            <span class="vtext">
                 {{'CURRENT_DATE' | translate:{date:currentTime()} }}
-            </div>
-            <div class="row">
-            </div>
-            <div class="row">
-                <button class="btn btn-default" ng-click="changeLanguage('ru')" translate="RU_BUTTON_TEXT"></button>
-                <button class="btn btn-default" ng-click="changeLanguage('en')" translate="EN_BUTTON_TEXT"></button>
-            </div>
+            </span>
+        </div>
+        <div class="col-md-8 apptitle">
+            {{ 'APPNAME' | translate }}
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-default language" ng-click="changeLanguage('ru')" translate="RU_BUTTON_TEXT"></button>
+            <button class="btn btn-default language" ng-click="changeLanguage('en')" translate="EN_BUTTON_TEXT"></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
             <div class="row" ng-repeat="coordinator in coordinators">
-                <a type="button" class="btn btn-block btn-default" ui-sref="coordinator({id: coordinator.id})">{{coordinator.name}}</a>
+                <a type="button" class="btn btn-block btn-default listitem" ui-sref="coordinator({id: coordinator.id})">{{coordinator.name}}</a>
             </div>
         </div>
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
@@ -56,7 +59,7 @@
                 </filter>
             </defs>
         </svg>
-    </div>    
+    </div>
     <script src="src/app/role.js"></script>
     <script src="src/app/coordinator.js"></script>
     <script src="src/app/app.js"></script>
