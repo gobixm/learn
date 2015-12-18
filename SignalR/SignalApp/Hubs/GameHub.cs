@@ -46,7 +46,7 @@ namespace SignalApp.Hubs
                 .ForEach(x =>
                 {
                     Clients.Client(Context.ConnectionId).notify(new NewPlayerEvent(x));
-                });            
+                });
         }
 
         public override Task OnConnected()

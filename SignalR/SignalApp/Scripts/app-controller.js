@@ -5,8 +5,12 @@
         $scope.player = { data: null, sprite: null };
         hub = $.connection.gameHub;
         $scope.players = [];
+        $scope.lastEvent = '';
 
         hub.client.notify = function (data) {
+            $scope.$apply(function () {
+                $scope.lastEvent = JSON.stringify(data, null, 4);                
+            });
             if (data.EventName === "move") {
                 var player = $scope.findPlayer(data.Player.Name);                
                 if (player !== undefined) {
@@ -28,12 +32,21 @@
                     console.debug(data);
                     var player = { data: null, sprite: null };
                     var circle = new fabric.Circle({
-                        radius: 20, fill: 'red', left: data.Player.X, top: data.Player.Y, selectable: false
+                        radius: 20,
+                        fill: data.Player.Color,
+                        left: data.Player.X,
+                        top: data.Player.Y,
+                        selectable: false,
+                        opacity: 0
                     });
                     player.sprite = circle;
                     player.data = data.Player;
                     $scope.canvas.add(circle);
                     $scope.players.push(player);
+                    player.sprite.animate('opacity', 1, {
+                        duration: 1000,
+                        onChange: $scope.canvas.renderAll.bind($scope.canvas)                        
+                    });
                 }
             }
             if (data.EventName === "destroy_player") {
@@ -55,7 +68,14 @@
             var i = 0;
             for (i = 0; i < $scope.players.length;) {
                 if ($scope.players[i].data.Name === playerUid) {
-                    $scope.canvas.remove($scope.players[i].sprite);
+                    var sprite = $scope.players[i].sprite;
+                    $scope.players[i].sprite.animate('opacity', 0, {
+                        duration: 1000,
+                        onChange: $scope.canvas.renderAll.bind($scope.canvas),
+                        onComplete: function () {                            
+                            $scope.canvas.remove(sprite);
+                        }
+                    });
                     $scope.players.splice(i, 1);
                 }
                 else {
@@ -68,9 +88,9 @@
             hub.server.connect()
                 .done(function (player) {
                     console.debug('connect');
-                    $scope.player.data = player;
+                    $scope.player.data = player;                    
                     var circle = new fabric.Circle({
-                        radius: 20, fill: 'green', left: $scope.player.data.X, top: $scope.player.data.Y, selectable: true
+                        radius: 20, fill: $scope.player.data.Color, left: $scope.player.data.X, top: $scope.player.data.Y, selectable: true
                     });
                     circle.on('moving', function (event) {                        
                         if (Math.floor($scope.player.data.X) === Math.floor(circle.left) && Math.floor($scope.player.data.Y) === Math.floor(circle.top)) {

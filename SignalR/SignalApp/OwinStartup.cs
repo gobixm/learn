@@ -42,8 +42,7 @@ namespace SignalApp
             var hubConfig = new HubConfiguration();            
             hubConfig.Resolver = new AutofacDependencyResolver(container);
 
-            app.UseAutofacMiddleware(container);
-            //app.MapSignalR("/signalr", config);            
+            app.UseAutofacMiddleware(container);        
             app.MapSignalR();
         }         
     }
