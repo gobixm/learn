@@ -31,8 +31,11 @@ namespace SignalApp
             bundles.Add(new ScriptBundle("~/bundles/fabric").Include(
                       "~/Scripts/fabric.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/underscore").Include(
+                "~/Scripts/underscore-min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                      "~/Scripts/app-controller.js"));            
+                      "~/Scripts/app-controller.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
