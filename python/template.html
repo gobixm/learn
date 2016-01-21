@@ -1,0 +1,31 @@
+<html>
+<style type="text/css">
+th,
+td {
+    padding: 15px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+</style>
+
+<body>
+    <table>
+        <tr>
+            {% for header in headers %}
+            <th>{{ header }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in data %}
+        <tr padding="5" {% if row[7]|int % 2==0 %} style="background-color:#E4CC6C;" {% endif %}>
+            {% for cell in row %}
+            <td>{{ cell }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
