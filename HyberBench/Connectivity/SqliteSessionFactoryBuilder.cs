@@ -9,7 +9,7 @@ namespace HyberBench.Connectivity
 {
     public class SqliteSessionFactoryBuilder : ISessionFactoryBuilder
     {
-        private static SQLiteConnection _connection;
+        private SQLiteConnection _connection;
         private SchemaExport _schemaExport;
 
         public ISessionFactory Build()
