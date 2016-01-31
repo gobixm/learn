@@ -1,0 +1,24 @@
+@import '../../assets/libs/bootstrap/less/bootstrap.less';
+
+.border-radius(@radius) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.btn.btn-flat {
+    .border-radius(0);
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border-width: 1px;
+}
+.btn.btn-round {
+  .border-radius(50%);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-width: 1px;
+  width: 30px;
+  height: 30px;
+}
