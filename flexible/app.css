@@ -1,0 +1,59 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    align-content: stretch;
+    flex: 0 1 auto;
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    overflow: auto;
+}
+.container.row {
+    flex-direction: row;
+    height: 100%;
+}
+@keyframes v-anim {
+    from {
+        min-height: 100px;
+        height: 100px;
+    }
+    to {
+        min-height: 50px;
+        height: 50px;
+    }
+}
+@keyframes h-anim {
+    from {
+        min-width: 100px;
+        min-height: 100px;
+    }
+    to {
+        min-width: 50px;
+        min-height: 50px;
+    }
+}
+.header {
+    background-color: rgba(0, 255, 0, 0.2);
+    height: 100px;
+    min-height: 100px;
+    animation-name: v-anim;
+    animation-duration: 10s;
+}
+.footer {
+    background-color: rgba(255, 0, 0, 0.2);
+    height: 100px;
+    min-height: 100px;
+    width: 100%;
+    animation-name: v-anim;
+    animation-duration: 10s;
+}
+.pane {
+    background-color: rgba(255, 0, 255, 0.2);
+    width: 100px;
+    min-width: 100px;
+    height: auto;
+    animation-name: h-anim;
+    animation-duration: 10s;
+}
