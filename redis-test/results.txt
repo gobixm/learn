@@ -1,0 +1,11 @@
+write. done in 00:00:05.0337869 at 13019,0247215854 writes/sec
+modify every single bit in row. done in 00:00:02.2907963 at 28607,9523603274 writes/sec
+modify single bit in every row. done in 00:00:02.3398888 at 28007,7376316681 writes/sec
+modify single bit in every row in batch. done in 00:00:00.2682385 at 244316,158940644 writes/sec
+read all rows. done in 00:00:03.4800984 at 18831,3624553235 reads/sec total 536797193 bytes
+read all rows async. done in 00:00:02.4070777 at 27225,9561177494 reads/sec
+clone all rows. done in 00:00:02.1260567 at 30824,6717973232 clone/sec
+clone all rows while write. done in 00:00:00.9647142 at 67932,0221611702 clone/sec with max write delay 00:00:00.0088131
+clone all rows in lua while write. done in 00:00:01.5472203 at 42356,6055848673 clone/sec with max write delay 00:00:00.0011398
+modify single bit in every row via lua. done in 00:00:00.1545929 at 423919,033954922 writes/sec
+
