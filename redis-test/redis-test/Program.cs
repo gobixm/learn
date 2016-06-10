@@ -10,11 +10,10 @@ namespace redis_test
         {
             var options = ConfigurationOptions.Parse("localhost");
             options.SyncTimeout = 10000;
-            //options.WriteBuffer = 400 * 1024 * 1024;
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(options);
             IDatabase db = redis.GetDatabase();
             byte[] data = new byte[300 * 1024 * 1024];
-            for (int i = 0; i < 10* 1024; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Stopwatch sw = Stopwatch.StartNew();
                 db.HashSet("org", i, data);
