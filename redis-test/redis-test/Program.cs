@@ -30,7 +30,7 @@ namespace redis_test
             var generator = new MatrixGenerator();
             var side = 65535;
             generator.Generate(side, (index, data) => { db.StringSet($"matrix:{index}", data); });
-            Console.WriteLine($"write. done in {sw.Elapsed} at {side/sw.Elapsed.TotalSeconds} writes/sec");
+            Console.WriteLine($"write. done in {sw.Elapsed} at {side / sw.Elapsed.TotalSeconds} writes/sec");
 
             //modify every bit in row
             sw.Restart();
@@ -39,7 +39,7 @@ namespace redis_test
                 db.StringSetBit($"matrix:{0}", i, true);
             }
             Console.WriteLine(
-                $"modify every single bit in row. done in {sw.Elapsed} at {side/sw.Elapsed.TotalSeconds} writes/sec");
+                $"modify every single bit in row. done in {sw.Elapsed} at {side / sw.Elapsed.TotalSeconds} writes/sec");
 
             //modify bit in every row
             sw.Restart();
@@ -48,7 +48,7 @@ namespace redis_test
                 db.StringSetBit($"matrix:{i}", i, true);
             }
             Console.WriteLine(
-                $"modify single bit in every row. done in {sw.Elapsed} at {side/sw.Elapsed.TotalSeconds} writes/sec");
+                $"modify single bit in every row. done in {sw.Elapsed} at {side / sw.Elapsed.TotalSeconds} writes/sec");
 
             //modify bit in every row in batch
             var tasks = new Task[side];
@@ -61,17 +61,17 @@ namespace redis_test
             batch.Execute();
             redis.WaitAll(tasks);
             Console.WriteLine(
-                $"modify single bit in every row in batch. done in {sw.Elapsed} at {side/sw.Elapsed.TotalSeconds} writes/sec");
+                $"modify single bit in every row in batch. done in {sw.Elapsed} at {side / sw.Elapsed.TotalSeconds} writes/sec");
 
             //read all rows
             sw.Restart();
             var size = 0;
             for (var i = 0; i < side; i++)
             {
-                size += ((byte[]) db.StringGet($"matrix:{i}")).Length;
+                size += ((byte[])db.StringGet($"matrix:{i}")).Length;
             }
             Console.WriteLine(
-                $"read all rows. done in {sw.Elapsed} at {side/sw.Elapsed.TotalSeconds} reads/sec total {size} bytes");
+                $"read all rows. done in {sw.Elapsed} at {side / sw.Elapsed.TotalSeconds} reads/sec total {size} bytes");
 
             //read all rows async
             sw.Restart();
@@ -81,7 +81,7 @@ namespace redis_test
                 reads[i] = db.StringGetAsync($"matrix:{i}");
             }
             Task.WaitAll(reads);
-            Console.WriteLine($"read all rows async. done in {sw.Elapsed} at {side/sw.Elapsed.TotalSeconds} reads/sec");
+            Console.WriteLine($"read all rows async. done in {sw.Elapsed} at {side / sw.Elapsed.TotalSeconds} reads/sec");
 
             //clone db
             sw.Restart();
@@ -93,7 +93,7 @@ namespace redis_test
                 clones.Add(task);
             }
             Task.WaitAll(clones.ToArray());
-            Console.WriteLine($"clone all rows. done in {sw.Elapsed} at {side/sw.Elapsed.TotalSeconds} clone/sec");
+            Console.WriteLine($"clone all rows. done in {sw.Elapsed} at {side / sw.Elapsed.TotalSeconds} clone/sec");
 
             //clone db while modify
             var modifier = new MatrixModifier(db, side);
@@ -109,7 +109,7 @@ namespace redis_test
             Task.WaitAll(clones.ToArray());
             var maxModify = modifier.StopModifying();
             Console.WriteLine(
-                $"clone all rows while write. done in {sw.Elapsed} at {side/sw.Elapsed.TotalSeconds} clone/sec with max write delay {maxModify}");
+                $"clone all rows while write. done in {sw.Elapsed} at {side / sw.Elapsed.TotalSeconds} clone/sec with max write delay {maxModify}");
 
             //clone db with lua
             var dbRead2 = redis.GetDatabase(2);
@@ -124,11 +124,11 @@ namespace redis_test
             var prepared = LuaScript.Prepare(script);
             var loaded = prepared.Load(server);
             sw.Restart();
-            loaded.Evaluate(db, new {mask = "matrix:*", target = dbRead2.Database});
+            loaded.Evaluate(db, new { mask = "matrix:*", target = dbRead2.Database });
             //db.ScriptEvaluate(script, new RedisKey[0], new RedisValue[] { "matrix:*", dbRead2.Database });
             maxModify = modifier.StopModifying();
             Console.WriteLine(
-                $"clone all rows in lua while write. done in {sw.Elapsed} at {side/sw.Elapsed.TotalSeconds} clone/sec with max write delay {maxModify}");
+                $"clone all rows in lua while write. done in {sw.Elapsed} at {side / sw.Elapsed.TotalSeconds} clone/sec with max write delay {maxModify}");
 
             //delete row via lua
             sw.Restart();
@@ -138,10 +138,11 @@ namespace redis_test
             prepared = LuaScript.Prepare(script);
             loaded = prepared.Load(server);
             sw.Restart();
-            loaded.Evaluate(db, new {side, index = 0});
+            loaded.Evaluate(db, new { side, index = 0 });
             batch.Execute();
             Console.WriteLine(
-                $"modify single bit in every row via lua. done in {sw.Elapsed} at {side/sw.Elapsed.TotalSeconds} writes/sec");
+                $"modify single bit in every row via lua. done in {sw.Elapsed} at {side / sw.Elapsed.TotalSeconds} writes/sec");
+            
             Console.ReadKey();
         }
     }
