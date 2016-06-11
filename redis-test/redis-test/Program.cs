@@ -16,6 +16,12 @@ namespace redis_test
             options.AllowAdmin = true;
             options.ResponseTimeout = 10000;
             options.SyncTimeout = 10000;
+<<<<<<< HEAD
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(options);
+            IDatabase db = redis.GetDatabase();
+            byte[] data = new byte[300 * 1024 * 1024];
+            for (int i = 0; i < 10; i++)
+=======
             //options.WriteBuffer = 400 * 1024 * 1024;
             var redis = ConnectionMultiplexer.Connect(options);
             var endpoint = redis.GetEndPoints(true).Single();
@@ -67,6 +73,7 @@ namespace redis_test
             sw.Restart();
             var size = 0;
             for (var i = 0; i < side; i++)
+>>>>>>> 9d2225ddd16bbd2eb08970a6c37c22b72af62933
             {
                 size += ((byte[])db.StringGet($"matrix:{i}")).Length;
             }
