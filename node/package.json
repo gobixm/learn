@@ -1,0 +1,13 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "dependencies": {
+    "fstream": "latest",
+    "tar": "latest",
+    "async": "latest",
+    "process": "latest",
+    "q": "latest",
+    "chance": "latest",
+    "mkdirp": "latest"
+  }
+}

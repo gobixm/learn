@@ -6,6 +6,7 @@
 *.suo
 *.user
 *.sln.docstates
+node_modules
 
 # Build results
 
@@ -46,6 +47,7 @@ build/
 *.pidb
 *.log
 *.scc
+*.dll
 
 # Visual C++ cache files
 ipch/
