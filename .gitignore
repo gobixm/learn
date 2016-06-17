@@ -24,6 +24,8 @@ build/
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
+node_modules
+
 *_i.c
 *_p.c
 *.ilk
