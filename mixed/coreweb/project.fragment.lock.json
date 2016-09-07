@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "exports": {
+    "legacy/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6.2",
+      "compile": {
+        "bin/Debug/legacy.dll": {}
+      },
+      "runtime": {
+        "bin/Debug/legacy.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/legacy.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    }
+  }
+}
