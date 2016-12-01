@@ -1,0 +1,21 @@
+{
+    "name": "electron.demo",
+    "description": "",
+    "main": "",
+    "authors": [
+        "Kirill Ivanov"
+    ],
+    "license": "MIT",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "./wwwroot/bower_components",
+        "test",
+        "tests"
+    ],
+    "devDependencies": {
+        "react": "^15.3.2"
+    }
+}
