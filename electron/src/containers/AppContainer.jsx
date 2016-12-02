@@ -1,11 +1,16 @@
-import React, { Component, PropTypes } from 'react'
-import { browserHistory, Router } from 'react-router'
-import { Provider } from 'react-redux'
+import React, { Component, PropTypes } from 'react';
+import NavPane from '../components/nav-pane/nav-pane';
 
 class AppContainer extends Component {
+    constructor() {
+        super();
+    }
     render() {
         return (
-            <h1>Electron</h1>
+            <div className='app'>
+            	<NavPane pages={this.props.route.pages}/>
+	            {this.props.children}
+            </div>
         )
     }
 }

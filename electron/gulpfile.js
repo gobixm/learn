@@ -6,6 +6,7 @@ var gutil = require('gulp-util');
 var streamify = require('gulp-streamify');
 var uglify = require('gulp-uglify');
 var less = require('gulp-less');
+var concat = require('gulp-concat');
 
 gulp.task('build', ['build-less', 'copy-svg', 'copy-index'], () => {
     return browserify({
@@ -21,7 +22,7 @@ gulp.task('build', ['build-less', 'copy-svg', 'copy-index'], () => {
 });
 
 gulp.task('copy-svg', () => {
-    gulp.src('./src/assets/*.svg')
+    gulp.src('./src/**/*.svg')
         .pipe(gulp.dest('dist/assets'));
 });
 
@@ -31,11 +32,12 @@ gulp.task('copy-index', () => {
 });
 
 gulp.task('watch', ['build', 'build-less'], () => {
-    gulp.watch(['./src/**/*.jsx', './src/**/*.js', './src/assets/**/*.*'], ['build', 'build-less']);
+    gulp.watch(['./src/**/*.jsx', './src/**/*.js', './src/**/*.less'], ['build', 'build-less']);
 });
 
 gulp.task('build-less', function() {
-    return gulp.src('./src/assets/app.less')
+    return gulp.src('./src/**/*.less')
+        .pipe(concat('app.less'))
         .pipe(less())
         .pipe(gulp.dest('dist'));
 });

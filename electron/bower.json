@@ -15,7 +15,8 @@
         "test",
         "tests"
     ],
-    "devDependencies": {
+    "devDependencies": {},
+    "dependencies": {
         "react": "^15.3.2"
     }
 }
