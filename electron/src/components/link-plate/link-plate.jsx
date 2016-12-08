@@ -4,9 +4,7 @@ import { Router, Route, Link } from 'react-router';
 class LinkPlate extends Component {
     render() {
         return (
-            <div className='link-plate'>
-            	<Link to={this.props.path}>{this.props.name}</Link>
-        	</div>
+            <Link className='link-plate' to={this.props.path}>{this.props.name}</Link>
         )
     }
 }

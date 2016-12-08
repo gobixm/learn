@@ -16,6 +16,7 @@ function createWindow() {
     win.on('closed', () => {
         win = null
     })
+    BrowserWindow.addDevToolsExtension('c:/Users/ivanov.kirill/AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/0.15.4_0');
 }
 
 app.on('ready', createWindow);
