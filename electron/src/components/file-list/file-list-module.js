@@ -1,7 +1,9 @@
-const fs = require('fs');
+import fs from 'fs';
+import { concat } from 'lodash';
+
 export const FETCH_FILES = 'FETCH_FILES';
 
-export function fetchFiles(files) {
+export const fetchFiles = (files) => {
     return {
         type: FETCH_FILES,
         files: files
@@ -12,7 +14,7 @@ export const fetchFilesAsync = (path) => {
     return (dispatch, getState) => {
         return new Promise((resolve) => {
             fs.readdir(path, (err, files) => {
-                dispatch(fetchFiles(getState().counter));
+                dispatch(fetchFiles(files));
                 resolve();
             });
         });
@@ -25,11 +27,10 @@ export const actions = {
 }
 
 const ACTION_HANDLERS = {
-    [FETCH_FILES]: (state, action) => state + action.files
+    [FETCH_FILES]: (state, action) => Object.assign({}, state, { files: concat(['..'], action.files) })
 }
 
-
-const initialState = []
+const initialState = [];
 export default function fileListReducer(state = initialState, action) {
     const handler = ACTION_HANDLERS[action.type]
 

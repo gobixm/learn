@@ -2,13 +2,15 @@ import { connect } from 'react-redux'
 import { fetchFiles, fetchFilesAsync } from './file-list-module'
 import FileList from './file-list';
 
-const mapDispatchToProps = {
-    fetchFilesAsync: fetchFilesAsync
+const mapDispatchToProps = () => {
+    return {
+        fetchFilesAsync: fetchFilesAsync
+    }
 }
 
 const mapStateToProps = (state) => {
     return {
-        fileList: state.fileList
+        files: state.fileList.files
     }
 }
 
