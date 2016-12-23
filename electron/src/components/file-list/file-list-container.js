@@ -1,5 +1,6 @@
-import { connect } from 'react-redux'
-import { fetchFiles, fetchFilesAsync } from './file-list-module'
+import { connect } from 'react-redux';
+import { map } from 'lodash';
+import { fetchFiles, fetchFilesAsync } from './file-list-module';
 import FileList from './file-list';
 
 const mapDispatchToProps = () => {
