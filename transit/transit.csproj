@@ -75,8 +75,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="benchmark\Counter.cs" />
+    <Compile Include="benchmark\LargePublisher.cs" />
+    <Compile Include="benchmark\ModeratePublisher.cs" />
+    <Compile Include="benchmark\Publisher.cs" />
+    <Compile Include="benchmark\SimpleConsumer.cs" />
+    <Compile Include="benchmark\SmallPublisher.cs" />
     <Compile Include="contracts\AnotherStartMessage.cs" />
+    <Compile Include="contracts\LargeMessage.cs" />
+    <Compile Include="contracts\ModerateMessage.cs" />
     <Compile Include="contracts\ProgressMessage.cs" />
+    <Compile Include="contracts\SmallMessage.cs" />
     <Compile Include="contracts\StartMessage.cs" />
     <Compile Include="Emitter.cs" />
     <Compile Include="Program.cs" />
@@ -89,6 +98,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
