@@ -14,4 +14,20 @@ class Value<T> {
     }
 }
 
-export {Value};
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+interface Trait {
+    name: string;
+}
+
+interface GenericIdentity<T> {
+    (arg: T): T;
+}
+
+function traitIdentity<T extends Trait>(arg: T) {
+    return identity<T>(arg);
+}
+
+export {Value, identity, GenericIdentity, Trait, traitIdentity};
