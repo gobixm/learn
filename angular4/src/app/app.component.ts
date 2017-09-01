@@ -7,4 +7,6 @@ import '../assets/css/styles.less';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.less']
 })
-export class AppComponent { }
+export class AppComponent {
+    menuTitle: string = 'Menu title';
+}
