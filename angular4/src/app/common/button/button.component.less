@@ -1,0 +1,28 @@
+@button-color: #d30c58;
+
+.app-button {
+  min-width: 100px;
+  min-height: 32px;
+  max-width: 64px;
+  word-wrap: break-word;
+  border: none;
+  outline: none;
+  padding: 1px 6px;
+  line-height: 32px;
+
+  font-weight: 600;
+  color: #fff;
+  background-color: #d30c58;
+
+  &:hover {
+    background-color: lighten(#d30c58, 10%);
+  }
+
+  &:focus {
+    border: solid 1px #fff;
+  }
+
+  &:active {
+    background-color: darken(#d30c58, 10%);
+  }
+}

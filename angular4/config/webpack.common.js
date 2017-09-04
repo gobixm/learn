@@ -37,14 +37,14 @@ module.exports = {
                 loader: 'file-loader?name=assets/[name].[hash].[ext]'
             },
             {
-                test: /\.(css|less)$/,
+                test: /\.less$/,
                 exclude: helpers.root('src', 'app'),
                 loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader!less-loader?sourceMap' })
             },
             {
-                test: /\.(css|less)$/,
+                test: /\.less$/,
                 include: helpers.root('src', 'app'),
-                loader: 'raw-loader'
+                loader: 'raw-loader!less-loader'
             }
         ]
     },
