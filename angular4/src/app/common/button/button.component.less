@@ -1,14 +1,17 @@
 @button-color: #d30c58;
 
-.app-button {
+button {
   min-width: 100px;
   min-height: 32px;
-  max-width: 64px;
   word-wrap: break-word;
   border: none;
   outline: none;
   padding: 1px 6px;
-  line-height: 32px;
+  line-height: 20px;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
 
   font-weight: 600;
   color: #fff;
@@ -24,5 +27,18 @@
 
   &:active {
     background-color: darken(#d30c58, 10%);
+  }
+}
+
+:host {
+  display: flex;
+  flex: 1 1 auto;
+  margin: 0;
+}
+
+:host-context(.button-group) {
+  margin: 5px 5px;
+  button {
+    flex: 1 1 auto;
   }
 }

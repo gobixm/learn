@@ -5,6 +5,7 @@ import {LoggerService} from "./services/logger.service";
 
 import { AppComponent } from './app.component';
 import { ButtonComponent } from './common/button/button.component';
+import { ButtonGroupComponent } from './common/button-group/button-group.component';
 
 @NgModule({
     providers: [
@@ -15,7 +16,8 @@ import { ButtonComponent } from './common/button/button.component';
     ],
     declarations: [
         AppComponent,
-        ButtonComponent
+        ButtonComponent,
+        ButtonGroupComponent
     ],
     bootstrap: [ AppComponent ]
 })
