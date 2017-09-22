@@ -1,3 +1,6 @@
-<button (click)="click()" title="{{hint}}">
+<button
+        (click)="click()"
+        title="{{hint}}"
+        [@buttonState]="state">
     {{caption}}
 </button>
