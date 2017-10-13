@@ -1,0 +1,11 @@
+<div>
+    <h1>Settings</h1>
+    <form>
+        <div *ngFor="let prop of properties">
+            <div>{{prop.name}}</div>
+            <input type="text" [(ngModel)]="prop.value" name="{{prop.name}}">
+        </div>
+
+        <app-button [caption]="'Submit'" [clicked]="submit"></app-button>
+    </form>
+</div>

@@ -33,9 +33,13 @@ export class ButtonComponent implements OnInit {
     @Input()
     hint: string;
 
+    @Input()
+    clicked: Function;
+
     click() {
         this._logger.log('button clicked');
         this.state = this.state === 'active' ? 'inactive' : 'active';
+        this.clicked && this.clicked();
     }
 
     ngOnInit() {

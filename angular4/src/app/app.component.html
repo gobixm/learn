@@ -8,6 +8,8 @@
             <app-button class="app-button" [caption]="'Foo'" [hint]="'Bar'"></app-button>
         </app-button-group>
         <app-button class="app-button" [caption]="'Orphan'" [hint]="'Сирота'"></app-button>
+        <key-value-form [json]="settings"></key-value-form>
+        <app-button class="app-button" [caption]="'Refresh'" [clicked]="checkSettings"></app-button>
         <ul infiniteScroll
             [scrollPercent]="90"
             [immediateCallback]="false"

@@ -1,25 +1,25 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ButtonComponent} from './button.component';
+import {KeyValueFormComponent} from './key-value-form.component';
 
-describe('ButtonComponent', () => {
-    let component: ButtonComponent;
-    let fixture: ComponentFixture<ButtonComponent>;
+describe('KeyValueFormComponent', () => {
+    let component: KeyValueFormComponent;
+    let fixture: ComponentFixture<KeyValueFormComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ButtonComponent]
+            declarations: [KeyValueFormComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ButtonComponent);
+        fixture = TestBed.createComponent(KeyValueFormComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
-    it('should be created', () => {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });
