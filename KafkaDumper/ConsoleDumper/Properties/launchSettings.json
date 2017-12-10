@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ConsoleDumper": {
+      "commandName": "Project",
+      "commandLineArgs": "load localhost:9092 dump"
+    }
+  }
+}
