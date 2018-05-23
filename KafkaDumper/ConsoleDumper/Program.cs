@@ -5,6 +5,7 @@ namespace Gobi.ConsoleDumper
 {
     internal class Program
     {
+        
         private static void Main(string[] args)
         {
             if (args.Length < 1)
