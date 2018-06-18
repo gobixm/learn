@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TlsServer", "TlsServer\TlsServer.csproj", "{EA71ACFD-722F-4BF5-8B2D-1ECBFA972F4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TlsClient", "TlsClient\TlsClient.csproj", "{6EC0FA5B-E80B-408F-9155-2E55716F0FC9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA71ACFD-722F-4BF5-8B2D-1ECBFA972F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA71ACFD-722F-4BF5-8B2D-1ECBFA972F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA71ACFD-722F-4BF5-8B2D-1ECBFA972F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA71ACFD-722F-4BF5-8B2D-1ECBFA972F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EC0FA5B-E80B-408F-9155-2E55716F0FC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EC0FA5B-E80B-408F-9155-2E55716F0FC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EC0FA5B-E80B-408F-9155-2E55716F0FC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EC0FA5B-E80B-408F-9155-2E55716F0FC9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
